@@ -133,7 +133,7 @@ useEffect(() => {
               </Link>
 
               <Link
-                href="/speakers"
+                href="/about#speakers"
                 className="block px-5 py-3 text-sm hover:bg-[#fafafa]"
               >
                 Nos conférenciers
@@ -359,7 +359,7 @@ overflow-hidden
               </Link>
 
               <Link
-                href="/speakers"
+                href="/about#speakers"
                 onClick={() => setMobileOpen(false)}
                 className={`text-sm ${
                   scrolled ? "text-[#666]" : "text-white/70"

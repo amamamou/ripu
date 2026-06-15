@@ -75,7 +75,7 @@ useEffect(() => {
               </Link>
 
               <Link
-                href="/speakers"
+                href="/about#speakers"
                 className="block px-5 py-3 text-sm hover:bg-[#fafafa]"
               >
                 Nos conférenciers
@@ -233,7 +233,7 @@ useEffect(() => {
         Axes de la communication
       </Link>
 
-      <Link href="/speakers" className="text-sm text-[#666]">
+      <Link href="/about#speakers" className="text-sm text-[#666]">
         Nos conférenciers
       </Link>
 
