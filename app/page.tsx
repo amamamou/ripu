@@ -140,128 +140,169 @@ export default function HomePage() {
 {/* Topics Section */}
 {/* Topics Section */}
 <section className="bg-white py-24 md:py-32 border-t border-[#ececec]">
-  <div className="px-8 lg:px-16 ">
 
-    {/* Header */}
-<div className="mb-20 md:mb-24">
+  <div className="px-8 lg:px-16">
 
 {/* Header */}
-<div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 mb-24">
 
-  <div>
-    <div className="label-text mb-6">
-      THÉMATIQUES
+<div className="mb-20 md:mb-24">
+
+  <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+
+    <div>
+
+      <div className="label-text mb-6">
+        THÉMATIQUES
+      </div>
+
+      <h2 className="max-w-5xl text-5xl md:text-7xl lg:text-8xl font-light leading-[0.92] tracking-tight text-black">
+        Les axes du colloque
+      </h2>
+
+      <p className="mt-8 max-w-2xl text-lg leading-8 text-[#666]">
+        RIPU26 accueille des contributions portant sur les usages de
+        l’intelligence artificielle en éducation, l’innovation
+        pédagogique et les enjeux contemporains de l’enseignement
+        supérieur.
+      </p>
+
     </div>
 
-    <h2 className="max-w-5xl text-5xl md:text-7xl lg:text-8xl font-light leading-[0.92] tracking-tight text-black">
-      Trois axes de recherche
-    </h2>
+    <Link
+      href="/authors#call"
+      className="
+        group
+        flex
+        items-center
+        gap-2
+        text-sm
+        font-medium
+        text-[#2F0461]
+        hover:text-[#1B1142]
+        transition-colors
+        shrink-0
+      "
+    >
+      Appel à communications
 
-    <p className="mt-8 max-w-2xl text-lg leading-8 text-[#666]">
-      Explorer les transformations de l’enseignement supérieur à travers
-      l’intelligence artificielle, l’innovation pédagogique et les enjeux
-      d’équité en éducation.
-    </p>
+      <ArrowUpRight
+        className="
+          h-4
+          w-4
+          transition-transform
+          group-hover:-translate-y-0.5
+          group-hover:translate-x-0.5
+        "
+      />
+    </Link>
+
   </div>
 
-<div className="shrink-0">
-  <button className="group flex items-center gap-2 text-sm font-medium text-[#2F0461] transition-colors hover:text-[#1B1142]">
-    Soumettre une communication
-
-    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-  </button>
-</div>
 </div>
 
+{/* Topics */}
 
-</div>
+<div className="grid gap-6 lg:grid-cols-3">
 
-    {/* Topics */}
-    <div className="grid gap-6 lg:grid-cols-3">
+  {/* Axe 01 */}
 
-      {/* Card 1 */}
-      <div className="border border-[#ececec] p-8">
+  <div className="border border-[#ececec] p-8">
 
-        <div className="flex items-center justify-between mb-8">
-          <Brain className="h-5 w-5 text-[#2F0461]" />
+    <div className="flex items-center justify-between mb-8">
 
-          <span className="text-xs uppercase tracking-[0.15em] text-[#999]">
-            Axe 01
-          </span>
-        </div>
+      <Brain className="h-5 w-5 text-[#2F0461]" />
 
-        <h3 className="text-2xl font-light text-black mb-6">
-          Intelligence Artificielle Générative
-        </h3>
+      <span className="text-xs uppercase tracking-[0.15em] text-[#999]">
+        Axe 01
+      </span>
 
-        <div className="space-y-3 text-[#666]">
-          <p>L’IAG comme tuteur d’apprentissage</p>
-          <p>L’IAG et le geste enseignant</p>
-          <p>L’IAG pour la correction des examens</p>
-          <p>Les effets de l’IAG sur les apprentissages</p>
-        </div>
+    </div>
 
-        <button className="mt-8 text-sm font-medium text-[#2F0461]">
-          En savoir plus →
-        </button>
-      </div>
+    <h3 className="text-2xl font-light text-black mb-6">
+      Intelligence Artificielle Générative & Enseignement
+    </h3>
 
-      {/* Card 2 */}
-      <div className="border border-[#ececec] p-8">
+    <div className="space-y-3 text-[#666]">
 
-        <div className="flex items-center justify-between mb-8">
-          <GraduationCap className="h-5 w-5 text-[#2F0461]" />
+      <p>L'IAG comme tuteur d'apprentissage</p>
 
-          <span className="text-xs uppercase tracking-[0.15em] text-[#999]">
-            Axe 02
-          </span>
-        </div>
+      <p>L'IAG et le geste enseignant</p>
 
-        <h3 className="text-2xl font-light text-black mb-6">
-          Approches pédagogiques & Compétences
-        </h3>
+      <p>L'IAG pour la correction des examens</p>
 
-        <div className="space-y-3 text-[#666]">
-          <p>L’approche par compétences (APC)</p>
-          <p>Les plans d’études à l’ère de l’IA</p>
-          <p>La gamification comme levier</p>
-          <p>Innovation pédagogique</p>
-        </div>
+      <p>Les effets de l'IAG sur les apprentissages</p>
 
-        <button className="mt-8 text-sm font-medium text-[#2F0461]">
-          En savoir plus →
-        </button>
-      </div>
+      <p>L'IAG et la vie étudiante</p>
 
-      {/* Card 3 */}
-      <div className="border border-[#ececec] p-8">
+      <p>L'avenir de l'enseignement supérieur à l'ère de l'IAG</p>
 
-        <div className="flex items-center justify-between mb-8">
-          <Users className="h-5 w-5 text-[#2F0461]" />
-
-          <span className="text-xs uppercase tracking-[0.15em] text-[#999]">
-            Axe 03
-          </span>
-        </div>
-
-        <h3 className="text-2xl font-light text-black mb-6">
-          Genre & Équité en Éducation
-        </h3>
-
-        <div className="space-y-3 text-[#666]">
-          <p>La place des femmes dans l’éducation</p>
-          <p>Équité et inclusion pédagogique</p>
-          <p>Diversité dans l’enseignement supérieur</p>
-        </div>
-
-        <button className="mt-8 text-sm font-medium text-[#2F0461]">
-          En savoir plus →
-        </button>
-      </div>
+      <p>Les plans d'études à l'heure de l'IAG</p>
 
     </div>
 
   </div>
+
+  {/* Axe 02 */}
+
+  <div className="border border-[#ececec] p-8">
+
+    <div className="flex items-center justify-between mb-8">
+
+      <GraduationCap className="h-5 w-5 text-[#2F0461]" />
+
+      <span className="text-xs uppercase tracking-[0.15em] text-[#999]">
+        Axe 02
+      </span>
+
+    </div>
+
+    <h3 className="text-2xl font-light text-black mb-6">
+      Approches Pédagogiques
+    </h3>
+
+    <div className="space-y-3 text-[#666]">
+
+      <p>L'approche par compétences (APC)</p>
+
+      <p>Les plans d'études à l'ère de l'IA et de l'APC</p>
+
+      <p>La gamification comme levier d'apprentissage</p>
+
+    </div>
+
+  </div>
+
+  {/* Axe 03 */}
+
+  <div className="border border-[#ececec] p-8">
+
+    <div className="flex items-center justify-between mb-8">
+
+      <Users className="h-5 w-5 text-[#2F0461]" />
+
+      <span className="text-xs uppercase tracking-[0.15em] text-[#999]">
+        Axe 03
+      </span>
+
+    </div>
+
+    <h3 className="text-2xl font-light text-black mb-6">
+      Genre & Éducation
+    </h3>
+
+    <div className="space-y-3 text-[#666]">
+
+      <p>La place des femmes dans l'éducation</p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
 </section>
 
 
