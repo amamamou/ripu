@@ -188,13 +188,6 @@ useEffect(() => {
               </Link>
 
               <Link
-                href="/authors#camera-ready"
-                className="block px-5 py-3 text-sm hover:bg-[#fafafa]"
-              >
-                Version finale
-              </Link>
-
-              <Link
                 href="/authors#presentation"
                 className="block px-5 py-3 text-sm hover:bg-[#fafafa]"
               >
@@ -434,15 +427,7 @@ overflow-hidden
                 Appel à communications
               </Link>
 
-              <Link
-                href="/authors#camera-ready"
-                onClick={() => setMobileOpen(false)}
-                className={`text-sm ${
-                  scrolled ? "text-[#666]" : "text-white/70"
-                }`}
-              >
-                Version finale
-              </Link>
+    
 
               <Link
                 href="/authors#presentation"

@@ -123,13 +123,7 @@ useEffect(() => {
                 Appel à communications
               </Link>
 
-              <Link
-                href="/authors#camera-ready"
-                className="block px-5 py-3 text-sm hover:bg-[#fafafa]"
-              >
-                Version finale
-              </Link>
-
+           
               <Link
                 href="/authors#presentation"
                 className="block px-5 py-3 text-sm hover:bg-[#fafafa]"
@@ -275,10 +269,7 @@ useEffect(() => {
         Appel à communications
       </Link>
 
-      <Link href="/authors#camera-ready" className="text-sm text-[#666]">
-        Version finale
-      </Link>
-
+    
       <Link href="/authors#presentation" className="text-sm text-[#666]">
         Directives de présentation
       </Link>
