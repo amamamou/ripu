@@ -86,7 +86,7 @@ export default function AboutPage() {
         </p>
 
         <p className="mt-8 text-xl md:text-2xl leading-[1.8] text-[#666]">
-          Cette 26ème édition explore les mutations induites par
+          Cette 2ème édition explore les mutations induites par
           l’intelligence artificielle générative, l’approche par
           compétences et les nouveaux modèles d’apprentissage dans un
           contexte d’innovation pédagogique et de transformation

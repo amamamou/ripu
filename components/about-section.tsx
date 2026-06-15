@@ -43,7 +43,7 @@ export function AboutSection() {
 
             <p className="mt-4 text-sm leading-relaxed text-[#666]">
               RIPU rassemble depuis des années les acteurs de l’enseignement
-              supérieur. Cette 26ème édition explore les défis de l’IA et de
+              supérieur. Cette 2ème édition explore les défis de l’IA et de
               l’APC dans nos pratiques pédagogiques quotidiennes.
             </p>
 
