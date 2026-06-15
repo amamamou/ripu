@@ -466,7 +466,7 @@ export default function AboutPage() {
         <div className="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-[#ececec] p-12 flex items-center">
 
           <Link
-            href="/authors"
+            href="/authors#guidelines"
             className="
               w-full
               text-center

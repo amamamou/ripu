@@ -21,24 +21,24 @@ useEffect(() => {
 
       <div className="flex items-center justify-between px-5 py-5 lg:px-16 lg:py-6">
 
-        {/* Left */}
-        <Link href="/" className="flex items-center gap-2">
+ <Link href="/" className="flex items-center gap-2">
 
-          <Image
-            src="/logo Ripu26 - 1.png"
-            alt="RIPU26"
-            width={140}
-            height={45}
-            className="h-10 w-auto"
-            priority
-          />
+  <div className="origin-left scale-140">
+    <Image
+      src="/logo Ripu26 - 1.png"
+      alt="RIPU26"
+      width={140}
+      height={45}
+      className="h-10 w-auto"
+      priority
+    />
+  </div>
 
-          {/* Desktop Date */}
-          <span className="hidden md:inline-flex ml-2 rounded-full bg-[#f5f5f5] px-3 py-1 text-xs text-black">
-            30–31 Octobre 2026
-          </span>
+  <span className="hidden md:inline-flex ml-2 rounded-full bg-[#f5f5f5] px-3 py-1 text-xs text-black">
+    30–31 Octobre 2026
+  </span>
 
-        </Link>
+</Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">

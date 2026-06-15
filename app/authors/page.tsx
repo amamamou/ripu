@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import PageHero from '@/components/PageHero';
 import Navbar from '@/components/Navbar';
+import {
+  FileText,
+  FileCode2,
+  Braces,
 
+} from "lucide-react";
+import { FaFileWord } from "react-icons/fa";
+import { Download, ExternalLink } from "lucide-react";
 export default function AuthorsPage() {
   return (
     <>
@@ -230,69 +237,122 @@ export default function AuthorsPage() {
 
     </div>
 
-    {/* Downloads */}
+{/* Downloads */}
+<div className="mt-10 grid md:grid-cols-3 gap-4">
 
-    <div className="mt-10 grid md:grid-cols-3 gap-4">
+  <Link
+    href="/paper/MSWord.zip"
+    download
+    className="
+      group
+      border border-[#ececec]
+      p-6
+      hover:border-[#2F0461]
+      hover:bg-[#faf8ff]
+      transition-all duration-300
+    "
+  >
+    <div className="flex items-start justify-between">
+      <FileText
+        size={28}
+        className="text-[#2F0461]"
+      />
 
-      <Link
-        href="#"
+      <Download
+        size={18}
         className="
-          border
-          border-[#ececec]
-          p-6
-          hover:border-[#2F0461]
+          text-[#999]
+          group-hover:text-[#2F0461]
           transition-colors
         "
-      >
-        <div className="text-sm uppercase tracking-[0.15em] text-[#999]">
-          Télécharger
-        </div>
-
-        <div className="mt-2 text-xl font-light text-black">
-          Template Word
-        </div>
-      </Link>
-
-      <Link
-        href="#"
-        className="
-          border
-          border-[#ececec]
-          p-6
-          hover:border-[#2F0461]
-          transition-colors
-        "
-      >
-        <div className="text-sm uppercase tracking-[0.15em] text-[#999]">
-          Télécharger
-        </div>
-
-        <div className="mt-2 text-xl font-light text-black">
-          Template LaTeX
-        </div>
-      </Link>
-
-      <Link
-        href="#"
-        className="
-          border
-          border-[#ececec]
-          p-6
-          hover:border-[#2F0461]
-          transition-colors
-        "
-      >
-        <div className="text-sm uppercase tracking-[0.15em] text-[#999]">
-          Soumission
-        </div>
-
-        <div className="mt-2 text-xl font-light text-black">
-          Accéder à ConfTool®
-        </div>
-      </Link>
-
+      />
     </div>
 
+    <div className="mt-5 text-sm uppercase tracking-[0.15em] text-[#999]">
+      Télécharger
+    </div>
+
+    <div className="mt-2 text-xl font-light text-black">
+      Template Word
+    </div>
+  </Link>
+
+  <Link
+    href="/paper/LaTeX2e.zip"
+    download
+    className="
+      group
+      border border-[#ececec]
+      p-6
+      hover:border-[#2F0461]
+      hover:bg-[#faf8ff]
+      transition-all duration-300
+    "
+  >
+    <div className="flex items-start justify-between">
+      <FileCode2
+        size={28}
+        className="text-[#2F0461]"
+      />
+
+      <Download
+        size={18}
+        className="
+          text-[#999]
+          group-hover:text-[#2F0461]
+          transition-colors
+        "
+      />
+    </div>
+
+    <div className="mt-5 text-sm uppercase tracking-[0.15em] text-[#999]">
+      Télécharger
+    </div>
+
+    <div className="mt-2 text-xl font-light text-black">
+      Template LaTeX
+    </div>
+  </Link>
+
+  <Link
+    href="https://your-conftool-link.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="
+      group
+      border border-[#ececec]
+      p-6
+      hover:border-[#2F0461]
+      hover:bg-[#faf8ff]
+      transition-all duration-300
+    "
+  >
+    <div className="flex items-start justify-between">
+      <ExternalLink
+        size={28}
+        className="text-[#2F0461]"
+      />
+
+      <ExternalLink
+        size={18}
+        className="
+          text-[#999]
+          group-hover:text-[#2F0461]
+          transition-colors
+        "
+      />
+    </div>
+
+    <div className="mt-5 text-sm uppercase tracking-[0.15em] text-[#999]">
+      Soumission
+    </div>
+
+    <div className="mt-2 text-xl font-light text-black">
+      Accéder à ConfTool®
+    </div>
+  </Link>
+
+</div>
   </div>
 
 </section>

@@ -58,14 +58,16 @@ useEffect(() => {
 >        {/* Left */}
         <Link href="/" className="flex items-center gap-2">
 
-          <Image
-            src="/logo Ripu26 - 1.png"
-            alt="RIPU26"
-            width={140}
-            height={45}
-            className="h-10 w-auto"
-            priority
-          />
+      <div className="origin-left scale-140">
+  <Image
+    src="/logo Ripu26 - 1.png"
+    alt="RIPU26"
+    width={140}
+    height={45}
+    className="h-10 w-auto"
+    priority
+  />
+</div>
 
     <span
   className={`
