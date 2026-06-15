@@ -339,7 +339,7 @@ export default function HomePage() {
   ))}
 </div>
 
-  <div className="border border-[#ececec]">
+<div className="border border-[#ececec]">
 
   <div className="border-b border-[#ececec] p-8 md:p-12">
     <div className="label-text mb-4">
@@ -347,12 +347,13 @@ export default function HomePage() {
     </div>
 
     <h3 className="text-4xl md:text-5xl font-light tracking-tight text-black">
-      Une édition marquante
+      L'enseignement universitaire à l'ère de l'IA
     </h3>
 
     <p className="mt-4 max-w-2xl text-[#666] leading-8">
-      Une communauté internationale réunie autour de la pédagogie,
-      de l'innovation et des transformations de l'enseignement supérieur.
+      Deux journées d’échanges, de conférences et d’ateliers consacrés
+      à l’innovation pédagogique, l’intelligence artificielle et les
+      transformations de l’enseignement supérieur.
     </p>
   </div>
 
@@ -360,37 +361,37 @@ export default function HomePage() {
 
     <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-[#ececec]">
       <div className="text-5xl font-light text-black">
-        450+
+        4
       </div>
 
       <div className="mt-3 text-sm uppercase tracking-[0.15em] text-[#666]">
-        Participants
+        Experts invités
       </div>
     </div>
 
     <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-[#ececec]">
       <div className="text-5xl font-light text-black">
-        35
+        3
       </div>
 
       <div className="mt-3 text-sm uppercase tracking-[0.15em] text-[#666]">
-        Pays
+        Conférences
       </div>
     </div>
 
     <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-[#ececec]">
       <div className="text-5xl font-light text-black">
-        120+
+        3
       </div>
 
       <div className="mt-3 text-sm uppercase tracking-[0.15em] text-[#666]">
-        Articles présentés
+        Workshops
       </div>
     </div>
 
     <div className="p-8 md:p-10">
       <div className="text-5xl font-light text-black">
-        3
+        2
       </div>
 
       <div className="mt-3 text-sm uppercase tracking-[0.15em] text-[#666]">
@@ -400,16 +401,30 @@ export default function HomePage() {
 
   </div>
 
-  <div className="border-t border-[#ececec] p-8">
+  <div className="border-t border-[#ececec] p-8 flex items-center justify-between">
+
+    <div>
+      <div className="text-xs uppercase tracking-[0.15em] text-[#999]">
+        Sousse, Tunisie
+      </div>
+
+      <div className="mt-2 text-black">
+        Marriott Resort & Spa • 30–31 Mai 2025
+      </div>
+    </div>
+
     <Link
-      href="/previous-edition"
+      href="/ripu25"
       className="inline-flex items-center gap-2 text-sm font-medium text-[#2F0461] hover:text-[#1B1142] transition-colors"
     >
       Explorer RIPU25 →
     </Link>
+
   </div>
 
 </div>
+
+
         </div>
       </section>
 

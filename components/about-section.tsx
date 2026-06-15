@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
-
+import Link from "next/link";
 export function AboutSection() {
   return (
 <section
@@ -47,11 +47,14 @@ export function AboutSection() {
               l’APC dans nos pratiques pédagogiques quotidiennes.
             </p>
 
-            <button className="group mt-4 flex items-center gap-2 text-sm font-medium text-[#2F0461] transition-colors hover:text-[#1B1142]">
-              Rejoindre le Colloque
+           <Link
+  href="/authors"
+  className="group mt-4 flex items-center gap-2 text-sm font-medium text-[#2F0461] transition-colors hover:text-[#1B1142]"
+>
+  Rejoindre le Colloque
 
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </button>
+  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+</Link>
           </div>
 
           {/* Center Column */}
@@ -134,11 +137,14 @@ className="block h-full w-full translate-y-[1px]"    src="https://www.youtube.co
                 l&apos;excellence et l&apos;innovation.&rdquo;
               </p>
 
-              <button className="group mt-4 flex items-center gap-2 text-sm font-medium text-[#2F0461] transition-colors hover:text-[#1B1142]">
-                Notre Histoire
+          <Link
+  href="/about"
+  className="group mt-4 flex items-center gap-2 text-sm font-medium text-[#2F0461] transition-colors hover:text-[#1B1142]"
+>
+  Notre Histoire
 
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </button>
+  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+</Link>
             </div>
           </div>
 
