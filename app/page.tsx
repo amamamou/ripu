@@ -22,28 +22,28 @@ const testimonials = [
       "RIPU25 a su allier rigueur scientifique et échanges authentiques. Les sessions étaient soigneusement organisées et ont offert des approches pratiques que j’ai immédiatement appliquées à mon enseignement.",
     name: "Maher Abdelli",
     institution: "ISET Kairouan",
-    image: "/maher.jpg",
+    image: "/maher.png",
   },
   {
     quote:
       "Un programme réfléchi : les ateliers étaient pratiques et les conférences ont offert des cadres clairs pour l’IA éthique dans l’évaluation.",
     name: "Rym Mallouli",
     institution: "Université de Sousse",
-    image: "/rym.jpg",
+    image: "/rym.png",
   },
   {
     quote:
       "Un rythme posé, intense en idées. Les conversations ont mûri en stratégies pour la pratique, dans une atmosphère professionnelle et stimulante.",
     name: "Fattouma Mzali",
     institution: "ISET Rades",
-    image: "/fattouma.jpg",
+    image: "/fattouma.png",
   },
   {
     quote:
       "Une expérience enrichissante qui a permis de croiser des perspectives variées sur l’innovation pédagogique et les transformations de l’enseignement supérieur.",
     name: "Syrine Bousetta",
     institution: "ISLM Monastir",
-    image: "/syrine.jpg",
+    image: "/syrine.png",
   },
 ]
 
@@ -477,12 +477,12 @@ export default function HomePage() {
 
           <div className="mt-8 pt-6 border-t border-[#ececec] flex items-center gap-4">
             <Image
-              src="/maher.jpg"
-              alt="Maher Abdelli"
-              width={48}
-              height={48}
-              className="object-cover"
-            />
+  src="/maher.png"
+  alt="Maher Abdelli"
+  width={48}
+  height={48}
+  className="w-12 h-12 object-cover rounded-lg shrink-0"
+/>
 
             <div>
               <p className="font-medium text-black">
@@ -509,13 +509,13 @@ export default function HomePage() {
           </p>
 
           <div className="mt-8 pt-6 border-t border-[#ececec] flex items-center gap-4">
-            <Image
-              src="/rym.jpg"
-              alt="Rym Mallouli"
-              width={48}
-              height={48}
-              className="object-cover"
-            />
+           <Image
+  src="/rym.png"
+  alt="Rym Mallouli"
+  width={48}
+  height={48}
+  className="w-12 h-12 object-cover rounded-lg shrink-0"
+/>
 
             <div>
               <p className="font-medium text-black">
@@ -543,13 +543,12 @@ export default function HomePage() {
 
           <div className="mt-8 pt-6 border-t border-[#ececec] flex items-center gap-4">
             <Image
-              src="/fattouma.jpg"
-              alt="Fattouma Mzali"
-              width={48}
-              height={48}
-              className="object-cover"
-            />
-
+  src="/fattouma.png"
+  alt="Fattouma Mzali"
+  width={48}
+  height={48}
+  className="w-12 h-12 object-cover rounded-lg shrink-0"
+/>
             <div>
               <p className="font-medium text-black">
                 Fattouma Mzali
@@ -576,13 +575,12 @@ export default function HomePage() {
 
           <div className="mt-8 pt-6 border-t border-[#ececec] flex items-center gap-4">
             <Image
-              src="/syrine.jpg"
-              alt="Syrine Bousetta"
-              width={48}
-              height={48}
-              className="object-cover"
-            />
-
+  src="/syrine.png"
+  alt="Syrine Bousetta"
+  width={48}
+  height={48}
+  className="w-12 h-12 object-cover rounded-lg shrink-0"
+/>
             <div>
               <p className="font-medium text-black">
                 Syrine Bousetta
