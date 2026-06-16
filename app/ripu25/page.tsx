@@ -1,487 +1,285 @@
-
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 
 const speakers = [
   {
     name: "Denis Gillet",
-    role: "Président de Graasp.org",
+    role: "President of Graasp.org",
     institution: "École Polytechnique Fédérale de Lausanne (EPFL)",
     image: "/team/22.png",
-    bio: "Enseignant universitaire et président de Graasp.org, Denis Gillet dirige le groupe des systèmes d’interaction à l’EPFL. Il est également membre du comité pour l’éducation de l’IEEE et cofondateur du Swiss EdTech Collider.",
+    bio: "University educator and president of Graasp.org, Denis Gillet directs the Interaction Systems group at EPFL. Also an IEEE Education Committee member and co-founder of the Swiss EdTech Collider.",
   },
   {
     name: "Sonia Sahli",
-    role: "Experte en ingénierie pédagogique",
-    institution: "ISET Sousse, Tunisie",
+    role: "Expert in Educational Engineering",
+    institution: "ISET Sousse, Tunisia",
     image: "/team/11.png",
-    bio: "Enseignante universitaire en informatique et experte en ingénierie pédagogique, Sonia Sahli est créatrice de SonyPlanner et spécialiste en UI/UX Design.",
+    bio: "University instructor in computer science and educational engineering expert, Sonia Sahli is creator of SonyPlanner and UI/UX Design specialist.",
   },
   {
     name: "Thierry Spriet",
-    role: "Maître de conférences HC",
+    role: "Senior Lecturer",
     institution: "Avignon Université, France",
     image: "/team/33.png",
-    bio: "Expert en pédagogie universitaire et innovation numérique avec près de trente années d’expérience dans l’enseignement supérieur.",
+    bio: "Expert in university pedagogy and digital innovation with nearly thirty years of experience in higher education.",
   },
   {
     name: "Nawel Souissi",
-    role: "Experte en accréditation internationale",
+    role: "International Accreditation Expert",
     institution: "PRISTINI School of AI",
     image: "/team/66.png",
-    bio: "Docteure en électronique et spécialiste de l’assurance qualité dans l’enseignement supérieur, reconnue pour son expertise en intelligence artificielle.",
+    bio: "PhD in Electronics and specialist in quality assurance in higher education, recognized for expertise in artificial intelligence.",
   },
 ];
 
 const conferences = [
   {
-    day: "Jour 1",
+    day: "Day 1",
     time: "14:00",
     duration: "60 min",
-    room: "Salle A",
-    title: "Impacts de l'IA générative sur les apprentissages",
+    title: "Impacts of Generative AI on Learning",
     speaker: "Thierry Spriet",
-    description:
-      "Exploration des impacts de l’intelligence artificielle sur l’éducation et l’avenir des formations universitaires.",
+    description: "Exploration of how artificial intelligence is reshaping education and the future of university training.",
   },
   {
-    day: "Jour 1",
+    day: "Day 1",
     time: "15:00",
     duration: "60 min",
-    room: "Salle C",
-    title: "L'intelligence artificielle pour les métiers de demain",
+    title: "AI for Tomorrow's Professions",
     speaker: "Nawel Souissi",
-    description:
-      "Exploration du rôle croissant de l’IA dans le monde professionnel de demain.",
+    description: "Exploration of the growing role of AI in tomorrow's professional world.",
   },
   {
-    day: "Jour 2",
+    day: "Day 2",
     time: "11:00",
     duration: "60 min",
-    room: "Salle A",
-    title:
-      "Ressources éducatives ouvertes et intelligentes pour le renforcement des compétences transversales",
+    title: "Open Educational Resources and Intelligent Tools for Developing Transversal Skills",
     speaker: "Denis Gillet",
-    description:
-      "Présentation des ressources éducatives innovantes intégrant l’intelligence artificielle.",
+    description: "Presentation of innovative educational resources integrating artificial intelligence.",
   },
 ];
 
 const workshops = [
   {
-    day: "Jour 1",
+    day: "Day 1",
     time: "16:15",
     duration: "45 min",
-    room: "Salle B",
-    title: "IA Générative pour la Préparation des Examens",
+    title: "Generative AI for Exam Preparation",
     speaker: "Sonia Sahli",
-    description:
-      "Partage d’expériences sur le développement d’outils innovants pour enseignants intégrant les dernières avancées en IA générative.",
+    description: "Sharing experiences on the development of innovative tools for educators integrating the latest advances in generative AI.",
   },
   {
-    day: "Jour 2",
+    day: "Day 2",
     time: "10:00",
     duration: "45 min",
-    room: "Salle A",
-    title: "L'IAG comme assistant d'apprentissage",
+    title: "AI as a Learning Assistant",
     speaker: "Thierry Spriet",
-    description:
-      "Méthodologie pour engager les étudiants vers un usage responsable des IA génératives.",
+    description: "Methodology for engaging students toward responsible use of generative AI.",
   },
   {
-    day: "Jour 2",
+    day: "Day 2",
     time: "11:00",
     duration: "45 min",
-    room: "Salle C",
-    title: "Collaboration Humain-IA pour le Design Thinking",
+    title: "Human-AI Collaboration for Design Thinking",
     speaker: "Denis Gillet",
-    description:
-      "Exploration du rôle de l’IA générative dans les processus créatifs et l’idéation collaborative.",
+    description: "Exploration of the role of generative AI in creative processes and collaborative ideation.",
   },
 ];
-export default function RIPU25Page() { return ( <>
-        <Navbar/>
 
-<section className="bg-white border-t border-[#ececec] pt-32 pb-24">
+export default function RIPU25Page() {
+  return (
+    <>
+      <Navbar />
 
-  <div className="px-8 lg:px-16">
+      {/* ============================================================ */}
+      {/* SECTION 1: Opening - Archive Edition */}
+      {/* ============================================================ */}
+      <section className="bg-white section-spacing border-t border-[#ececec]">
+        <div className="px-8 lg:px-16 max-w-7xl mx-auto">
+          <div className="inline-block mb-8">
+            <span className="text-xs uppercase tracking-widest text-secondary px-4 py-2 border border-[#ececec] rounded-sm">
+              Archived Edition • 2025
+            </span>
+          </div>
 
-    <div className="mb-10">
-      <span className="border border-[#ececec] px-3 py-2 text-xs uppercase tracking-[0.15em] text-[#666]">
-        Édition Archivée • 2025
-      </span>
-    </div>
+          <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center">
+            {/* Typography */}
+            <div>
+              <div className="label-text mb-6">Conference Archive</div>
+              <h1 className="text-6xl md:text-7xl font-bold text-primary leading-[1.1]">
+                RIPU25
+              </h1>
+              <p className="mt-8 text-xl text-secondary leading-8 max-w-2xl">
+                University Teaching at the Era of Artificial Intelligence and Applied Research
+              </p>
+              <div className="mt-10 pt-10 border-t border-[#ececec] grid grid-cols-2 gap-8">
+                <div>
+                  <p className="text-4xl font-bold text-primary">May 30–31</p>
+                  <p className="text-sm text-secondary uppercase tracking-wider mt-2">2025</p>
+                </div>
+                <div>
+                  <p className="text-lg font-semibold text-primary">Sousse, Tunisia</p>
+                  <p className="text-sm text-secondary mt-2">Marriott Resort & Spa</p>
+                </div>
+              </div>
+            </div>
 
-    <div className="grid lg:grid-cols-12 gap-20 items-center">
-
-      <div className="lg:col-span-7">
-
-        <div className="label-text mb-6">
-          RENCONTRE INTERNATIONALE DE LA PÉDAGOGIE UNIVERSITAIRE
-        </div>
-
-        <h1 className="text-6xl md:text-8xl font-light tracking-tight leading-[0.9] text-black">
-          RIPU25
-        </h1>
-
-        <p className="mt-10 max-w-3xl text-xl leading-9 text-[#666]">
-          L’enseignement universitaire à l’ère de l’intelligence artificielle
-          et de la recherche appliquée.
-        </p>
-
-      </div>
-
-      <div className="lg:col-span-5">
-
-        <Image
-          src="/ripu.jpg"
-          alt="RIPU25"
-          width={900}
-          height={1200}
-          className="w-full border border-[#ececec]"
-        />
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-{/* SPEAKERS */}
-
-<section className="bg-white py-24 border-t border-[#ececec]">
-
-  <div className="px-8 lg:px-16">
-
-    <div className="mb-20">
-
-      <div className="label-text mb-4">
-        INTERVENANTS
-      </div>
-
-      <h2 className="text-5xl md:text-7xl font-light tracking-tight text-black">
-        Conférenciers invités
-      </h2>
-
-    </div>
-
-    <div className="space-y-24">
-
-      {speakers.map((speaker, idx) => (
-
-        <div
-          key={speaker.name}
-          className="grid lg:grid-cols-12 gap-12 items-start"
-        >
-
-          <div className="lg:col-span-3">
-
-            <div className="relative aspect-[4/5] overflow-hidden bg-[#f5f5f5]">
-
+            {/* Featured Image */}
+            <div className="relative w-full h-96 rounded-sm overflow-hidden shadow-sm">
               <Image
-                src={speaker.image}
-                alt={speaker.name}
+                src="/ripu.jpg"
+                alt="RIPU25 Conference"
                 fill
                 className="object-cover"
               />
-
             </div>
-
           </div>
-
-          <div className="lg:col-span-9">
-
-            <div className="text-xs uppercase tracking-[0.2em] text-[#999]">
-              {speaker.institution}
-            </div>
-
-            <h3 className="mt-4 text-4xl md:text-5xl font-light text-black">
-              {speaker.name}
-            </h3>
-
-            <p className="mt-4 text-xl text-[#666]">
-              {speaker.role}
-            </p>
-
-            <p className="mt-8 text-lg leading-9 text-[#666] max-w-4xl">
-              {speaker.bio}
-            </p>
-
-          </div>
-
         </div>
+      </section>
 
-      ))}
-
-    </div>
-
-  </div>
-
-</section>
-
-
-{/* CONFERENCES */}
-
-<section className="bg-white py-24 border-t border-[#ececec]">
-
-  <div className="px-8 lg:px-16">
-
-    <div className="mb-20">
-
-      <div className="label-text mb-4">
-        PROGRAMME
-      </div>
-
-      <h2 className="text-5xl md:text-7xl font-light tracking-tight text-black">
-        Conférences
-      </h2>
-
-    </div>
-
-    <div className="border border-[#ececec]">
-
-      {conferences.map((item, idx) => (
-
-        <div
-          key={idx}
-          className="grid md:grid-cols-12 border-b last:border-b-0 border-[#ececec]"
-        >
-
-          <div className="md:col-span-3 p-8 border-r border-[#ececec]">
-
-            <div className="text-xs uppercase tracking-[0.2em] text-[#999]">
-              {item.day}
-            </div>
-
-            <div className="mt-3 text-3xl font-light">
-              {item.time}
-            </div>
-
-            <div className="mt-2 text-[#666]">
-              {item.duration}
-            </div>
-
-            <div className="mt-2 text-[#666]">
-              {item.room}
-            </div>
-
+      {/* ============================================================ */}
+      {/* SECTION 2: Keynote Speakers */}
+      {/* ============================================================ */}
+      <section className="bg-white section-spacing border-t border-[#ececec]">
+        <div className="px-8 lg:px-16 max-w-7xl mx-auto">
+          <div className="mb-20">
+            <div className="label-text mb-4">SPEAKERS</div>
+            <h2 className="text-5xl md:text-6xl font-bold text-primary">
+              Featured Speakers
+            </h2>
           </div>
 
-          <div className="md:col-span-9 p-8">
+          <div className="space-y-20 md:space-y-28">
+            {speakers.map((speaker, idx) => (
+              <div key={idx} className="grid lg:grid-cols-5 gap-12 md:gap-16 items-start">
+                {/* Portrait */}
+                <div className="lg:col-span-2">
+                  <div className="relative w-full aspect-[3/4] rounded-sm overflow-hidden shadow-sm">
+                    <Image
+                      src={speaker.image}
+                      alt={speaker.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
 
-            <div className="text-xs uppercase tracking-[0.2em] text-[#999]">
-              Conférence
-            </div>
+                {/* Bio */}
+                <div className="lg:col-span-3">
+                  <p className="text-xs uppercase tracking-widest text-secondary mb-4">
+                    {speaker.institution}
+                  </p>
+                  <h3 className="text-4xl font-bold text-primary mb-3">
+                    {speaker.name}
+                  </h3>
+                  <p className="text-lg font-semibold text-secondary mb-6">
+                    {speaker.role}
+                  </p>
+                  <p className="text-lg text-secondary leading-8">
+                    {speaker.bio}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <h3 className="mt-4 text-3xl font-light text-black">
-              {item.title}
-            </h3>
-
-            <p className="mt-4 text-lg text-[#666]">
-              {item.speaker}
-            </p>
-
-            <p className="mt-6 text-[#666] leading-8">
-              {item.description}
-            </p>
-
+      {/* ============================================================ */}
+      {/* SECTION 3: Conferences */}
+      {/* ============================================================ */}
+      <section className="bg-white section-spacing border-t border-[#ececec]">
+        <div className="px-8 lg:px-16 max-w-7xl mx-auto">
+          <div className="mb-20">
+            <div className="label-text mb-4">PROGRAMME</div>
+            <h2 className="text-5xl md:text-6xl font-bold text-primary">
+              Conferences
+            </h2>
           </div>
 
+          <div className="space-y-8">
+            {conferences.map((item, idx) => (
+              <div key={idx} className="border-b border-[#ececec] pb-8 last:border-0">
+                <div className="grid md:grid-cols-4 gap-8 items-start">
+                  {/* Time */}
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-secondary mb-2">
+                      {item.day}
+                    </p>
+                    <p className="text-3xl font-bold text-primary">
+                      {item.time}
+                    </p>
+                    <p className="text-sm text-secondary mt-2">
+                      {item.duration}
+                    </p>
+                  </div>
+
+                  {/* Content */}
+                  <div className="md:col-span-3">
+                    <h3 className="text-2xl font-bold text-primary mb-3">
+                      {item.title}
+                    </h3>
+                    <p className="text-lg font-semibold text-secondary mb-4">
+                      {item.speaker}
+                    </p>
+                    <p className="text-base text-secondary leading-7">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
 
-      ))}
-
-    </div>
-
-  </div>
-
-</section>
-
-
-{/* WORKSHOPS */}
-
-<section className="bg-white py-24 border-t border-[#ececec]">
-
-  <div className="px-8 lg:px-16">
-
-    <div className="mb-20">
-
-      <div className="label-text mb-4">
-        ATELIERS
-      </div>
-
-      <h2 className="text-5xl md:text-7xl font-light tracking-tight text-black">
-        Workshops
-      </h2>
-
-    </div>
-
-    <div className="border border-[#ececec]">
-
-      {workshops.map((item, idx) => (
-
-        <div
-          key={idx}
-          className="grid md:grid-cols-12 border-b last:border-b-0 border-[#ececec]"
-        >
-
-          <div className="md:col-span-3 p-8 border-r border-[#ececec]">
-
-            <div className="text-xs uppercase tracking-[0.2em] text-[#999]">
-              {item.day}
-            </div>
-
-            <div className="mt-3 text-3xl font-light">
-              {item.time}
-            </div>
-
-            <div className="mt-2 text-[#666]">
-              {item.duration}
-            </div>
-
-            <div className="mt-2 text-[#666]">
-              {item.room}
-            </div>
-
+      {/* ============================================================ */}
+      {/* SECTION 4: Workshops */}
+      {/* ============================================================ */}
+      <section className="bg-white section-spacing border-t border-[#ececec]">
+        <div className="px-8 lg:px-16 max-w-7xl mx-auto">
+          <div className="mb-20">
+            <div className="label-text mb-4">PROGRAMME</div>
+            <h2 className="text-5xl md:text-6xl font-bold text-primary">
+              Workshops
+            </h2>
           </div>
 
-          <div className="md:col-span-9 p-8">
+          <div className="space-y-8">
+            {workshops.map((item, idx) => (
+              <div key={idx} className="border-b border-[#ececec] pb-8 last:border-0">
+                <div className="grid md:grid-cols-4 gap-8 items-start">
+                  {/* Time */}
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-secondary mb-2">
+                      {item.day}
+                    </p>
+                    <p className="text-3xl font-bold text-primary">
+                      {item.time}
+                    </p>
+                    <p className="text-sm text-secondary mt-2">
+                      {item.duration}
+                    </p>
+                  </div>
 
-            <div className="text-xs uppercase tracking-[0.2em] text-[#999]">
-              Workshop
-            </div>
-
-            <h3 className="mt-4 text-3xl font-light text-black">
-              {item.title}
-            </h3>
-
-            <p className="mt-4 text-lg text-[#666]">
-              {item.speaker}
-            </p>
-
-            <p className="mt-6 text-[#666] leading-8">
-              {item.description}
-            </p>
-
+                  {/* Content */}
+                  <div className="md:col-span-3">
+                    <h3 className="text-2xl font-bold text-primary mb-3">
+                      {item.title}
+                    </h3>
+                    <p className="text-lg font-semibold text-secondary mb-4">
+                      {item.speaker}
+                    </p>
+                    <p className="text-base text-secondary leading-7">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-
         </div>
-
-      ))}
-
-    </div>
-
-  </div>
-
-</section>
-
-{/* GALLERY */}
-
-<section className="bg-white py-24 border-t border-[#ececec]">
-
-  <div className="px-8 lg:px-16">
-
-    <div className="mb-20">
-
-      <div className="label-text mb-4">
-        GALERIE
-      </div>
-
-      <h2 className="text-5xl md:text-7xl font-light tracking-tight text-black">
-        RIPU25 en images
-      </h2>
-
-    </div>
-
-    <div className="grid md:grid-cols-2 gap-8">
-
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#f5f5f5]">
-        <Image
-          src="/ripu/1.png"
-          alt="RIPU25"
-          fill
-          className="object-cover"
-        />
-      </div>
-
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#f5f5f5]">
-        <Image
-          src="/ripu/2.png"
-          alt="RIPU25"
-          fill
-          className="object-cover"
-        />
-      </div>
-
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#f5f5f5]">
-        <Image
-          src="/ripu/3.png"
-          alt="RIPU25"
-          fill
-          className="object-cover"
-        />
-      </div>
-
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#f5f5f5]">
-        <Image
-          src="/ripu/p8.jpg"
-          alt="RIPU25"
-          fill
-          className="object-cover"
-        />
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-{/* ARCHIVE */}
-
-<section className="bg-white py-24 border-t border-[#ececec]">
-
-  <div className="px-8 lg:px-16">
-
-    <div className="max-w-5xl">
-
-      <div className="label-text mb-4">
-        ARCHIVES
-      </div>
-
-      <h2 className="text-5xl md:text-7xl font-light tracking-tight leading-[0.95] text-black">
-        Une édition marquante de RIPU
-      </h2>
-
-      <p className="mt-10 max-w-4xl text-xl leading-10 text-[#666]">
-        RIPU25 restera une édition marquante de la Rencontre
-        Internationale de la Pédagogie Universitaire. Organisée au
-        Marriott Resort & Spa de Sousse, elle a permis de réunir des
-        experts internationaux autour des enjeux de l’intelligence
-        artificielle, de l’innovation pédagogique et de l’avenir de
-        l’enseignement supérieur.
-      </p>
-
-      <div className="mt-16 border-l-2 border-[#2F0461] pl-8">
-
-        <div className="text-sm uppercase tracking-[0.2em] text-[#999]">
-          30–31 Mai 2025
-        </div>
-
-        <div className="mt-3 text-3xl font-light text-black">
-          Marriott Resort & Spa Sousse
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
- </>
+      </section>
+    </>
   );
 }

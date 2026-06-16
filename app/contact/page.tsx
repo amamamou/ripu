@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import PageHero from '@/components/PageHero';
-import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import { Mail, MapPin, Users } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -12,212 +11,194 @@ export default function ContactPage() {
     subject: '',
     message: '',
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setSubmitted(true);
+    setTimeout(() => {
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setSubmitted(false);
+    }, 3000);
   };
 
   return (
     <>
-        <Navbar/>
-     
+      <Navbar />
 
-    <section className="bg-white py-24 md:py-32">
-
-  <div className="px-8 lg:px-16">
-
-    <div className="mb-20">
-
-      <div className="label-text mb-4">
-        CONTACT
-      </div>
-
-      <h1 className="text-5xl md:text-7xl font-light tracking-tight text-black">
-        Nous contacter
-      </h1>
-
-    </div>
-
-    <div className="grid lg:grid-cols-12 gap-20">
-
-      {/* Left */}
-
-      <div className="lg:col-span-4">
-
-        <div className="space-y-12">
-
-          <div>
-
-            <div className="text-xs uppercase tracking-[0.2em] text-[#999] mb-4">
-              Contact général
-            </div>
-
-            <a
-              href="mailto:contact@ripu26.org"
-              className="text-2xl font-light text-black hover:text-[#2F0461] transition-colors"
-            >
-              contact@ripu26.org
-            </a>
-
-          </div>
-
-          <div>
-
-            <div className="text-xs uppercase tracking-[0.2em] text-[#999] mb-4">
-              Soumissions
-            </div>
-
-            <a
-              href="mailto:submissions@ripu26.org"
-              className="text-2xl font-light text-black hover:text-[#2F0461] transition-colors"
-            >
-              submissions@ripu26.org
-            </a>
-
-          </div>
-
-          <div>
-
-            <div className="text-xs uppercase tracking-[0.2em] text-[#999] mb-4">
-              Lieu
-            </div>
-
-            <p className="text-lg text-[#666] leading-8">
-              Marriott Hotel Sousse
-              <br />
-              Avenue de la Corniche
-              <br />
-              Sousse, Tunisie
-            </p>
-
-          </div>
-
+      {/* ============================================================ */}
+      {/* SECTION 1: Header */}
+      {/* ============================================================ */}
+      <section className="bg-white section-spacing border-t border-[#ececec]">
+        <div className="px-8 lg:px-16 max-w-7xl mx-auto">
+          <div className="label-text mb-4">GET IN TOUCH</div>
+          <h1 className="text-5xl md:text-6xl font-bold text-primary mb-8">
+            Contact Us
+          </h1>
+          <p className="text-xl text-secondary leading-8 max-w-2xl">
+            Have questions about RIPU26? Reach out to us through any of these channels. We&apos;ll respond promptly to your inquiry.
+          </p>
         </div>
+      </section>
 
-      </div>
+      {/* ============================================================ */}
+      {/* SECTION 2: Contact Information */}
+      {/* ============================================================ */}
+      <section className="bg-white section-spacing border-t border-[#ececec]">
+        <div className="px-8 lg:px-16 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-12">
+            {/* General Contact */}
+            <div className="accent-bar p-8">
+              <div className="flex gap-3 mb-6">
+                <Mail className="h-6 w-6 text-[#2F0461] flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold text-primary mb-1">General Inquiry</h3>
+                  <p className="text-sm text-secondary mb-4">For general questions</p>
+                  <a 
+                    href="mailto:contact@ripu26.org"
+                    className="text-lg font-semibold text-accent hover:text-primary transition-colors break-all"
+                  >
+                    contact@ripu26.org
+                  </a>
+                </div>
+              </div>
+            </div>
 
-      {/* Form */}
+            {/* Submissions */}
+            <div className="accent-bar p-8">
+              <div className="flex gap-3 mb-6">
+                <Mail className="h-6 w-6 text-[#2F0461] flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold text-primary mb-1">Paper Submissions</h3>
+                  <p className="text-sm text-secondary mb-4">For submission questions</p>
+                  <a 
+                    href="mailto:submissions@ripu26.org"
+                    className="text-lg font-semibold text-accent hover:text-primary transition-colors break-all"
+                  >
+                    submissions@ripu26.org
+                  </a>
+                </div>
+              </div>
+            </div>
 
-      <div className="lg:col-span-8">
+            {/* Venue */}
+            <div className="accent-bar p-8">
+              <div className="flex gap-3 mb-6">
+                <MapPin className="h-6 w-6 text-[#2F0461] flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold text-primary mb-1">Conference Venue</h3>
+                  <p className="text-sm text-secondary">Marriott Hotel Sousse</p>
+                  <p className="text-sm text-secondary">Avenue de la Corniche</p>
+                  <p className="text-sm text-secondary">Sousse, Tunisia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <form
-          onSubmit={handleSubmit}
-          className="border border-[#ececec]"
-        >
-
-          <div className="grid md:grid-cols-2">
-
-            <input
-              type="text"
-              placeholder="Nom complet"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="
-                border-b
-                md:border-r
-                border-[#ececec]
-                p-6
-                outline-none
-              "
-            />
-
-            <input
-              type="email"
-              placeholder="Adresse e-mail"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              className="
-                border-b
-                border-[#ececec]
-                p-6
-                outline-none
-              "
-            />
-
+      {/* ============================================================ */}
+      {/* SECTION 3: Contact Form */}
+      {/* ============================================================ */}
+      <section className="bg-white section-spacing border-t border-[#ececec]">
+        <div className="px-8 lg:px-16 max-w-2xl mx-auto">
+          <div className="mb-16 text-center">
+            <h2 className="text-4xl font-bold text-primary mb-4">
+              Send Us a Message
+            </h2>
+            <p className="text-lg text-secondary">
+              Fill out this form and we&apos;ll get back to you as soon as possible.
+            </p>
           </div>
 
-          <select
-            value={formData.subject}
-            onChange={(e) =>
-              setFormData({ ...formData, subject: e.target.value })
-            }
-            className="
-              w-full
-              p-6
-              border-b
-              border-[#ececec]
-              outline-none
-            "
-          >
-            <option value="">
-              Sélectionner un sujet
-            </option>
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Name & Email Grid */}
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-primary mb-2">
+                  Full Name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-0 py-2 text-base text-primary bg-transparent border-0 border-b-2 border-[#ececec] focus:border-[#2F0461] focus:outline-none focus:ring-0 transition-colors"
+                  placeholder="John Doe"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-primary mb-2">
+                  Email Address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-0 py-2 text-base text-primary bg-transparent border-0 border-b-2 border-[#ececec] focus:border-[#2F0461] focus:outline-none focus:ring-0 transition-colors"
+                  placeholder="john@example.com"
+                  required
+                />
+              </div>
+            </div>
 
-            <option value="submission">
-              Soumission
-            </option>
+            {/* Subject */}
+            <div>
+              <label htmlFor="subject" className="block text-sm font-medium text-primary mb-2">
+                Subject
+              </label>
+              <select
+                id="subject"
+                value={formData.subject}
+                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                className="w-full px-0 py-2 text-base text-primary bg-transparent border-0 border-b-2 border-[#ececec] focus:border-[#2F0461] focus:outline-none focus:ring-0 transition-colors"
+                required
+              >
+                <option value="">Select a subject</option>
+                <option value="submission">Paper Submission</option>
+                <option value="registration">Registration</option>
+                <option value="general">General Question</option>
+                <option value="partnership">Partnership</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
 
-            <option value="registration">
-              Inscription
-            </option>
+            {/* Message */}
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-primary mb-2">
+                Message
+              </label>
+              <textarea
+                id="message"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                rows={6}
+                className="w-full px-0 py-2 text-base text-primary bg-transparent border-0 border-b-2 border-[#ececec] focus:border-[#2F0461] focus:outline-none focus:ring-0 transition-colors resize-none"
+                placeholder="Your message here..."
+                required
+              />
+            </div>
 
-            <option value="sponsorship">
-              Partenariat
-            </option>
-
-          </select>
-
-          <textarea
-            rows={8}
-            placeholder="Votre message..."
-            value={formData.message}
-            onChange={(e) =>
-              setFormData({ ...formData, message: e.target.value })
-            }
-            className="
-              w-full
-              p-6
-              outline-none
-              resize-none
-            "
-          />
-
-          <div className="border-t border-[#ececec] p-6">
-
-            <button
-              type="submit"
-              className="
-                text-[#2F0461]
-                text-xl
-                font-light
-                hover:text-[#1B1142]
-                transition-colors
-              "
-            >
-              Envoyer le message →
-            </button>
-
-          </div>
-
-        </form>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-      {/* Map Section */}
-  
-
-
+            {/* Submit */}
+            <div className="pt-4">
+              <button
+                type="submit"
+                className="btn-primary"
+              >
+                {submitted ? 'Message Sent ✓' : 'Send Message'}
+              </button>
+              {submitted && (
+                <p className="mt-4 text-sm text-green-600">
+                  Thank you for your message. We&apos;ll respond shortly.
+                </p>
+              )}
+            </div>
+          </form>
+        </div>
+      </section>
     </>
   );
 }
