@@ -7,144 +7,124 @@ export function AboutSection() {
   return (
 <section
   id="about"
-  className="bg-white py-24 md:py-32 border-t border-[#ececec]"
+  className="bg-white py-24 md:py-32"
 >
   <div className="px-8 lg:px-16">
-    <div className="grid gap-6 md:grid-cols-12">
-
-          {/* Left Column */}
-          <div className="flex flex-col gap-5 md:col-span-4">
-            <div className="flex items-center gap-2">
-              <span className="label-text mb-4">
-                À propos
+<div className="grid gap-8 md:grid-cols-12 items-start">
+          {/* Left Column - Content */}
+<div className="flex flex-col gap-8 md:col-span-4">            <div>
+              <span className="label-text mb-6 block">
+                À propos de RIPU26
               </span>
+
+              <h2 className="text-4xl md:text-6xl font-light leading-tight text-[#0a0a0a]">
+                Enseigner et évaluer à l&apos;ère de l&apos;IA et de l&apos;APC
+              </h2>
             </div>
 
-            <h2 className="text-3xl font-light leading-tight text-[#0a0a0a] md:text-5xl">
-              Enseigner et évaluer à l’ère de l’IA et de l’APC
-            </h2>
-
-            <div className="mt-2 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1.5 border border-[#ececec] px-3 py-2 text-xs uppercase tracking-wide text-[#666]">
-                <span className="h-1 w-1 rounded-full bg-[#2F0461]" />
+            <div className="flex flex-wrap gap-3">
+              <div className=" py-2 rounded-full text-xs uppercase tracking-wide text-[#2F0461] font-medium">
                 Recherche Innovante
-              </span>
+              </div>
 
-              <span className="inline-flex items-center gap-1.5 border border-[#ececec] px-3 py-2 text-xs uppercase tracking-wide text-[#666]">
-                <span className="h-1 w-1 rounded-full bg-[#2F0461]" />
+              <div className=" py-2 rounded-full text-xs uppercase tracking-wide text-[#2F0461] font-medium">
                 Ateliers Pratiques
-              </span>
+              </div>
 
-              <span className="inline-flex items-center gap-1.5 border border-[#ececec] px-3 py-2 text-xs uppercase tracking-wide text-[#666]">
-                <span className="h-1 w-1 rounded-full bg-[#2F0461]" />
+              <div className=" py-2 rounded-full  text-xs uppercase tracking-wide text-[#2F0461] font-medium">
                 Réseau International
-              </span>
+              </div>
             </div>
 
-            <p className="mt-4 text-sm leading-relaxed text-[#666]">
-              RIPU rassemble depuis des années les acteurs de l’enseignement
-              supérieur. Cette 2ème édition explore les défis de l’IA et de
-              l’APC dans nos pratiques pédagogiques quotidiennes.
+            <p className="text-lg leading-relaxed text-[#666] max-w-lg">
+              RIPU rassemble depuis des années les acteurs de l&apos;enseignement
+              supérieur. Cette 2ème édition explore les défis de l&apos;IA et de
+              l&apos;APC dans nos pratiques pédagogiques quotidiennes.
             </p>
 
            <Link
   href="/authors"
-  className="group mt-4 flex items-center gap-2 text-sm font-medium text-[#2F0461] transition-colors hover:text-[#1B1142]"
+  className="group mt-2 flex items-center gap-2 text-sm font-medium text-[#2F0461] transition-colors hover:text-[#1B1142]"
 >
   Rejoindre le Colloque
 
   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
 </Link>
           </div>
-
-          {/* Center Column */}
-          <div className="flex justify-center md:col-span-4 ">
-          <div
-  className="w-full max-w-[340px] overflow-hidden rounded-xl border border-[#ececec]"
-  style={{ aspectRatio: "9 / 16" }}
->
-  <iframe
-className="block h-full w-full translate-y-[1px]"    src="https://www.youtube.com/embed/pnKB0Pl3hdQ?autoplay=1&mute=1&loop=1&playlist=pnKB0Pl3hdQ&controls=1&rel=0"
-    title="RIPU 2026"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowFullScreen
-  />
+{/* Center Video */}
+<div className="flex justify-center md:col-span-4">
+  <div
+    className="w-full max-w-[310px] overflow-hidden rounded-2xl shadow-lg"
+    style={{ aspectRatio: "9 / 16" }}
+  >
+    <iframe
+      className="block h-full w-full"
+      src="https://www.youtube.com/embed/pnKB0Pl3hdQ?autoplay=1&mute=1&loop=1&playlist=pnKB0Pl3hdQ&controls=1&rel=0"
+      title="RIPU 2026"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+    />
+  </div>
 </div>
-          </div>
+          {/* Right Side - Video and Info Stack */}
+          <div className="flex flex-col gap-8 md:col-span-4">
+          <div className="rounded-2xl bg-[#f8f7fb] p-6">
+  <p className="text-xs uppercase tracking-[0.2em] text-[#888]">
+    Appel à communications
+  </p>
 
-          {/* Right Column */}
-          <div className="flex flex-col gap-6 md:col-span-4">
-            {/* Information */}
-            <div className="border border-[#ececec]">
-              <div className="border-b border-[#ececec] p-6">
-                <span className="text-xs uppercase tracking-[0.15em] text-[#666]">
-                  Lieu
-                </span>
+  <p className="mt-3 text-lg font-medium text-[#1B1142]">
+    Soumettez votre recherche avant la date limite.
+  </p>
+<Link
+  href="/authors"
+  className="group mt-4 inline-flex items-center gap-2 text-sm text-[#2F0461]"
+>
+  En savoir plus
 
-                <p className="mt-2 font-medium text-[#1B1142]">
-                  Sousse, Tunisie
-                </p>
-              </div>
-
-              <div className="border-b border-[#ececec] p-6">
-                <span className="text-xs uppercase tracking-[0.15em] text-[#666]">
-                  Dates
-                </span>
-
-                <p className="mt-2 font-medium text-[#1B1142]">
-                  30–31 Octobre 2026
-                </p>
-              </div>
-
-              <div className="p-6">
-                <span className="text-xs uppercase tracking-[0.15em] text-[#666]">
-                  Public Cible
-                </span>
-
-                <p className="mt-2 font-medium text-[#1B1142]">
-                  Enseignants, Chercheurs, Responsables
-                </p>
-              </div>
-            </div>
-
-            {/* Sonia Sahli */}
-            <div className="border border-[#ececec] p-6">
-              <div className="flex items-center gap-3">
-                <div className="h-12 w-12 overflow-hidden rounded-full border border-[#ececec]">
-                  <Image
-                    src="/sonya.png"
-                    alt="Professor"
-                    width={48}
-                    height={48}
-                    className="h-full w-full object-cover"
-                  />
+  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+</Link>
+</div>
+    
+            {/* President Card */}
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#2F0461] to-[#a33ac2] p-8 md:p-10 text-white shadow-lg">
+              <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px)'}}></div>
+              <div className="relative">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="h-14 w-14 overflow-hidden rounded-full bg-white/20">
+                    <Image
+                      src="/sonya.png"
+                      alt="Sonia Sahli"
+                      width={56}
+                      height={56}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-base font-semibold">
+                      Sonia Sahli
+                    </p>
+                    <p className="text-sm text-white/70">
+                      Présidente du Comité
+                    </p>
+                  </div>
                 </div>
 
-                <div>
-                  <p className="text-sm font-semibold text-[#1B1142]">
-                    Sonia Sahli
-                  </p>
+                <p className="text-base leading-relaxed italic text-white/90 mb-6">
+                  &ldquo;RIPU est né d&apos;une vision. Aujourd&apos;hui, nous
+                  construisons une communauté de pédagogues qui privilégie
+                  l&apos;excellence et l&apos;innovation.&rdquo;
+                </p>
 
-                  <p className="text-xs text-[#666]">
-                    Présidente du Comité
-                  </p>
-                </div>
-              </div>
-
-              <p className="mt-4 text-sm italic leading-relaxed text-[#666]">
-                &ldquo;RIPU est né d&apos;une vision. Aujourd&apos;hui, nous
-                construisons une communauté de pédagogues qui privilégie
-                l&apos;excellence et l&apos;innovation.&rdquo;
-              </p>
-
-          <Link
+    <Link
   href="/about"
-  className="group mt-4 flex items-center gap-2 text-sm font-medium text-[#2F0461] transition-colors hover:text-[#1B1142]"
+  className="group inline-flex items-center gap-2 text-sm font-medium text-white transition-colors hover:text-white/80"
 >
   Notre Histoire
 
   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
 </Link>
+              </div>
             </div>
           </div>
 

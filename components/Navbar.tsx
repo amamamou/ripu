@@ -3,49 +3,92 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+const [mobileOpen, setMobileOpen] = useState(false);
 const [aboutOpen, setAboutOpen] = useState(false);
 const [authorsOpen, setAuthorsOpen] = useState(false);
+const [scrolled, setScrolled] = useState(false);
 
 useEffect(() => {
-  document.body.style.overflow = mobileOpen ? "hidden" : "";
+  if (mobileOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+
   return () => {
     document.body.style.overflow = "";
   };
 }, [mobileOpen]);
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#ececec]">
+<nav
+  className="
+    fixed
+    top-5
+    left-5
+    right-5
+    lg:left-6
+    lg:right-1
+    z-50
+  "
+>
+<div
+  className="
+    flex items-center justify-between
+    rounded-2xl
+    px-5 py-4
+    lg:px-10
+    backdrop-blur-xl
+    bg-white/10
+    border border-white/20
+  "
+>      {/* Left */}
+        <Link href="/" className="flex items-center gap-2">
 
-      <div className="flex items-center justify-between px-5 py-5 lg:px-16 lg:py-6">
+      <div className="origin-left scale-140">
+  <Image
+    src="/logo.png"
+    alt="RIPU26"
+    width={140}
+    height={45}
+    className="h-10 w-auto"
+    priority
+  />
+</div>
 
- <Link href="/" className="flex items-center gap-2">
+    <span
+  className={`
+    hidden md:inline-flex
+    ml-2
+    rounded-full
+    px-3
+    py-1
+    text-xs
+    transition-all
+    ${
+      scrolled
+        ? "bg-[#f5f5f5] text-black"
+        : "bg-white/20 text-black backdrop-blur-sm"
+    }
+  `}
+>
+  30–31 Octobre 2026
+</span>
 
-  <div className="origin-left scale-140">
-    <Image
-      src="/logo Ripu26 - 1.png"
-      alt="RIPU26"
-      width={140}
-      height={45}
-      className="h-10 w-auto"
-      priority
-    />
-  </div>
+        </Link>
 
-  <span className="hidden md:inline-flex ml-2 rounded-full bg-[#f5f5f5] px-3 py-1 text-xs text-black">
-    30–31 Octobre 2026
-  </span>
-
-</Link>
-
-        {/* Desktop Navigation */}
+        {/* Center Navigation */}
         <div className="hidden md:flex items-center gap-8">
 
           <Link
             href="/"
-            className="text-sm text-black transition hover:opacity-60"
+            className={`text-sm transition ${
+              scrolled
+                ? "text-black hover:opacity-60"
+                : "text-black hover:opacity-80"
+            }`}
           >
             Accueil
           </Link>
@@ -53,7 +96,13 @@ useEffect(() => {
           {/* À propos */}
           <div className="relative group">
 
-            <button className="flex items-center gap-1 text-sm text-black transition hover:opacity-60">
+            <button
+              className={`flex items-center gap-1 text-sm transition ${
+                scrolled
+                  ? "text-black hover:opacity-60"
+                  : "text-black hover:opacity-80"
+              }`}
+            >
               À propos
               <ChevronDown className="h-4 w-4" />
             </button>
@@ -95,7 +144,13 @@ useEffect(() => {
           {/* Auteurs */}
           <div className="relative group">
 
-            <button className="flex items-center gap-1 text-sm text-black transition hover:opacity-60">
+            <button
+              className={`flex items-center gap-1 text-sm transition ${
+                scrolled
+                  ? "text-black hover:opacity-60"
+                  : "text-black hover:opacity-80"
+              }`}
+            >
               Auteurs
               <ChevronDown className="h-4 w-4" />
             </button>
@@ -123,7 +178,6 @@ useEffect(() => {
                 Appel à communications
               </Link>
 
-           
               <Link
                 href="/authors#presentation"
                 className="block px-5 py-3 text-sm hover:bg-[#fafafa]"
@@ -144,149 +198,259 @@ useEffect(() => {
 
           <Link
             href="/ripu25"
-            className="text-sm text-black transition hover:opacity-60"
+            className={`text-sm transition ${
+              scrolled
+                ? "text-black hover:opacity-60"
+                : "text-black hover:opacity-80"
+            }`}
           >
             RIPU25
           </Link>
 
           <Link
             href="/contact"
-            className="text-sm text-black transition hover:opacity-60"
+            className={`text-sm transition ${
+              scrolled
+                ? "text-black hover:opacity-60"
+                : "text-black hover:opacity-80"
+            }`}
           >
             Contact
           </Link>
 
         </div>
-
-     {/* Desktop Button */}
+{/* Desktop Button */}
 <Link
   href="/registration"
-  className="hidden md:inline-flex rounded-full bg-[#f5f5f5] px-6 py-3 text-sm text-black transition hover:bg-[#ececec]"
+  className={`
+    hidden md:inline-flex
+    rounded-full
+    px-6
+    py-3
+    text-sm
+    transition-all
+    ${
+      scrolled
+        ? " text-black"
+        : " text-black "
+    }
+  `}
 >
   Soumettre une communication
 </Link>
 
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden"
-        >
-          {mobileOpen ? (
-            <X className="h-6 w-6 text-black" />
-          ) : (
-            <Menu className="h-6 w-6 text-black" />
-          )}
-        </button>
+{/* Mobile Menu */}
+<button
+  onClick={() => setMobileOpen(!mobileOpen)}
+  className="md:hidden"
+>
+  {mobileOpen ? (
+    <X
+      className={`h-6 w-6 ${
+        scrolled ? "text-black" : "text-black"
+      }`}
+    />
+  ) : (
+    <Menu
+      className={`h-6 w-6 ${
+        scrolled ? "text-black" : "text-black"
+      }`}
+    />
+  )}
+</button>
 
       </div>
 
-{mobileOpen && (
-  <div className="fixed inset-0 top-[81px] z-40 md:hidden bg-white">
-
-    <div className="px-8 py-10">
+ {mobileOpen && (
+  <div
+    className={`
+      fixed
+top-[81px]
+left-0
+right-0
+bottom-0
+overflow-hidden
+      ${
+        scrolled
+          ? "bg-white border-[#ececec]"
+          : "bg-black/30 backdrop-blur-xl border-white/10"
+      }
+    `}
+  >
+    <div className="px-5 py-10">
 
       <div className="mb-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-[#888]">
+        <p
+          className={`text-xs uppercase tracking-[0.2em] ${
+            scrolled ? "text-[#888]" : "text-black/60"
+          }`}
+        >
           RIPU26
         </p>
       </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col">
 
         <Link
           href="/"
           onClick={() => setMobileOpen(false)}
-          className="text-4xl font-light tracking-tight text-black"
+          className={`py-3 text-4xl font-light tracking-tight ${
+            scrolled ? "text-black" : "text-black"
+          }`}
         >
           Accueil
         </Link>
 
-     <div>
+        {/* À propos */}
+        <div className="py-3">
 
-  <button
-    onClick={() => setAboutOpen(!aboutOpen)}
-    className="flex w-full items-center justify-between text-4xl font-light tracking-tight text-black"
-  >
-    À propos
-    <ChevronDown
-      className={`h-5 w-5 transition-transform ${
-        aboutOpen ? "rotate-180" : ""
-      }`}
-    />
-  </button>
+          <button
+            onClick={() => setAboutOpen(!aboutOpen)}
+            className={`flex w-full items-center justify-between text-4xl font-light tracking-tight ${
+              scrolled ? "text-black" : "text-black"
+            }`}
+          >
+            À propos
 
-  {aboutOpen && (
-    <div className="mt-3 ml-1 flex flex-col gap-2">
+            <ChevronDown
+              className={`h-6 w-6 transition-transform ${
+                aboutOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
 
-      <Link href="/about" className="text-sm text-[#666]">
-        À propos de RIPU
-      </Link>
+          {aboutOpen && (
+            <div className="mt-5 ml-1 flex flex-col gap-4">
 
-      <Link href="/about#topics" className="text-sm text-[#666]">
-        Axes de la communication
-      </Link>
+              <Link
+                href="/about"
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm ${
+                  scrolled ? "text-[#666]" : "text-black/70"
+                }`}
+              >
+                À propos de RIPU
+              </Link>
 
-      <Link href="/about#speakers" className="text-sm text-[#666]">
-        Nos conférenciers
-      </Link>
+              <Link
+                href="/about#topics"
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm ${
+                  scrolled ? "text-[#666]" : "text-black/70"
+                }`}
+              >
+                Axes de la communication
+              </Link>
 
-      <Link href="/committee" className="text-sm text-[#666]">
-        Comité d'organisation
-      </Link>
+              <Link
+                href="/about#speakers"
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm ${
+                  scrolled ? "text-[#666]" : "text-black/70"
+                }`}
+              >
+                Nos conférenciers
+              </Link>
 
-    </div>
-  )}
+              <Link
+                href="/committee"
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm ${
+                  scrolled ? "text-[#666]" : "text-black/70"
+                }`}
+              >
+                Comité d'organisation
+              </Link>
 
-</div>
+            </div>
+          )}
 
-<div>
+        </div>
 
-  <button
-    onClick={() => setAuthorsOpen(!authorsOpen)}
-    className="flex w-full items-center justify-between text-4xl font-light tracking-tight text-black"
-  >
-    Auteurs
-    <ChevronDown
-      className={`h-5 w-5 transition-transform ${
-        authorsOpen ? "rotate-180" : ""
-      }`}
-    />
-  </button>
+        {/* Auteurs */}
+        <div className="py-3">
 
-  {authorsOpen && (
-    <div className="mt-3 ml-1 flex flex-col gap-2">
+          <button
+            onClick={() => setAuthorsOpen(!authorsOpen)}
+            className={`flex w-full items-center justify-between text-4xl font-light tracking-tight ${
+              scrolled ? "text-black" : "text-black"
+            }`}
+          >
+            Auteurs
 
-      <Link href="/authors#dates" className="text-sm text-[#666]">
-        Dates importantes
-      </Link>
+            <ChevronDown
+              className={`h-6 w-6 transition-transform ${
+                authorsOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
 
-      <Link href="/authors#guidelines" className="text-sm text-[#666]">
-        Directives de soumission
-      </Link>
+          {authorsOpen && (
+            <div className="mt-5 ml-1 flex flex-col gap-4">
 
-      <Link href="/authors#call" className="text-sm text-[#666]">
-        Appel à communications
-      </Link>
+              <Link
+                href="/authors#dates"
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm ${
+                  scrolled ? "text-[#666]" : "text-black/70"
+                }`}
+              >
+                Dates importantes
+              </Link>
+
+              <Link
+                href="/authors#guidelines"
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm ${
+                  scrolled ? "text-[#666]" : "text-black/70"
+                }`}
+              >
+                Directives de soumission
+              </Link>
+
+              <Link
+                href="/authors#call"
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm ${
+                  scrolled ? "text-[#666]" : "text-black/70"
+                }`}
+              >
+                Appel à communications
+              </Link>
 
     
-      <Link href="/authors#presentation" className="text-sm text-[#666]">
-        Directives de présentation
-      </Link>
 
-      <Link href="/authors#review" className="text-sm text-[#666]">
-        Processus d'évaluation
-      </Link>
+              <Link
+                href="/authors#presentation"
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm ${
+                  scrolled ? "text-[#666]" : "text-black/70"
+                }`}
+              >
+                Directives de présentation
+              </Link>
 
-    </div>
-  )}
+              <Link
+                href="/authors#review"
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm ${
+                  scrolled ? "text-[#666]" : "text-black/70"
+                }`}
+              >
+                Processus d'évaluation
+              </Link>
 
-</div>
+            </div>
+          )}
+
+        </div>
 
         <Link
           href="/ripu25"
           onClick={() => setMobileOpen(false)}
-          className="text-4xl font-light tracking-tight text-black"
+          className={`py-3 text-4xl font-light tracking-tight ${
+            scrolled ? "text-black" : "text-black"
+          }`}
         >
           RIPU25
         </Link>
@@ -294,27 +458,44 @@ useEffect(() => {
         <Link
           href="/contact"
           onClick={() => setMobileOpen(false)}
-          className="text-4xl font-light tracking-tight text-black"
+          className={`py-3 text-4xl font-light tracking-tight ${
+            scrolled ? "text-black" : "text-black"
+          }`}
         >
           Contact
         </Link>
 
       </div>
 
-      <div className="mt-12 border-t border-[#ececec] pt-8">
-
-        <p className="text-sm text-[#666]">
+      <div
+        className={`mt-12 pt-8 border-t ${
+          scrolled
+            ? "border-[#ececec]"
+            : "border-white/10"
+        }`}
+      >
+        <p
+          className={`text-sm ${
+            scrolled ? "text-[#666]" : "text-black/70"
+          }`}
+        >
           30–31 Octobre 2026
         </p>
 
-        <p className="mt-1 text-sm text-[#666]">
+        <p
+          className={`mt-1 text-sm ${
+            scrolled ? "text-[#666]" : "text-black/70"
+          }`}
+        >
           Sousse, Tunisie
         </p>
 
         <Link
           href="/registration"
           onClick={() => setMobileOpen(false)}
-          className="mt-8 inline-flex items-center gap-2 text-base font-medium text-[#2F0461]"
+          className={`mt-8 inline-flex items-center gap-2 text-sm font-medium ${
+            scrolled ? "text-[#2F0461]" : "text-black"
+          }`}
         >
           Soumettre une communication →
         </Link>
@@ -322,10 +503,8 @@ useEffect(() => {
       </div>
 
     </div>
-
   </div>
 )}
-
     </nav>
   );
 }

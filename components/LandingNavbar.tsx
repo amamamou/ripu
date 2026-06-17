@@ -37,7 +37,7 @@ useEffect(() => {
   className={`
     fixed top-0 left-0 right-0 z-50
     transition-all duration-300
-    ${scrolled ? "bg-white border-b border-[#ececec]" : "bg-transparent"}
+    ${scrolled ? "bg-white border-[#ececec]" : "bg-transparent"}
   `}
   style={{
     borderBottomColor: scrolled ? "#ececec" : "transparent",
@@ -60,7 +60,7 @@ useEffect(() => {
 
       <div className="origin-left scale-140">
   <Image
-    src="/logo Ripu26 - 1.png"
+    src="/logo.png"
     alt="RIPU26"
     width={140}
     height={45}
@@ -80,7 +80,7 @@ useEffect(() => {
     transition-all
     ${
       scrolled
-        ? "bg-[#f5f5f5] text-black"
+        ? "bg-[#f8f7fb] text-black"
         : "bg-white/20 text-white backdrop-blur-sm"
     }
   `}
@@ -242,8 +242,8 @@ useEffect(() => {
     transition-all
     ${
       scrolled
-        ? "bg-[#f5f5f5] text-black hover:bg-[#ececec]"
-        : "bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
+        ? " text-black "
+        : " text-white "
     }
   `}
 >
