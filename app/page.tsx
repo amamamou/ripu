@@ -4,7 +4,8 @@ import React from 'react';
 import TopicCard from '@/components/TopicCard';
 import Hero from '@/components/hero';
 import { AboutSection } from '@/components/about-section';
-import { AxeAccordion } from '@/components/AxeAccordion';
+import { AxesSection } from '@/components/AxesSection';
+import { TestimonialsSection } from '@/components/TestimonialsSection';
 import {
   FilePenLine,
   MailCheck,
@@ -134,79 +135,7 @@ export default function HomePage() {
 
 
 {/* Topics Section - Accordion Layout */}
-<section className="bg-white py-24 md:py-32">
-
-  <div className="px-8 lg:px-16">
-
-    {/* Header */}
-    <div className="mb-20 md:mb-24">
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
-        <div>
-          <div className="label-text mb-6">
-            THÉMATIQUES
-          </div>
-
-          <h2 className="max-w-5xl text-5xl md:text-6xl font-light leading-tight tracking-tight text-black">
-            Les axes du colloque
-          </h2>
-
-          <p className="mt-8 max-w-2xl text-lg leading-8 text-[#666]">
-            RIPU26 accueille des contributions portant sur les usages de
-            l&apos;intelligence artificielle en éducation, l&apos;innovation
-            pédagogique et les enjeux contemporains de l&apos;enseignement
-            supérieur.
-          </p>
-        </div>
-
-        <Link
-          href="/authors#call"
-          className="group flex items-center gap-2 text-sm font-medium text-[#2F0461] hover:text-[#1B1142] transition-colors shrink-0"
-        >
-          Appel à communications
-          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </Link>
-      </div>
-    </div>
-
-    {/* Accordion Topics */}
-    <div className="space-y-4">
-      <AxeAccordion
-        axe={1}
-        iconType="brain"
-        title="Intelligence Artificielle Générative & Enseignement"
-        items={[
-          "L'IAG comme tuteur d'apprentissage",
-          "L'IAG et le geste enseignant",
-          "L'IAG pour la correction des examens",
-          "Les effets de l'IAG sur les apprentissages",
-          "L'IAG et la vie étudiante",
-          "L'avenir de l'enseignement supérieur à l'ère de l'IAG",
-          "Les plans d'études à l'heure de l'IAG"
-        ]}
-      />
-      <AxeAccordion
-        axe={2}
-        iconType="graduation"
-        title="Approches Pédagogiques"
-        items={[
-          "L'approche par compétences (APC)",
-          "Les plans d'études à l'ère de l'IA et de l'APC",
-          "La gamification comme levier d'apprentissage"
-        ]}
-      />
-      <AxeAccordion
-        axe={3}
-        iconType="users"
-        title="Genre & Éducation"
-        items={[
-          "La place des femmes dans l'éducation"
-        ]}
-      />
-    </div>
-
-  </div>
-
-</section>
+<AxesSection/>
 
 
 
@@ -321,72 +250,7 @@ export default function HomePage() {
 
 
 {/* Testimonials Section */}
-<section className="bg-white py-24 md:py-32">
-  <div className="px-8 lg:px-16">
-
-    {/* Header */}
-    <div className="mb-20">
-      <div className="label-text mb-4">
-        TÉMOIGNAGES
-      </div>
-
-      <h2 className="text-5xl md:text-6xl font-light tracking-tight text-black">
-        Ce qu&apos;ils retiennent de RIPU25
-      </h2>
-
-      <p className="mt-6 max-w-2xl text-lg leading-8 text-[#666]">
-        Des retours d&apos;expérience de participants ayant contribué à faire
-        de RIPU un espace d&apos;échange, de réflexion et d&apos;innovation pédagogique.
-      </p>
-    </div>
-
-    {/* Testimonials Grid */}
-    <div className="grid md:grid-cols-2 gap-8">
-
-      {testimonials.map((testimonial, idx) => (
-        <div
-          key={idx}
-          className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white to-[#fafafa] p-8 md:p-10 shadow-sm hover:shadow-lg transition-all duration-300"
-          style={{borderTop: "2px solid #2F0461"}}
-        >
-          <div className="flex items-start gap-6 mb-8">
-            <div className="h-16 w-16 rounded-full overflow-hidden shrink-0 shadow-md">
-              <Image
-                src={testimonial.image}
-                alt={testimonial.name}
-                width={64}
-                height={64}
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="flex-1">
-              <p className="font-semibold text-black">
-                {testimonial.name}
-              </p>
-              <p className="text-sm text-[#2F0461] font-medium">
-                {testimonial.institution}
-              </p>
-            </div>
-          </div>
-
-          <p className="text-base leading-8 text-[#666] mb-8 italic">
-            &ldquo;{testimonial.quote}&rdquo;
-          </p>
-
-          <Link
-            href="#"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[#2F0461] hover:text-[#1B1142] transition-colors"
-          >
-            En savoir plus
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </div>
-      ))}
-
-    </div>
-
-  </div>
-</section>
+<TestimonialsSection/>
     </>
   );
 }

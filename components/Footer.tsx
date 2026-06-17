@@ -59,35 +59,35 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="mb-6 text-sm font-semibold text-white tracking-wide">
+            <h4 className="mb-6 text-sm font-semibold text-white/90 tracking-wide">
               Navigation
             </h4>
 
             <div className="space-y-4">
               <Link
                 href="/"
-                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
+                className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 Accueil
               </Link>
 
               <Link
                 href="/about"
-                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
+                className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 À propos
               </Link>
 
               <Link
                 href="/committee"
-                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
+                className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 Comité scientifique
               </Link>
 
               <Link
                 href="/contact"
-                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
+                className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 Contact
               </Link>
@@ -96,35 +96,35 @@ export default function Footer() {
 
           {/* Programme */}
           <div>
-            <h4 className="mb-6 text-sm font-semibold text-white tracking-wide">
+            <h4 className="mb-6 text-sm font-semibold text-white/90 tracking-wide">
               Programme
             </h4>
 
             <div className="space-y-4">
               <Link
                 href="/authors"
-                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
+                className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 Appel à communications
               </Link>
 
               <Link
                 href="/topics"
-                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
+                className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 Thématiques
               </Link>
 
               <Link
                 href="/speakers"
-                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
+                className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 Intervenants
               </Link>
 
               <Link
                 href="/registration"
-                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
+                className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 Inscription
               </Link>
@@ -133,24 +133,24 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="mb-6 text-sm font-semibold text-white tracking-wide">
+            <h4 className="mb-6 text-sm font-semibold text-white/90 tracking-wide">
               Contact
             </h4>
 
-            <div className="space-y-4 text-sm text-white/60">
+            <div className="space-y-4 text-sm text-white/70">
               <div>
-                <p className="text-white/40 text-xs uppercase tracking-wide mb-1">Email</p>
-                <p>contact@ripu26.org</p>
+                <p className="text-white/50 text-xs uppercase tracking-wide mb-1">Email</p>
+                <p className="text-white/80 font-medium">contact@ripu26.org</p>
               </div>
 
               <div>
-                <p className="text-white/40 text-xs uppercase tracking-wide mb-1">Lieu</p>
-                <p>Sousse, Tunisie</p>
+                <p className="text-white/50 text-xs uppercase tracking-wide mb-1">Lieu</p>
+                <p className="text-white/80 font-medium">Sousse, Tunisie</p>
               </div>
 
               <div>
-                <p className="text-white/40 text-xs uppercase tracking-wide mb-1">Dates</p>
-                <p>30–31 Octobre 2026</p>
+                <p className="text-white/50 text-xs uppercase tracking-wide mb-1">Dates</p>
+                <p className="text-white/80 font-medium">30–31 Octobre 2026</p>
               </div>
             </div>
           </div>
@@ -158,21 +158,21 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/40">
+          <p className="text-xs text-white/60">
             © 2026 RIPU26. Tous droits réservés.
           </p>
 
           <div className="flex gap-8">
             <Link
               href="/legal"
-              className="text-xs text-white/40 hover:text-[#a33ac2] transition-colors"
+              className="text-xs text-white/60 hover:text-white transition-colors"
             >
               Mentions légales
             </Link>
 
             <Link
               href="/privacy"
-              className="text-xs text-white/40 hover:text-[#a33ac2] transition-colors"
+              className="text-xs text-white/60 hover:text-white transition-colors"
             >
               Confidentialité
             </Link>
