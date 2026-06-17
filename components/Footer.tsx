@@ -11,179 +11,172 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#ececec] bg-white">
-      <div className="px-8 lg:px-16  py-20">
+    <footer className="bg-gradient-to-b from-[#0f0a1a] to-[#1a0f2e] text-white">
+      <div className="px-8 lg:px-16 py-20">
 
         <div className="grid gap-14 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
 
-{/* Left Brand */}
-<div className="flex flex-col pt-16">
+          {/* Left Brand */}
+          <div className="flex flex-col">
+            <h2 className="text-5xl md:text-6xl font-light leading-none tracking-tight bg-gradient-to-r from-white to-[#a33ac2] bg-clip-text text-transparent">
+              RIPU26
+            </h2>
 
-  <h2 className="text-6xl md:text-7xl font-black leading-none tracking-[-0.08em] text-[#0a0a0a]">
-    RIPU26
-  </h2>
+            <p className="mt-4 text-white/60 text-sm leading-relaxed max-w-xs">
+              Rencontre Internationale de la Pédagogie Universitaire — Sousse, Tunisie
+            </p>
 
-  <div className="mt-5 flex items-center gap-5">
+            <div className="mt-8 flex items-center gap-6">
+              <Link
+                href="https://instagram.com"
+                className="text-white/60 hover:text-[#a33ac2] transition-colors"
+              >
+                <FaInstagram size={20} />
+              </Link>
 
-    <Link
-      href="https://instagram.com"
-      className="text-[#0a0a0a] transition-colors hover:text-[#2F0461]"
-    >
-      <FaInstagram size={18} />
-    </Link>
+              <Link
+                href="https://facebook.com"
+                className="text-white/60 hover:text-[#a33ac2] transition-colors"
+              >
+                <FaFacebookF size={20} />
+              </Link>
 
-    <Link
-      href="https://facebook.com"
-      className="text-[#0a0a0a] transition-colors hover:text-[#2F0461]"
-    >
-      <FaFacebookF size={18} />
-    </Link>
+              <Link
+                href="https://linkedin.com"
+                className="text-white/60 hover:text-[#a33ac2] transition-colors"
+              >
+                <FaLinkedinIn size={20} />
+              </Link>
 
-    <Link
-      href="https://linkedin.com"
-      className="text-[#0a0a0a] transition-colors hover:text-[#2F0461]"
-    >
-      <FaLinkedinIn size={18} />
-    </Link>
-
-    <Link
-      href="https://youtube.com"
-      className="text-[#0a0a0a] transition-colors hover:text-[#2F0461]"
-    >
-      <FaYoutube size={18} />
-    </Link>
-
-  </div>
-
-</div>
+              <Link
+                href="https://youtube.com"
+                className="text-white/60 hover:text-[#a33ac2] transition-colors"
+              >
+                <FaYoutube size={20} />
+              </Link>
+            </div>
+          </div>
 
           {/* Navigation */}
           <div>
-            <h4 className="mb-5 text-sm font-semibold text-black">
+            <h4 className="mb-6 text-sm font-semibold text-white tracking-wide">
               Navigation
             </h4>
 
-            <div className="space-y-3">
-
+            <div className="space-y-4">
               <Link
                 href="/"
-                className="block text-sm text-[#666] hover:text-[#2F0461]"
+                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
               >
                 Accueil
               </Link>
 
               <Link
                 href="/about"
-                className="block text-sm text-[#666] hover:text-[#2F0461]"
+                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
               >
                 À propos
               </Link>
 
               <Link
                 href="/committee"
-                className="block text-sm text-[#666] hover:text-[#2F0461]"
+                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
               >
                 Comité scientifique
               </Link>
 
               <Link
                 href="/contact"
-                className="block text-sm text-[#666] hover:text-[#2F0461]"
+                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
               >
                 Contact
               </Link>
-
             </div>
           </div>
 
           {/* Programme */}
           <div>
-            <h4 className="mb-5 text-sm font-semibold text-black">
+            <h4 className="mb-6 text-sm font-semibold text-white tracking-wide">
               Programme
             </h4>
 
-            <div className="space-y-3">
-
+            <div className="space-y-4">
               <Link
                 href="/authors"
-                className="block text-sm text-[#666] hover:text-[#2F0461]"
+                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
               >
                 Appel à communications
               </Link>
 
               <Link
                 href="/topics"
-                className="block text-sm text-[#666] hover:text-[#2F0461]"
+                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
               >
                 Thématiques
               </Link>
 
               <Link
                 href="/speakers"
-                className="block text-sm text-[#666] hover:text-[#2F0461]"
+                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
               >
                 Intervenants
               </Link>
 
               <Link
                 href="/registration"
-                className="block text-sm text-[#666] hover:text-[#2F0461]"
+                className="block text-sm text-white/60 hover:text-[#a33ac2] transition-colors"
               >
                 Inscription
               </Link>
-
             </div>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="mb-5 text-sm font-semibold text-black">
+            <h4 className="mb-6 text-sm font-semibold text-white tracking-wide">
               Contact
             </h4>
 
-            <div className="space-y-3 text-sm text-[#666]">
+            <div className="space-y-4 text-sm text-white/60">
+              <div>
+                <p className="text-white/40 text-xs uppercase tracking-wide mb-1">Email</p>
+                <p>contact@ripu26.org</p>
+              </div>
 
-              <p>contact@ripu26.org</p>
+              <div>
+                <p className="text-white/40 text-xs uppercase tracking-wide mb-1">Lieu</p>
+                <p>Sousse, Tunisie</p>
+              </div>
 
-              <p>
-                Sousse
-                <br />
-                Tunisie
-              </p>
-
-              <p>
-                30–31 Octobre 2026
-              </p>
-
+              <div>
+                <p className="text-white/40 text-xs uppercase tracking-wide mb-1">Dates</p>
+                <p>30–31 Octobre 2026</p>
+              </div>
             </div>
           </div>
 
         </div>
 
-        <div className="mt-16 border-t border-[#ececec] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-
-          <p className="text-xs text-[#666]">
-            © 2026 RIPU26
+        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-white/40">
+            © 2026 RIPU26. Tous droits réservés.
           </p>
 
-          <div className="flex gap-6">
-
+          <div className="flex gap-8">
             <Link
               href="/legal"
-              className="text-xs text-[#666] hover:text-[#2F0461]"
+              className="text-xs text-white/40 hover:text-[#a33ac2] transition-colors"
             >
               Mentions légales
             </Link>
 
             <Link
               href="/privacy"
-              className="text-xs text-[#666] hover:text-[#2F0461]"
+              className="text-xs text-white/40 hover:text-[#a33ac2] transition-colors"
             >
               Confidentialité
             </Link>
-
           </div>
-
         </div>
 
       </div>

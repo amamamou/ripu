@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
 import TopicCard from '@/components/TopicCard';
 import Hero from '@/components/hero';
 import { AboutSection } from '@/components/about-section';
+import { AxeAccordion } from '@/components/AxeAccordion';
 import {
   FilePenLine,
   MailCheck,
@@ -57,7 +59,7 @@ export default function HomePage() {
      
 
 
-<section className="bg-white py-24 md:py-32 border-t border-[#ececec]">
+<section className="bg-white py-24 md:py-32">
   <div className="px-8 lg:px-16 ">
 
     {/* Header */}
@@ -76,7 +78,7 @@ export default function HomePage() {
     </div>
 
     {/* Timeline */}
-    <div className="grid md:grid-cols-5 border border-[#ececec]">
+    <div className="grid md:grid-cols-5 gap-6">
 
 {[
   {
@@ -110,15 +112,16 @@ export default function HomePage() {
         return (
           <div
             key={idx}
-            className="border-b md:border-b-0 md:border-r last:border-r-0 border-[#ececec] p-6"
+            className="group p-6 rounded-2xl bg-gradient-to-br from-[#fafafa] to-white hover:from-[#f5f2ff] hover:to-[#faf8ff] transition-all duration-300"
+            style={{boxShadow: "0 4px 12px rgba(0, 0, 0, 0.04)"}}
           >
-            <Icon className="h-4 w-4 text-[#2F0461] mb-6" />
+            <Icon className="h-5 w-5 text-[#2F0461] mb-6 group-hover:scale-110 transition-transform" />
 
-            <div className="text-xs uppercase tracking-[0.15em] text-[#666] mb-3">
+            <div className="text-xs uppercase tracking-[0.15em] text-[#999] mb-3 font-medium">
               {item.date}
             </div>
 
-            <div className="text-base font-medium text-black leading-snug">
+            <div className="text-base font-light text-black leading-snug">
               {item.event}
             </div>
           </div>
@@ -130,176 +133,76 @@ export default function HomePage() {
 </section>
 
 
-
-
-
-
-
-
-
-{/* Topics Section */}
-{/* Topics Section */}
-<section className="bg-white py-24 md:py-32 border-t border-[#ececec]">
+{/* Topics Section - Accordion Layout */}
+<section className="bg-white py-24 md:py-32">
 
   <div className="px-8 lg:px-16">
 
-{/* Header */}
+    {/* Header */}
+    <div className="mb-20 md:mb-24">
+      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+        <div>
+          <div className="label-text mb-6">
+            THÉMATIQUES
+          </div>
 
-<div className="mb-20 md:mb-24">
+          <h2 className="max-w-5xl text-5xl md:text-6xl font-light leading-tight tracking-tight text-black">
+            Les axes du colloque
+          </h2>
 
-  <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+          <p className="mt-8 max-w-2xl text-lg leading-8 text-[#666]">
+            RIPU26 accueille des contributions portant sur les usages de
+            l&apos;intelligence artificielle en éducation, l&apos;innovation
+            pédagogique et les enjeux contemporains de l&apos;enseignement
+            supérieur.
+          </p>
+        </div>
 
-    <div>
-
-      <div className="label-text mb-6">
-        THÉMATIQUES
+        <Link
+          href="/authors#call"
+          className="group flex items-center gap-2 text-sm font-medium text-[#2F0461] hover:text-[#1B1142] transition-colors shrink-0"
+        >
+          Appel à communications
+          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </Link>
       </div>
-
-      <h2 className="max-w-5xl text-5xl md:text-7xl lg:text-8xl font-light leading-[0.92] tracking-tight text-black">
-        Les axes du colloque
-      </h2>
-
-      <p className="mt-8 max-w-2xl text-lg leading-8 text-[#666]">
-        RIPU26 accueille des contributions portant sur les usages de
-        l’intelligence artificielle en éducation, l’innovation
-        pédagogique et les enjeux contemporains de l’enseignement
-        supérieur.
-      </p>
-
     </div>
 
-    <Link
-      href="/authors#call"
-      className="
-        group
-        flex
-        items-center
-        gap-2
-        text-sm
-        font-medium
-        text-[#2F0461]
-        hover:text-[#1B1142]
-        transition-colors
-        shrink-0
-      "
-    >
-      Appel à communications
-
-      <ArrowUpRight
-        className="
-          h-4
-          w-4
-          transition-transform
-          group-hover:-translate-y-0.5
-          group-hover:translate-x-0.5
-        "
+    {/* Accordion Topics */}
+    <div className="space-y-4">
+      <AxeAccordion
+        axe={1}
+        iconType="brain"
+        title="Intelligence Artificielle Générative & Enseignement"
+        items={[
+          "L'IAG comme tuteur d'apprentissage",
+          "L'IAG et le geste enseignant",
+          "L'IAG pour la correction des examens",
+          "Les effets de l'IAG sur les apprentissages",
+          "L'IAG et la vie étudiante",
+          "L'avenir de l'enseignement supérieur à l'ère de l'IAG",
+          "Les plans d'études à l'heure de l'IAG"
+        ]}
       />
-    </Link>
-
-  </div>
-
-</div>
-
-{/* Topics */}
-
-<div className="grid gap-6 lg:grid-cols-3">
-
-  {/* Axe 01 */}
-
-  <div className="border border-[#ececec] p-8">
-
-    <div className="flex items-center justify-between mb-8">
-
-      <Brain className="h-5 w-5 text-[#2F0461]" />
-
-      <span className="text-xs uppercase tracking-[0.15em] text-[#999]">
-        Axe 01
-      </span>
-
+      <AxeAccordion
+        axe={2}
+        iconType="graduation"
+        title="Approches Pédagogiques"
+        items={[
+          "L'approche par compétences (APC)",
+          "Les plans d'études à l'ère de l'IA et de l'APC",
+          "La gamification comme levier d'apprentissage"
+        ]}
+      />
+      <AxeAccordion
+        axe={3}
+        iconType="users"
+        title="Genre & Éducation"
+        items={[
+          "La place des femmes dans l'éducation"
+        ]}
+      />
     </div>
-
-    <h3 className="text-2xl font-light text-black mb-6">
-      Intelligence Artificielle Générative & Enseignement
-    </h3>
-
-    <div className="space-y-3 text-[#666]">
-
-      <p>L'IAG comme tuteur d'apprentissage</p>
-
-      <p>L'IAG et le geste enseignant</p>
-
-      <p>L'IAG pour la correction des examens</p>
-
-      <p>Les effets de l'IAG sur les apprentissages</p>
-
-      <p>L'IAG et la vie étudiante</p>
-
-      <p>L'avenir de l'enseignement supérieur à l'ère de l'IAG</p>
-
-      <p>Les plans d'études à l'heure de l'IAG</p>
-
-    </div>
-
-  </div>
-
-  {/* Axe 02 */}
-
-  <div className="border border-[#ececec] p-8">
-
-    <div className="flex items-center justify-between mb-8">
-
-      <GraduationCap className="h-5 w-5 text-[#2F0461]" />
-
-      <span className="text-xs uppercase tracking-[0.15em] text-[#999]">
-        Axe 02
-      </span>
-
-    </div>
-
-    <h3 className="text-2xl font-light text-black mb-6">
-      Approches Pédagogiques
-    </h3>
-
-    <div className="space-y-3 text-[#666]">
-
-      <p>L'approche par compétences (APC)</p>
-
-      <p>Les plans d'études à l'ère de l'IA et de l'APC</p>
-
-      <p>La gamification comme levier d'apprentissage</p>
-
-    </div>
-
-  </div>
-
-  {/* Axe 03 */}
-
-  <div className="border border-[#ececec] p-8">
-
-    <div className="flex items-center justify-between mb-8">
-
-      <Users className="h-5 w-5 text-[#2F0461]" />
-
-      <span className="text-xs uppercase tracking-[0.15em] text-[#999]">
-        Axe 03
-      </span>
-
-    </div>
-
-    <h3 className="text-2xl font-light text-black mb-6">
-      Genre & Éducation
-    </h3>
-
-    <div className="space-y-3 text-[#666]">
-
-      <p>La place des femmes dans l'éducation</p>
-
-    </div>
-
-  </div>
-
-</div>
-
 
   </div>
 
@@ -311,120 +214,100 @@ export default function HomePage() {
 
 
       {/* Previous Edition Section */}
-      <section className="bg-white py-24 md:py-32 border-t border-[#e8e8e8]">
+      <section className="bg-white py-24 md:py-32">
         <div className="px-8 lg:px-16 ">
-          <div className="text-center mb-16">
+          <div className="mb-16">
             <div className="label-text mb-4">ÉDITION PRÉCÉDENTE</div>
-            <h2 className="text-5xl md:text-6xl font-bold text-black mb-4">RIPU25 - Édition Précédente</h2>
+            <h2 className="text-5xl md:text-6xl font-light text-black">RIPU25</h2>
           </div>
-<div className="grid md:grid-cols-3 gap-6 mb-12">
-  {[
-    '/ripu/2.png',
-    '/ripu/1.png',
-    '/ripu/3.png',
-  ].map((img, idx) => (
-    <div
-      key={idx}
-      className="relative w-full h-64 rounded-lg overflow-hidden bg-[#f9f9f9]"
-    >
-      <Image
-        src={img}
-        alt={`RIPU25 moment ${idx + 1}`}
-        fill
-        className={`object-cover hover:opacity-80 transition-smooth ${
-          img === "/ripu/1.png" ? "object-top" : "object-center"
-        }`}
-      />
-    </div>
-  ))}
-</div>
 
-<div className="border border-[#ececec]">
+          {/* Main Content Grid */}
+          <div className="grid lg:grid-cols-5 gap-8 items-start">
+            {/* Left - Large Image + Text */}
+            <div className="lg:col-span-3 space-y-6">
+              <div className="relative w-full h-96 lg:h-full rounded-2xl overflow-hidden shadow-lg min-h-80">
+                <Image
+                  src="/ripu/1.png"
+                  alt="RIPU25 event"
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
 
-  <div className="border-b border-[#ececec] p-8 md:p-12">
-    <div className="label-text mb-4">
-      RIPU25
-    </div>
+              <div>
+                <div className="label-text mb-3">RIPU25</div>
+                <h3 className="text-3xl md:text-4xl font-light tracking-tight text-black mb-4">
+                  L&apos;enseignement universitaire à l&apos;ère de l&apos;IA
+                </h3>
+                <p className="text-lg leading-8 text-[#666] max-w-xl">
+                  Deux journées d&apos;échanges, de conférences et d&apos;ateliers consacrés
+                  à l&apos;innovation pédagogique, l&apos;intelligence artificielle et les
+                  transformations de l&apos;enseignement supérieur.
+                </p>
+              </div>
+            </div>
 
-    <h3 className="text-4xl md:text-5xl font-light tracking-tight text-black">
-      L'enseignement universitaire à l'ère de l'IA
-    </h3>
+            {/* Right - Stats + Images */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { number: "4", label: "Experts invités" },
+                  { number: "3", label: "Conférences" },
+                  { number: "3", label: "Workshops" },
+                  { number: "2", label: "Jours d'échanges" },
+                ].map((stat, idx) => (
+                  <div key={idx} className="p-6 rounded-2xl bg-gradient-to-br from-[#f5f2ff] to-[#faf8ff] text-center">
+                    <div className="text-3xl font-light text-[#2F0461] mb-2">
+                      {stat.number}
+                    </div>
+                    <div className="text-xs uppercase tracking-[0.1em] text-[#666] font-medium">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-    <p className="mt-4 max-w-2xl text-[#666] leading-8">
-      Deux journées d’échanges, de conférences et d’ateliers consacrés
-      à l’innovation pédagogique, l’intelligence artificielle et les
-      transformations de l’enseignement supérieur.
-    </p>
-  </div>
+              {/* Small Images */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="relative h-32 rounded-xl overflow-hidden shadow-md">
+                  <Image
+                    src="/ripu/2.png"
+                    alt="RIPU25 moment"
+                    fill
+                    className="object-cover hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+                <div className="relative h-32 rounded-xl overflow-hidden shadow-md">
+                  <Image
+                    src="/ripu/3.png"
+                    alt="RIPU25 moment"
+                    fill
+                    className="object-cover hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+              </div>
 
-  <div className="grid md:grid-cols-4">
-
-    <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-[#ececec]">
-      <div className="text-5xl font-light text-black">
-        4
-      </div>
-
-      <div className="mt-3 text-sm uppercase tracking-[0.15em] text-[#666]">
-        Experts invités
-      </div>
-    </div>
-
-    <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-[#ececec]">
-      <div className="text-5xl font-light text-black">
-        3
-      </div>
-
-      <div className="mt-3 text-sm uppercase tracking-[0.15em] text-[#666]">
-        Conférences
-      </div>
-    </div>
-
-    <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-[#ececec]">
-      <div className="text-5xl font-light text-black">
-        3
-      </div>
-
-      <div className="mt-3 text-sm uppercase tracking-[0.15em] text-[#666]">
-        Workshops
-      </div>
-    </div>
-
-    <div className="p-8 md:p-10">
-      <div className="text-5xl font-light text-black">
-        2
-      </div>
-
-      <div className="mt-3 text-sm uppercase tracking-[0.15em] text-[#666]">
-        Jours d'échanges
-      </div>
-    </div>
-
-  </div>
-
-  <div className="border-t border-[#ececec] p-8 flex items-center justify-between">
-
-    <div>
-      <div className="text-xs uppercase tracking-[0.15em] text-[#999]">
-        Sousse, Tunisie
-      </div>
-
-      <div className="mt-2 text-black">
-        Marriott Resort & Spa • 30–31 Mai 2025
-      </div>
-    </div>
-
-    <Link
-      href="/ripu25"
-      className="inline-flex items-center gap-2 text-sm font-medium text-[#2F0461] hover:text-[#1B1142] transition-colors"
-    >
-      Explorer RIPU25 →
-    </Link>
-
-  </div>
-
-</div>
-
-
+              {/* Info Box */}
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-[#2F0461] to-[#a33ac2] text-white">
+                <div className="text-xs uppercase tracking-[0.15em] text-white/70 font-medium mb-2">
+                  Sousse, Tunisie
+                </div>
+                <div className="text-lg font-light mb-4">
+                  Marriott Resort & Spa
+                </div>
+                <div className="text-sm text-white/80 mb-6">
+                  30–31 Mai 2025
+                </div>
+                <Link
+                  href="/ripu25"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-white/80 transition-colors"
+                >
+                  Explorer RIPU25 →
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -438,7 +321,7 @@ export default function HomePage() {
 
 
 {/* Testimonials Section */}
-<section className="bg-white py-24 md:py-32 border-t border-[#ececec]">
+<section className="bg-white py-24 md:py-32">
   <div className="px-8 lg:px-16">
 
     {/* Header */}
@@ -448,152 +331,57 @@ export default function HomePage() {
       </div>
 
       <h2 className="text-5xl md:text-6xl font-light tracking-tight text-black">
-        Ce qu'ils retiennent de RIPU25
+        Ce qu&apos;ils retiennent de RIPU25
       </h2>
 
       <p className="mt-6 max-w-2xl text-lg leading-8 text-[#666]">
-        Des retours d'expérience de participants ayant contribué à faire
-        de RIPU un espace d'échange, de réflexion et d'innovation pédagogique.
+        Des retours d&apos;expérience de participants ayant contribué à faire
+        de RIPU un espace d&apos;échange, de réflexion et d&apos;innovation pédagogique.
       </p>
     </div>
 
-    {/* Testimonials */}
-    <div className="border border-[#ececec]">
+    {/* Testimonials Grid */}
+    <div className="grid md:grid-cols-2 gap-8">
 
-      <div className="grid lg:grid-cols-4">
-
-        {/* Maher */}
-        <div className="p-8 border-b lg:border-b-0 lg:border-r border-[#ececec]">
-          <div className="text-3xl text-[#2F0461] mb-6">
-            “
-          </div>
-
-          <p className="text-sm leading-8 text-[#666] min-h-[220px]">
-            RIPU25 a su allier rigueur scientifique et échanges authentiques.
-            Les sessions étaient soigneusement organisées et ont offert des
-            approches pratiques que j&apos;ai immédiatement appliquées à mon
-            enseignement.
-          </p>
-
-          <div className="mt-8 pt-6 border-t border-[#ececec] flex items-center gap-4">
-            <Image
-  src="/maher.png"
-  alt="Maher Abdelli"
-  width={48}
-  height={48}
-  className="w-12 h-12 object-cover rounded-lg shrink-0"
-/>
-
-            <div>
-              <p className="font-medium text-black">
-                Maher Abdelli
+      {testimonials.map((testimonial, idx) => (
+        <div
+          key={idx}
+          className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white to-[#fafafa] p-8 md:p-10 shadow-sm hover:shadow-lg transition-all duration-300"
+          style={{borderTop: "2px solid #2F0461"}}
+        >
+          <div className="flex items-start gap-6 mb-8">
+            <div className="h-16 w-16 rounded-full overflow-hidden shrink-0 shadow-md">
+              <Image
+                src={testimonial.image}
+                alt={testimonial.name}
+                width={64}
+                height={64}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="flex-1">
+              <p className="font-semibold text-black">
+                {testimonial.name}
               </p>
-
-              <p className="text-sm text-[#666]">
-                ISET Kairouan
+              <p className="text-sm text-[#2F0461] font-medium">
+                {testimonial.institution}
               </p>
             </div>
           </div>
-        </div>
 
-        {/* Rym */}
-        <div className="p-8 border-b lg:border-b-0 lg:border-r border-[#ececec]">
-          <div className="text-3xl text-[#2F0461] mb-6">
-            “
-          </div>
-
-          <p className="text-sm leading-8 text-[#666] min-h-[220px]">
-            Un programme réfléchi : les ateliers étaient pratiques et les
-            conférences ont offert des cadres clairs pour l&apos;IA éthique
-            dans l&apos;évaluation. Une expérience enrichissante et utile.
+          <p className="text-base leading-8 text-[#666] mb-8 italic">
+            &ldquo;{testimonial.quote}&rdquo;
           </p>
 
-          <div className="mt-8 pt-6 border-t border-[#ececec] flex items-center gap-4">
-           <Image
-  src="/rym.png"
-  alt="Rym Mallouli"
-  width={48}
-  height={48}
-  className="w-12 h-12 object-cover rounded-lg shrink-0"
-/>
-
-            <div>
-              <p className="font-medium text-black">
-                Rym Mallouli
-              </p>
-
-              <p className="text-sm text-[#666]">
-                Université de Sousse
-              </p>
-            </div>
-          </div>
+          <Link
+            href="#"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#2F0461] hover:text-[#1B1142] transition-colors"
+          >
+            En savoir plus
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
         </div>
-
-        {/* Fattouma */}
-        <div className="p-8 border-b lg:border-b-0 lg:border-r border-[#ececec]">
-          <div className="text-3xl text-[#2F0461] mb-6">
-            “
-          </div>
-
-          <p className="text-sm leading-8 text-[#666] min-h-[220px]">
-            Un rythme posé, intense en idées. Les conversations ont mûri
-            en stratégies concrètes pour la pratique pédagogique dans un
-            environnement professionnel et stimulant.
-          </p>
-
-          <div className="mt-8 pt-6 border-t border-[#ececec] flex items-center gap-4">
-            <Image
-  src="/fattouma.png"
-  alt="Fattouma Mzali"
-  width={48}
-  height={48}
-  className="w-12 h-12 object-cover rounded-lg shrink-0"
-/>
-            <div>
-              <p className="font-medium text-black">
-                Fattouma Mzali
-              </p>
-
-              <p className="text-sm text-[#666]">
-                ISET Rades
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Syrine */}
-        <div className="p-8">
-          <div className="text-3xl text-[#2F0461] mb-6">
-            “
-          </div>
-
-          <p className="text-sm leading-8 text-[#666] min-h-[220px]">
-            Une expérience marquante qui a permis de découvrir de nouvelles
-            approches pédagogiques, d’échanger avec des collègues inspirants
-            et de réfléchir à l’avenir de l’enseignement supérieur.
-          </p>
-
-          <div className="mt-8 pt-6 border-t border-[#ececec] flex items-center gap-4">
-            <Image
-  src="/syrine.png"
-  alt="Syrine Bousetta"
-  width={48}
-  height={48}
-  className="w-12 h-12 object-cover rounded-lg shrink-0"
-/>
-            <div>
-              <p className="font-medium text-black">
-                Syrine Bousetta
-              </p>
-
-              <p className="text-sm text-[#666]">
-                ISLM Monastir
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      ))}
 
     </div>
 
