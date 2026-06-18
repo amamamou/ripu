@@ -3,7 +3,7 @@ import Link from 'next/link';
 import PageHero from '@/components/PageHero';
 import TopicCard from '@/components/TopicCard';
 import CommitteeCard from '@/components/CommitteeCard';
-import Navbar from '@/components/Navbar'
+import {Navbar} from '@/components/Navbar'
 import { Header } from '@/components/header';
 
 const topics = [
@@ -51,7 +51,7 @@ const speakers = [
 export default function AboutPage() {
   return (
     <>
-   <Header/>
+   <Navbar/>
   
 
       {/* About Section */}

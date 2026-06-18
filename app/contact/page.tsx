@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
+import {Navbar} from '@/components/Navbar'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ export default function ContactPage() {
         <Navbar/>
      
 
-    <section className="bg-white py-24 md:py-32">
+    <section className="bg-white  mt-20  py-24 md:py-32">
 
   <div className="px-8 lg:px-16">
 

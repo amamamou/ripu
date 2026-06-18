@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -72,6 +71,7 @@ export function Header() {
         >
 
           {/* Logo */}
+
           <Link href="/" className="flex items-center gap-4">
 
             <Image
@@ -83,31 +83,61 @@ export function Header() {
             />
 
             <div>
-              <div className="font-extrabold text-black text-xl">
+
+              <div
+                className={`
+                  text-xl
+                  font-extrabold
+                  transition-colors
+                  duration-500
+                  ${
+                    scrolled
+                      ? 'text-black'
+                      : 'text-white'
+                  }
+                `}
+              >
                 RIPU26
               </div>
 
-              <div className="text-xs text-black/60">
+              <div
+                className={`
+                  text-xs
+                  transition-colors
+                  duration-500
+                  ${
+                    scrolled
+                      ? 'text-black/60'
+                      : 'text-white/70'
+                  }
+                `}
+              >
                 Sousse · 30–31 Octobre 2026
               </div>
+
             </div>
 
           </Link>
 
           {/* Navigation */}
+
           <nav className="hidden xl:flex items-center gap-8">
 
             {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="
+                className={`
                   text-[15px]
                   font-medium
-                  text-black
-                  hover:text-[#2F0461]
                   transition-colors
-                "
+                  duration-500
+                  ${
+                    scrolled
+                      ? 'text-black hover:text-[#2F0461]'
+                      : 'text-white hover:text-white/80'
+                  }
+                `}
               >
                 {item.label}
               </Link>
@@ -116,9 +146,10 @@ export function Header() {
           </nav>
 
           {/* CTA */}
+
           <Link
             href="/authors"
-            className="
+            className={`
               group
               flex
               items-center
@@ -128,10 +159,14 @@ export function Header() {
               py-3
               text-sm
               font-semibold
-              text-black
               transition-colors
-              hover:text-[#2F0461]
-            "
+              duration-500
+              ${
+                scrolled
+                  ? 'text-black hover:text-[#2F0461]'
+                  : 'text-white hover:text-white/80'
+              }
+            `}
           >
             Soumettre
 
@@ -147,3 +182,4 @@ export function Header() {
     </header>
   )
 }
+

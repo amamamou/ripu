@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PageHero from '@/components/PageHero';
-import Navbar from '@/components/Navbar';
+import {Navbar} from '@/components/Navbar'
 import {
   FileText,
   FileCode2,
@@ -18,7 +18,7 @@ export default function AuthorsPage() {
       {/* Important Dates */}
 <section
   id="dates"
-  className="bg-white py-24 md:py-32 border-t border-[#ececec]"
+  className="bg-white py-24  mt-20  md:py-32 "
 >
   <div className="px-8 lg:px-16">
 

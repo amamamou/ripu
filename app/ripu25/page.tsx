@@ -1,5 +1,5 @@
 
-import Navbar from "@/components/Navbar";
+import {Navbar} from '@/components/Navbar'
 import Image from "next/image";
 
 const speakers = [
@@ -102,7 +102,7 @@ const workshops = [
 export default function RIPU25Page() { return ( <>
         <Navbar/>
 
-<section className="bg-white border-t border-[#ececec] pt-32 pb-24">
+<section className="bg-white  mt-10 pt-32 pb-24">
 
   <div className="px-8 lg:px-16">
 

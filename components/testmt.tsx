@@ -2,36 +2,37 @@ import Image from "next/image"
 import { Star } from "lucide-react"
 
 export function TestimonialsSectione() {
-  const testimonials = [
-    {
-      name: "Denis Gillet",
-      role: "EPFL, Suisse",
-      image: "/maher.png",
-      quote:
-        "RIPU est devenu un rendez-vous incontournable pour réfléchir à l'avenir de l'enseignement supérieur.",
-    },
-    {
-      name: "Sonia Sahli",
-      role: "ISET Sousse",
-      image: "/rym.png",
-      quote:
-        "Une expérience riche en échanges, en rencontres et en découvertes autour de l'innovation pédagogique.",
-    },
-    {
-      name: "Thierry Spriet",
-      role: "Avignon Université",
-      image: "/fattouma.png",
-      quote:
-        "La qualité des interventions et la diversité des participants ont rendu cette édition particulièrement inspirante.",
-    },
-    {
-      name: "Participant RIPU25",
-      role: "Tunisie",
-      image: "/syrine.png",
-      quote:
-        "Un événement remarquable qui favorise le dialogue entre recherche, pédagogie et intelligence artificielle.",
-    },
-  ]
+
+const testimonials = [
+  {
+    name: "Maher Abdelli",
+    role: "ISET Kairouan",
+    image: "/maher.png",
+    quote:
+      "RIPU25 a su allier rigueur scientifique et échanges authentiques. Les sessions étaient soigneusement organisées et ont offert des approches pratiques que j'ai immédiatement appliquées à mon enseignement.",
+  },
+  {
+    name: "Rym Mallouli",
+    role: "Université de Sousse",
+    image: "/rym.png",
+    quote:
+      "Un programme réfléchi : les ateliers étaient pratiques et les conférences ont offert des cadres clairs pour l'IA éthique dans l'évaluation. Une expérience enrichissante et utile.",
+  },
+  {
+    name: "Fattouma Mzali",
+    role: "ISET Rades",
+    image: "/fattouma.png",
+    quote:
+      "Un rythme posé, intense en idées. Les conversations ont mûri en stratégies concrètes pour la pratique pédagogique dans un environnement professionnel et stimulant.",
+  },
+  {
+    name: "Syrine Bousetta",
+    role: "ISLM Monastir",
+    image: "/syrine.png",
+    quote:
+      "Une expérience marquante qui a permis de découvrir de nouvelles approches pédagogiques, d’échanger avec des collègues inspirants et de réfléchir à l’avenir de l’enseignement supérieur.",
+  },
+]
 
   return (
     <section className="bg-white px-12 py-20">
@@ -54,7 +55,7 @@ export function TestimonialsSectione() {
           {testimonials.map((item, index) => (
             <div
               key={index}
-              className="relative bg-[#f5f5f5] rounded-[24px] p-7 h-[340px] flex flex-col"
+              className="relative bg-[#f5f5f5] rounded-[24px] p-7 flex flex-col h-full"
             >
               {/* Big quote */}
               <div className="absolute top-4 right-5 text-[90px] leading-none text-black/[0.04] font-serif select-none">

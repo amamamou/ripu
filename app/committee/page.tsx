@@ -1,6 +1,6 @@
 import PageHero from '@/components/PageHero';
 import CommitteeCard from '@/components/CommitteeCard';
-import Navbar from '@/components/Navbar';
+import {Navbar} from '@/components/Navbar'
 import Image from 'next/image';
 
 const generalChairs = [
@@ -147,7 +147,7 @@ export default function CommitteePage() {
 
 {/* General Chairs */}
 
-<section className="bg-white py-24 md:py-32 border-t border-[#ececec]">
+<section className="bg-white  mt-20  py-24 md:py-32 ">
 
   <div className="px-8 lg:px-16">
 
