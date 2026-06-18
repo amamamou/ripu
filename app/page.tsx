@@ -57,110 +57,78 @@ export default function HomePage() {
 <Header/>
       {/* Hero Section */}
   <Hero/>
-<AboutSection/>
-     
-<ImportantDatesSection/>
+  <AboutSection/>
+  <ImportantDatesSection/>
+  <PhilosophySection/>
 
+  {/* RIPU25 Section */}
+  <section className="bg-white px-6 md:px-8 py-20 md:py-28">
+    <div className="max-w-7xl mx-auto">
+      {/* Header */}
+      <div className="max-w-3xl mx-auto text-center mb-16 md:mb-20">
+        <p className="label-text mb-6 md:mb-8">
+          ÉDITION PRÉCÉDENTE
+        </p>
 
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-black mb-6 md:mb-8">
+          RIPU25
+        </h2>
 
-
-<PhilosophySection/>
-
-
-
-<section className="bg-white py-20">
-  <div className="max-w-7xl mx-auto px-12">
-
-    {/* Header */}
-
-    <div className="max-w-3xl mx-auto text-center mb-16">
-
-      <p className="label-text mb-4">
-        ÉDITION PRÉCÉDENTE
-      </p>
-
-      <h2 className="text-5xl font-bold text-black mb-6">
-        RIPU25
-      </h2>
-
-      <p className="text-[#666] leading-8">
-        Retour sur une édition marquée par des échanges riches,
-        des conférences inspirantes et des réflexions innovantes
-        autour de l'enseignement supérieur.
-      </p>
-
-    </div>
-
-    {/* Images */}
-
-    <div className="grid lg:grid-cols-12 gap-6 mb-10">
-
-      <div className="lg:col-span-4">
-        <div className="relative overflow-hidden rounded-[24px] h-[620px] group">
-
-          <Image
-            src="/ripu.jpg"
-            alt="RIPU25"
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-br from-[#A64DFF]/8 via-transparent to-[#6C2EB7]/12" />
-
-        </div>
+        <p className="text-base md:text-lg text-gray-600 leading-8">
+          Retour sur une édition marquée par des échanges riches, des conférences inspirantes et des réflexions innovantes autour de l'enseignement supérieur.
+        </p>
       </div>
 
-      <div className="lg:col-span-8 grid grid-cols-2 gap-6">
-
-        <div className="relative overflow-hidden rounded-[24px] h-[300px] group">
-          <Image
-            src="/ripu/1.png"
-            alt=""
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-br from-[#A64DFF]/8 via-transparent to-[#6C2EB7]/12" />
+      {/* Gallery */}
+      <div className="grid lg:grid-cols-12 gap-6 md:gap-8 mb-12">
+        <div className="lg:col-span-5">
+          <div className="relative overflow-hidden rounded-3xl h-[500px] md:h-[620px] group">
+            <Image
+              src="/ripu.jpg"
+              alt="RIPU25"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[24px] h-[300px] group">
-          <Image
-            src="/ripu/2.png"
-            alt=""
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-          />
+        <div className="lg:col-span-7 grid grid-cols-2 gap-6 md:gap-8">
+          <div className="relative overflow-hidden rounded-2xl h-80 md:h-96 group col-span-1">
+            <Image
+              src="/ripu/1.png"
+              alt="RIPU25 moment"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          </div>
 
-          <div className="absolute inset-0 bg-gradient-to-br from-[#A64DFF]/8 via-transparent to-[#6C2EB7]/12" />
+          <div className="relative overflow-hidden rounded-2xl h-80 md:h-96 group col-span-1">
+            <Image
+              src="/ripu/2.png"
+              alt="RIPU25 moment"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl h-80 md:h-96 group col-span-2">
+            <Image
+              src="/ripu/3.png"
+              alt="RIPU25 moment"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          </div>
         </div>
-
-        <div className="relative overflow-hidden rounded-[24px] h-[300px] col-span-2 group">
-          <Image
-            src="/ripu/3.png"
-            alt=""
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-br from-[#A64DFF]/8 via-transparent to-[#6C2EB7]/12" />
-        </div>
-
       </div>
-
     </div>
+  </section>
 
-  </div>
-</section>
-
-
-
-
-
-
-
-
-
-<TestimonialsSectione/>
+  <TestimonialsSectione/>
 
 
     </>

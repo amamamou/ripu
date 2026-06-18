@@ -18,99 +18,52 @@ export default function AuthorsPage() {
       {/* Important Dates */}
 <section
   id="dates"
-  className="bg-white py-24  mt-20  md:py-32 "
+  className="bg-white py-20 md:py-28 mt-20"
 >
-  <div className="px-8 lg:px-16">
+  <div className="max-w-7xl mx-auto px-6 md:px-8">
 
     {/* Header */}
-
-    <div className="mb-20">
-
-      <div className="label-text mb-4">
+    <div className="mb-16 md:mb-20">
+      <p className="label-text mb-6 md:mb-8">
         CALENDRIER
-      </div>
+      </p>
 
-      <h2 className="text-5xl md:text-6xl font-light tracking-tight text-black">
+      <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-black mb-6 md:mb-8">
         Dates importantes
       </h2>
 
-      <p className="mt-6 max-w-2xl text-lg leading-8 text-[#666]">
+      <p className="max-w-2xl text-base md:text-lg text-gray-600 leading-8">
         Les principales échéances de RIPU26.
       </p>
-
     </div>
 
     {/* Timeline */}
-
-    <div className="border border-[#ececec]">
-
+    <div className="space-y-4 md:space-y-6">
       {[
-        {
-          date: "15 Juillet 2026",
-          event: "Date limite de soumission",
-        },
-        {
-          date: "10 Août 2026",
-          event: "Notification aux auteurs",
-        },
-        {
-          date: "01 Septembre 2026",
-          event: "Date limite d'inscription",
-        },
-        {
-          date: "30 Octobre 2026",
-          event: "Ouverture de RIPU26",
-        },
-        {
-          date: "31 Octobre 2026",
-          event: "Clôture de RIPU26",
-        },
+        { date: "15 Juillet 2026", event: "Date limite de soumission" },
+        { date: "10 Août 2026", event: "Notification aux auteurs" },
+        { date: "01 Septembre 2026", event: "Date limite d'inscription" },
+        { date: "30 Octobre 2026", event: "Ouverture de RIPU26" },
+        { date: "31 Octobre 2026", event: "Clôture de RIPU26" },
       ].map((item, idx) => (
-
         <div
           key={idx}
-          className="
-            grid
-            md:grid-cols-12
-            border-b
-            last:border-b-0
-            border-[#ececec]
-          "
+          className="p-6 md:p-8 rounded-2xl bg-gradient-to-r from-gray-50/80 via-white to-gray-50/50 border border-gray-200/50 hover:border-gray-300 transition-all duration-300 flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-8"
         >
-
-          <div
-            className="
-              md:col-span-4
-              p-8
-              border-b
-              md:border-b-0
-              md:border-r
-              border-[#ececec]
-            "
-          >
-
-            <div className="text-xs uppercase tracking-[0.2em] text-[#999] mb-3">
+          <div>
+            <p className="text-xs uppercase tracking-widest font-semibold text-gray-500 mb-2">
               Échéance
-            </div>
-
-            <div className="text-2xl font-light text-black">
+            </p>
+            <p className="text-xl md:text-2xl font-semibold text-black">
               {item.date}
-            </div>
-
+            </p>
           </div>
 
-          <div className="md:col-span-8 p-8 flex items-center">
-
-            <div className="text-lg text-[#666]">
-              {item.event}
-            </div>
-
-          </div>
-
+          <p className="text-base md:text-lg text-gray-600">
+            {item.event}
+          </p>
         </div>
-
       ))}
-
     </div>
 
   </div>
@@ -118,243 +71,124 @@ export default function AuthorsPage() {
 
 
 
-<section
-  id="guidelines"
-  className="bg-white py-24 md:py-32 border-t border-[#ececec]"
->
-
-  <div className="px-8 lg:px-16">
-
-    <div className="mb-20">
-
-      <div className="label-text mb-4">
+<section id="guidelines" className="bg-white py-20 md:py-28">
+  <div className="max-w-7xl mx-auto px-6 md:px-8">
+    <div className="mb-16 md:mb-20">
+      <p className="label-text mb-6 md:mb-8">
         SOUMISSION
-      </div>
+      </p>
 
-      <h2 className="text-5xl md:text-6xl font-light tracking-tight text-black">
+      <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-black mb-6 md:mb-8">
         Directives de soumission
       </h2>
 
-      <p className="mt-6 max-w-3xl text-lg leading-8 text-[#666]">
-        Toutes les informations nécessaires à la préparation et au dépôt
-        de votre communication.
+      <p className="max-w-3xl text-base md:text-lg text-gray-600 leading-8">
+        Toutes les informations nécessaires à la préparation et au dépôt de votre communication.
       </p>
-
     </div>
 
-    <div className="border border-[#ececec]">
-
+    {/* Guidelines Grid */}
+    <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-16 md:mb-20">
       {[
         {
           title: "Type de contribution",
-          content:
-            "Retour d'expérience ou Work in Progress aligné avec les axes scientifiques de RIPU26.",
+          content: "Retour d'expérience ou Work in Progress aligné avec les axes scientifiques de RIPU26.",
         },
-
         {
           title: "Longueur",
-          content:
-            "2 à 4 pages, incluant figures, tableaux et références.",
+          content: "2 à 4 pages, incluant figures, tableaux et références.",
         },
-
         {
           title: "Langues",
-          content:
-            "Les communications peuvent être soumises en français ou en anglais.",
+          content: "Les communications peuvent être soumises en français ou en anglais.",
         },
-
         {
           title: "Template",
-          content:
-            "Utilisation obligatoire du modèle Springer LNCS (Word ou LaTeX).",
+          content: "Utilisation obligatoire du modèle Springer LNCS (Word ou LaTeX).",
         },
-
         {
           title: "Soumission anonyme",
-          content:
-            "La version soumise pour évaluation ne doit contenir aucun nom d'auteur ou affiliation.",
+          content: "La version soumise pour évaluation ne doit contenir aucun nom d'auteur ou affiliation.",
         },
-
         {
           title: "Version finale",
-          content:
-            "La version acceptée devra inclure les auteurs, affiliations et coordonnées du correspondant.",
+          content: "La version acceptée devra inclure les auteurs, affiliations et coordonnées du correspondant.",
         },
-
         {
           title: "Choisir un axe",
-          content:
-            "Chaque communication doit être rattachée à un axe thématique de RIPU26.",
+          content: "Chaque communication doit être rattachée à un axe thématique de RIPU26.",
         },
-
         {
           title: "Plateforme de dépôt",
-          content:
-            "Les soumissions sont réalisées via ConfTool®. Les métadonnées renseignées doivent être exactes.",
+          content: "Les soumissions sont réalisées via ConfTool®. Les métadonnées renseignées doivent être exactes.",
         },
-
       ].map((item, idx) => (
-
-        <div
-          key={idx}
-          className="
-            grid
-            md:grid-cols-12
-            border-b
-            last:border-b-0
-            border-[#ececec]
-          "
-        >
-
-          <div
-            className="
-              md:col-span-4
-              p-8
-              border-b
-              md:border-b-0
-              md:border-r
-              border-[#ececec]
-            "
-          >
-
-            <div className="text-lg font-medium text-black">
-              {item.title}
-            </div>
-
-          </div>
-
-          <div className="md:col-span-8 p-8">
-
-            <p className="text-[#666] leading-8">
-              {item.content}
-            </p>
-
-          </div>
-
+        <div key={idx} className="p-6 md:p-8 rounded-2xl bg-gradient-to-br from-gray-50/80 to-gray-100/50 border border-gray-200/50 hover:border-gray-300 transition-all duration-300">
+          <h4 className="font-semibold text-lg text-black mb-3">
+            {item.title}
+          </h4>
+          <p className="text-sm md:text-base text-gray-600 leading-7">
+            {item.content}
+          </p>
         </div>
-
       ))}
-
     </div>
 
-{/* Downloads */}
-<div className="mt-10 grid md:grid-cols-3 gap-4">
+    {/* Download Templates */}
+    <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+      <Link
+        href="/paper/MSWord.zip"
+        download
+        className="group p-7 md:p-8 rounded-2xl border border-gray-200/50 hover:border-[#2F0461] hover:shadow-md transition-all duration-300 bg-white"
+      >
+        <div className="flex items-start justify-between mb-4">
+          <FileText size={28} className="text-[#2F0461]" />
+          <Download size={18} className="text-gray-400 group-hover:text-[#2F0461] transition-colors" />
+        </div>
+        <p className="text-xs uppercase tracking-widest font-semibold text-gray-500 mb-2">
+          Télécharger
+        </p>
+        <p className="text-lg font-semibold text-black">
+          Template Word
+        </p>
+      </Link>
 
-  <Link
-    href="/paper/MSWord.zip"
-    download
-    className="
-      group
-      border border-[#ececec]
-      p-6
-      hover:border-[#2F0461]
-      hover:bg-[#faf8ff]
-      transition-all duration-300
-    "
-  >
-    <div className="flex items-start justify-between">
-      <FileText
-        size={28}
-        className="text-[#2F0461]"
-      />
+      <Link
+        href="/paper/LaTeX2e.zip"
+        download
+        className="group p-7 md:p-8 rounded-2xl border border-gray-200/50 hover:border-[#2F0461] hover:shadow-md transition-all duration-300 bg-white"
+      >
+        <div className="flex items-start justify-between mb-4">
+          <FileCode2 size={28} className="text-[#2F0461]" />
+          <Download size={18} className="text-gray-400 group-hover:text-[#2F0461] transition-colors" />
+        </div>
+        <p className="text-xs uppercase tracking-widest font-semibold text-gray-500 mb-2">
+          Télécharger
+        </p>
+        <p className="text-lg font-semibold text-black">
+          Template LaTeX
+        </p>
+      </Link>
 
-      <Download
-        size={18}
-        className="
-          text-[#999]
-          group-hover:text-[#2F0461]
-          transition-colors
-        "
-      />
+      <Link
+        href="https://your-conftool-link.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group p-7 md:p-8 rounded-2xl border border-gray-200/50 hover:border-[#2F0461] hover:shadow-md transition-all duration-300 bg-white"
+      >
+        <div className="flex items-start justify-between mb-4">
+          <ExternalLink size={28} className="text-[#2F0461]" />
+          <ExternalLink size={18} className="text-gray-400 group-hover:text-[#2F0461] transition-colors" />
+        </div>
+        <p className="text-xs uppercase tracking-widest font-semibold text-gray-500 mb-2">
+          Soumission
+        </p>
+        <p className="text-lg font-semibold text-black">
+          Accéder à ConfTool®
+        </p>
+      </Link>
     </div>
-
-    <div className="mt-5 text-sm uppercase tracking-[0.15em] text-[#999]">
-      Télécharger
-    </div>
-
-    <div className="mt-2 text-xl font-light text-black">
-      Template Word
-    </div>
-  </Link>
-
-  <Link
-    href="/paper/LaTeX2e.zip"
-    download
-    className="
-      group
-      border border-[#ececec]
-      p-6
-      hover:border-[#2F0461]
-      hover:bg-[#faf8ff]
-      transition-all duration-300
-    "
-  >
-    <div className="flex items-start justify-between">
-      <FileCode2
-        size={28}
-        className="text-[#2F0461]"
-      />
-
-      <Download
-        size={18}
-        className="
-          text-[#999]
-          group-hover:text-[#2F0461]
-          transition-colors
-        "
-      />
-    </div>
-
-    <div className="mt-5 text-sm uppercase tracking-[0.15em] text-[#999]">
-      Télécharger
-    </div>
-
-    <div className="mt-2 text-xl font-light text-black">
-      Template LaTeX
-    </div>
-  </Link>
-
-  <Link
-    href="https://your-conftool-link.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="
-      group
-      border border-[#ececec]
-      p-6
-      hover:border-[#2F0461]
-      hover:bg-[#faf8ff]
-      transition-all duration-300
-    "
-  >
-    <div className="flex items-start justify-between">
-      <ExternalLink
-        size={28}
-        className="text-[#2F0461]"
-      />
-
-      <ExternalLink
-        size={18}
-        className="
-          text-[#999]
-          group-hover:text-[#2F0461]
-          transition-colors
-        "
-      />
-    </div>
-
-    <div className="mt-5 text-sm uppercase tracking-[0.15em] text-[#999]">
-      Soumission
-    </div>
-
-    <div className="mt-2 text-xl font-light text-black">
-      Accéder à ConfTool®
-    </div>
-  </Link>
-
-</div>
   </div>
-
 </section>
 
       {/* Call for Papers */}
