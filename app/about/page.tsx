@@ -4,6 +4,7 @@ import PageHero from '@/components/PageHero';
 import TopicCard from '@/components/TopicCard';
 import CommitteeCard from '@/components/CommitteeCard';
 import Navbar from '@/components/Navbar'
+import { Header } from '@/components/header';
 
 const topics = [
   { title: 'Tutoriel Intelligent avec l\'IA', description: 'Systèmes d\'apprentissage adaptatif utilisant l\'intelligence artificielle.', category: 'ai' as const },
@@ -50,13 +51,13 @@ const speakers = [
 export default function AboutPage() {
   return (
     <>
-    <Navbar/>
+   <Header/>
   
 
       {/* About Section */}
 {/* About Section */}
 
-<section className="bg-white py-24 md:py-32 border-t border-[#ececec]">
+<section className="bg-white mt-20 py-24 md:py-32">
 
   <div className="px-8 lg:px-16">
 

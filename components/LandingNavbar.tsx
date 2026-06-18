@@ -60,7 +60,7 @@ useEffect(() => {
 
       <div className="origin-left scale-140">
   <Image
-    src="/logo Ripu26 - 1.png"
+    src="/logo.png"
     alt="RIPU26"
     width={140}
     height={45}
