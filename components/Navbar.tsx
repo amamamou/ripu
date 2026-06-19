@@ -32,10 +32,7 @@ export function Navbar() {
       label: 'Auteurs',
       href: '/authors',
     },
-    {
-      label: 'Thématiques',
-      href: '/themes',
-    },
+    
     {
       label: 'Comité',
       href: '/committee',

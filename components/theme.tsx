@@ -83,7 +83,7 @@ export function PhilosophySection() {
   <div className="relative overflow-hidden rounded-[24px] h-[340px]">
 
     <Image
-src="/hi.png"      alt="Golf Course"
+src="/hii.png"      alt="Golf Course"
       fill
       className="object-cover"
     />

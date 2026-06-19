@@ -106,11 +106,30 @@ export default function RIPU25Page() { return ( <>
 
   <div className="px-8 lg:px-16">
 
-    <div className="mb-10">
-      <span className="border border-[#ececec] px-3 py-2 text-xs uppercase tracking-[0.15em] text-[#666]">
-        Édition Archivée • 2025
-      </span>
-    </div>
+  <div className="mb-10">
+  <span
+    className="
+      inline-flex
+      items-center
+      rounded-full
+      border
+      border-[#ececec]
+      bg-white
+      px-4
+      py-2
+      text-xs
+      font-medium
+      uppercase
+      tracking-[0.15em]
+      text-[#666]
+      transition-all
+      duration-300
+      hover:border-[#2F0461]
+    "
+  >
+    Édition Archivée • 2025
+  </span>
+</div>
 
     <div className="grid lg:grid-cols-12 gap-20 items-center">
 
@@ -224,7 +243,6 @@ export default function RIPU25Page() { return ( <>
 
 
 {/* CONFERENCES */}
-
 <section className="bg-white py-24 border-t border-[#ececec]">
 
   <div className="px-8 lg:px-16">
@@ -241,13 +259,19 @@ export default function RIPU25Page() { return ( <>
 
     </div>
 
-    <div className="border border-[#ececec]">
+    <div className="card-hover overflow-hidden">
 
       {conferences.map((item, idx) => (
 
         <div
           key={idx}
-          className="grid md:grid-cols-12 border-b last:border-b-0 border-[#ececec]"
+          className="
+            grid
+            md:grid-cols-12
+            border-b
+            last:border-b-0
+            border-[#ececec]
+          "
         >
 
           <div className="md:col-span-3 p-8 border-r border-[#ececec]">
@@ -302,7 +326,6 @@ export default function RIPU25Page() { return ( <>
 
 
 {/* WORKSHOPS */}
-
 <section className="bg-white py-24 border-t border-[#ececec]">
 
   <div className="px-8 lg:px-16">
@@ -319,13 +342,19 @@ export default function RIPU25Page() { return ( <>
 
     </div>
 
-    <div className="border border-[#ececec]">
+    <div className="card-hover overflow-hidden">
 
       {workshops.map((item, idx) => (
 
         <div
           key={idx}
-          className="grid md:grid-cols-12 border-b last:border-b-0 border-[#ececec]"
+          className="
+            grid
+            md:grid-cols-12
+            border-b
+            last:border-b-0
+            border-[#ececec]
+          "
         >
 
           <div className="md:col-span-3 p-8 border-r border-[#ececec]">
@@ -377,7 +406,6 @@ export default function RIPU25Page() { return ( <>
   </div>
 
 </section>
-
 {/* GALLERY */}
 
 <section className="bg-white py-24 border-t border-[#ececec]">
@@ -394,44 +422,106 @@ export default function RIPU25Page() { return ( <>
         RIPU25 en images
       </h2>
 
+      <p className="mt-6 max-w-2xl text-lg leading-8 text-[#666]">
+        Retour sur les moments marquants de la première édition :
+        conférences, ateliers, échanges scientifiques et rencontres
+        entre chercheurs et enseignants.
+      </p>
+
     </div>
 
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid lg:grid-cols-12 gap-6">
 
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#f5f5f5]">
-        <Image
-          src="/ripu/1.png"
-          alt="RIPU25"
-          fill
-          className="object-cover"
-        />
+      {/* Main Image */}
+
+      <div className="lg:col-span-8">
+
+        <div className="card-hover">
+
+          <div className="relative h-[520px] overflow-hidden">
+
+            <Image
+              src="/ripu/2.png"
+              alt="RIPU25"
+              fill
+              className="
+                object-cover
+                transition-transform
+                duration-700
+                hover:scale-105
+              "
+            />
+
+          </div>
+
+        </div>
+
       </div>
 
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#f5f5f5]">
-        <Image
-          src="/ripu/2.png"
-          alt="RIPU25"
-          fill
-          className="object-cover"
-        />
-      </div>
+      {/* Secondary Images */}
 
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#f5f5f5]">
-        <Image
-          src="/ripu/3.png"
-          alt="RIPU25"
-          fill
-          className="object-cover"
-        />
-      </div>
+      <div className="lg:col-span-4 flex flex-col gap-6">
 
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#f5f5f5]">
-        <Image
-          src="/ripu/p8.jpg"
-          alt="RIPU25"
-          fill
-          className="object-cover"
-        />
+        <div className="card-hover">
+
+          <div className="relative h-[160px] overflow-hidden">
+
+            <Image
+              src="/ripu/1.png"
+              alt="RIPU25"
+              fill
+              className="
+                object-cover object-top
+                transition-transform
+                duration-700
+                hover:scale-105
+              "
+            />
+
+          </div>
+
+        </div>
+
+        <div className="card-hover">
+
+          <div className="relative h-[160px] overflow-hidden">
+
+            <Image
+              src="/ripu/3.png"
+              alt="RIPU25"
+              fill
+              className="
+                object-cover
+                transition-transform
+                duration-700
+                hover:scale-105
+              "
+            />
+
+          </div>
+
+        </div>
+
+        <div className="card-hover">
+
+          <div className="relative h-[160px] overflow-hidden">
+
+            <Image
+              src="/ripu/p8.jpg"
+              alt="RIPU25"
+              fill
+              className="
+                object-cover
+                transition-transform
+                duration-700
+                hover:scale-105
+              "
+            />
+
+          </div>
+
+        </div>
+
       </div>
 
     </div>
@@ -439,7 +529,6 @@ export default function RIPU25Page() { return ( <>
   </div>
 
 </section>
-
 {/* ARCHIVE */}
 
 <section className="bg-white py-24 border-t border-[#ececec]">

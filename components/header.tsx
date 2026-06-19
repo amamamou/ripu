@@ -33,10 +33,6 @@ export function Header() {
       href: '/authors',
     },
     {
-      label: 'Thématiques',
-      href: '/themes',
-    },
-    {
       label: 'Comité',
       href: '/committee',
     },

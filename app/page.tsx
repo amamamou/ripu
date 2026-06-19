@@ -19,6 +19,7 @@ import { PhilosophySection } from '@/components/theme';
 import { ImportantDatesSection } from '@/components/important-dates-section';
 import { TestimonialsSectione } from '@/components/testmt';
 import { Header } from '@/components/header';
+import { CTASection } from '@/components/cta-section';
 
 const testimonials = [
   {
@@ -120,8 +121,7 @@ export default function HomePage() {
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-br from-[#A64DFF]/8 via-transparent to-[#6C2EB7]/12" />
-        </div>
+<div className="absolute inset-0 bg-[#2F0461]/20" />        </div>
 
         <div className="relative overflow-hidden rounded-[24px] h-[300px] group">
           <Image
@@ -131,8 +131,7 @@ export default function HomePage() {
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-br from-[#A64DFF]/8 via-transparent to-[#6C2EB7]/12" />
-        </div>
+<div className="absolute inset-0 bg-[#2F0461]/20" />         </div>
 
         <div className="relative overflow-hidden rounded-[24px] h-[300px] col-span-2 group">
           <Image
@@ -142,8 +141,7 @@ export default function HomePage() {
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-br from-[#A64DFF]/8 via-transparent to-[#6C2EB7]/12" />
-        </div>
+<div className="absolute inset-0 bg-[#2F0461]/20" />         </div>
 
       </div>
 
@@ -161,7 +159,7 @@ export default function HomePage() {
 
 
 <TestimonialsSectione/>
-
+<CTASection/>
 
     </>
   );

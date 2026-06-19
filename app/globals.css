@@ -32,6 +32,8 @@
 html {
   background-color: white;
   scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* adjust value */
+
 }
 
 body {

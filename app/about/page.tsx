@@ -5,6 +5,7 @@ import TopicCard from '@/components/TopicCard';
 import CommitteeCard from '@/components/CommitteeCard';
 import {Navbar} from '@/components/Navbar'
 import { Header } from '@/components/header';
+import { BadgeCheck, BookOpen, BrainCircuit, ChevronRight, GraduationCap, Languages, Layers, Users } from 'lucide-react';
 
 const topics = [
   { title: 'Tutoriel Intelligent avec l\'IA', description: 'Systèmes d\'apprentissage adaptatif utilisant l\'intelligence artificielle.', category: 'ai' as const },
@@ -24,29 +25,7 @@ const topics = [
   { title: 'Leadership Académique', description: 'Leadership dans les institutions.', category: 'inclusion' as const },
 ];
 
-const speakers = [
-  {
-    name: 'Dr. Sarah Chen',
-    title: 'Directrice de l\'Innovation Éducative',
-    institution: 'Université Stanford',
-    country: 'États-Unis',
-    imageUrl: '/committee-default.png',
-  },
-  {
-    name: 'Prof. Mohamed Bouarab',
-    title: 'Doyen de la Recherche',
-    institution: 'Université de Sousse',
-    country: 'Tunisie',
-    imageUrl: '/committee-default.png',
-  },
-  {
-    name: 'Dr. Emma Schmidt',
-    title: 'Directrice IA et Systèmes d\'Apprentissage',
-    institution: 'Université d\'Oxford',
-    country: 'Royaume-Uni',
-    imageUrl: '/committee-default.png',
-  },
-];
+
 
 export default function AboutPage() {
   return (
@@ -234,262 +213,287 @@ export default function AboutPage() {
     </div>
 
     {/* Overview */}
+{/* Overview */}
 
-    <div className="grid md:grid-cols-4 border border-[#ececec] mb-16">
+<div className="grid md:grid-cols-4 gap-5 mb-20">
 
-      <div className="p-8 border-b md:border-b-0 md:border-r border-[#ececec]">
+  <div className="card-hover p-8">
+    <div className="w-12 h-12 rounded-2xl bg-[#f6f6f6] flex items-center justify-center mb-5">
+      <Layers className="w-5 h-5 text-black" />
+    </div>
 
-        <div className="text-5xl font-light text-black">
-          3
+    <div className="text-5xl font-light text-black">
+      3
+    </div>
+
+    <div className="mt-3 text-xs uppercase tracking-[0.15em] text-[#666]">
+      Axes principaux
+    </div>
+  </div>
+
+  <div className="card-hover p-8">
+    <div className="w-12 h-12 rounded-2xl bg-[#f6f6f6] flex items-center justify-center mb-5">
+      <BookOpen className="w-5 h-5 text-black" />
+    </div>
+
+    <div className="text-5xl font-light text-black">
+      11+
+    </div>
+
+    <div className="mt-3 text-xs uppercase tracking-[0.15em] text-[#666]">
+      Sous-thématiques
+    </div>
+  </div>
+
+  <div className="card-hover p-8">
+    <div className="w-12 h-12 rounded-2xl bg-[#f6f6f6] flex items-center justify-center mb-5">
+      <Languages className="w-5 h-5 text-black" />
+    </div>
+
+    <div className="text-5xl font-light text-black">
+      FR
+    </div>
+
+    <div className="mt-3 text-xs uppercase tracking-[0.15em] text-[#666]">
+      Langue principale
+    </div>
+  </div>
+
+  <div className="card-hover p-8">
+    <div className="w-12 h-12 rounded-2xl bg-[#f6f6f6] flex items-center justify-center mb-5">
+      <BadgeCheck className="w-5 h-5 text-black" />
+    </div>
+
+    <div className="text-5xl font-light text-black">
+      PR
+    </div>
+
+    <div className="mt-3 text-xs uppercase tracking-[0.15em] text-[#666]">
+      Peer Review
+    </div>
+  </div>
+
+</div>
+
+{/* Axes */}
+<div className="space-y-6">
+{/* Axe 01 */}
+
+
+<div className="card-hover p-12 md:p-14">
+
+  <div className="grid lg:grid-cols-12 gap-12">
+
+    <div className="lg:col-span-4">
+
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-xl bg-[#f6f6f6] flex items-center justify-center">
+          <BrainCircuit className="w-5 h-5 text-black" />
         </div>
 
-        <div className="mt-3 text-xs uppercase tracking-[0.15em] text-[#666]">
-          Axes principaux
-        </div>
+        <span className="label-text">
+          AXE 01
+        </span>
+      </div>
+
+      <h3 className="text-4xl md:text-5xl font-light tracking-tight leading-[1.05] text-black">
+        Intelligence Artificielle Générative & Enseignement
+      </h3>
+
+      <div className="flex flex-wrap gap-3 mt-8">
+
+        <span className="rounded-full bg-[#f6f6f6] px-4 py-2 text-xs font-medium">
+          IA Générative
+        </span>
+
+        <span className="rounded-full bg-[#f6f6f6] px-4 py-2 text-xs font-medium">
+          Enseignement
+        </span>
+
+        <span className="rounded-full bg-[#f6f6f6] px-4 py-2 text-xs font-medium">
+          Innovation
+        </span>
 
       </div>
 
-      <div className="p-8 border-b md:border-b-0 md:border-r border-[#ececec]">
+    </div>
 
-        <div className="text-5xl font-light text-black">
-          11+
+    <div className="lg:col-span-8">
+
+      <div className="grid md:grid-cols-2 gap-x-14 gap-y-5">
+
+        <div className="flex items-start gap-3">
+          <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
+          <p className="text-[#666]">L'IAG comme tuteur d'apprentissage</p>
         </div>
 
-        <div className="mt-3 text-xs uppercase tracking-[0.15em] text-[#666]">
-          Sous-thématiques
+        <div className="flex items-start gap-3">
+          <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
+          <p className="text-[#666]">L'IAG et le geste enseignant</p>
         </div>
 
-      </div>
-
-      <div className="p-8 border-b md:border-b-0 md:border-r border-[#ececec]">
-
-        <div className="text-5xl font-light text-black">
-          FR
+        <div className="flex items-start gap-3">
+          <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
+          <p className="text-[#666]">L'IAG pour la correction des examens</p>
         </div>
 
-        <div className="mt-3 text-xs uppercase tracking-[0.15em] text-[#666]">
-          Langue principale
+        <div className="flex items-start gap-3">
+          <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
+          <p className="text-[#666]">Les effets de l'IAG sur les apprentissages</p>
         </div>
 
-      </div>
-
-      <div className="p-8">
-
-        <div className="text-5xl font-light text-black">
-          PR
+        <div className="flex items-start gap-3">
+          <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
+          <p className="text-[#666]">L'IAG et la vie étudiante</p>
         </div>
 
-        <div className="mt-3 text-xs uppercase tracking-[0.15em] text-[#666]">
-          Peer Review
+        <div className="flex items-start gap-3">
+          <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
+          <p className="text-[#666]">L'avenir de l'enseignement supérieur à l'ère de l'IAG</p>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
+          <p className="text-[#666]">Les plans d'études à l'heure de l'IAG</p>
         </div>
 
       </div>
 
     </div>
 
-    {/* Axes */}
+  </div>
 
-    <div className="border border-[#ececec]">
+</div>
 
-      {/* Axe 01 */}
+{/* Axe 02 */}
 
-      <div className="grid lg:grid-cols-12 border-b border-[#ececec]">
+<div className="card-hover p-12 md:p-14">
 
-        <div className="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-[#ececec] p-10">
+  <div className="grid lg:grid-cols-12 gap-12">
 
-          <div className="text-xs uppercase tracking-[0.2em] text-[#999] mb-4">
-            Axe 01
-          </div>
+    <div className="lg:col-span-4">
 
-          <h3 className="text-3xl font-light leading-tight text-black">
-            Intelligence Artificielle Générative & Enseignement
-          </h3>
-
-          <div className="flex flex-wrap gap-2 mt-8">
-
-            <span className="border border-[#ececec] px-3 py-2 text-xs">
-              IA Générative
-            </span>
-
-            <span className="border border-[#ececec] px-3 py-2 text-xs">
-              Enseignement
-            </span>
-
-            <span className="border border-[#ececec] px-3 py-2 text-xs">
-              Innovation
-            </span>
-
-          </div>
-
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-xl bg-[#f6f6f6] flex items-center justify-center">
+          <GraduationCap className="w-5 h-5 text-black" />
         </div>
 
-        <div className="lg:col-span-8 p-10">
+        <span className="label-text">
+          AXE 02
+        </span>
+      </div>
 
-          <div className="grid md:grid-cols-2 gap-x-10 gap-y-5 text-[#666]">
+      <h3 className="text-4xl md:text-5xl font-light tracking-tight leading-[1.05] text-black">
+        Approches Pédagogiques
+      </h3>
 
-            <p>L'IAG comme tuteur d'apprentissage</p>
-            <p>L'IAG et le geste enseignant</p>
+      <div className="flex flex-wrap gap-3 mt-8">
 
-            <p>L'IAG pour la correction des examens</p>
-            <p>Les effets de l'IAG sur les apprentissages</p>
+        <span className="rounded-full bg-[#f6f6f6] px-4 py-2 text-xs font-medium">
+          APC
+        </span>
 
-            <p>L'IAG et la vie étudiante</p>
-            <p>L'avenir de l'enseignement supérieur à l'ère de l'IAG</p>
+        <span className="rounded-full bg-[#f6f6f6] px-4 py-2 text-xs font-medium">
+          Pédagogie
+        </span>
 
-            <p>Les plans d'études à l'heure de l'IAG</p>
-
-          </div>
-
-        </div>
+        <span className="rounded-full bg-[#f6f6f6] px-4 py-2 text-xs font-medium">
+          Gamification
+        </span>
 
       </div>
 
-      {/* Axe 02 */}
+    </div>
 
-      <div className="grid lg:grid-cols-12 border-b border-[#ececec]">
+    <div className="lg:col-span-8">
 
-        <div className="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-[#ececec] p-10">
+      <div className="space-y-5">
 
-          <div className="text-xs uppercase tracking-[0.2em] text-[#999] mb-4">
-            Axe 02
-          </div>
-
-          <h3 className="text-3xl font-light leading-tight text-black">
-            Approches Pédagogiques
-          </h3>
-
-          <div className="flex flex-wrap gap-2 mt-8">
-
-            <span className="border border-[#ececec] px-3 py-2 text-xs">
-              APC
-            </span>
-
-            <span className="border border-[#ececec] px-3 py-2 text-xs">
-              Pédagogie
-            </span>
-
-            <span className="border border-[#ececec] px-3 py-2 text-xs">
-              Gamification
-            </span>
-
-          </div>
-
-        </div>
-
-        <div className="lg:col-span-8 p-10">
-
-          <div className="space-y-5 text-[#666]">
-
-            <p>L'approche par compétences (APC)</p>
-
-            <p>
-              Les plans d'études à l'ère de l'IA et de l'APC
-            </p>
-
-            <p>
-              La gamification comme levier d'apprentissage
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* Axe 03 */}
-
-      <div className="grid lg:grid-cols-12">
-
-        <div className="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-[#ececec] p-10">
-
-          <div className="text-xs uppercase tracking-[0.2em] text-[#999] mb-4">
-            Axe 03
-          </div>
-
-          <h3 className="text-3xl font-light leading-tight text-black">
-            Genre & Éducation
-          </h3>
-
-          <div className="flex flex-wrap gap-2 mt-8">
-
-            <span className="border border-[#ececec] px-3 py-2 text-xs">
-              Inclusion
-            </span>
-
-            <span className="border border-[#ececec] px-3 py-2 text-xs">
-              Équité
-            </span>
-
-            <span className="border border-[#ececec] px-3 py-2 text-xs">
-              Diversité
-            </span>
-
-          </div>
-
-        </div>
-
-        <div className="lg:col-span-8 p-10">
-
+        <div className="flex items-start gap-3">
+          <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
           <p className="text-[#666]">
-            La place des femmes dans l'éducation
+            L'approche par compétences (APC)
           </p>
+        </div>
 
+        <div className="flex items-start gap-3">
+          <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
+          <p className="text-[#666]">
+            Les plans d'études à l'ère de l'IA et de l'APC
+          </p>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
+          <p className="text-[#666]">
+            La gamification comme levier d'apprentissage
+          </p>
         </div>
 
       </div>
 
     </div>
 
-    {/* Bottom CTA */}
+  </div>
 
-    <div className="border border-t-0 border-[#ececec]">
+</div>
 
-      <div className="grid lg:grid-cols-12">
+{/* Axe 03 */}
 
-        <div className="lg:col-span-8 p-12">
+<div className="card-hover p-12 md:p-14">
 
-          <div className="label-text mb-4">
-            APPEL À COMMUNICATIONS
-          </div>
+  <div className="grid lg:grid-cols-12 gap-12">
 
-          <h3 className="text-4xl md:text-5xl font-light tracking-tight text-black">
-            Votre recherche correspond à l'un de ces axes ?
-          </h3>
+    <div className="lg:col-span-4">
 
-          <p className="mt-6 max-w-2xl text-[#666] leading-8">
-            Consultez les modalités de soumission, les dates importantes
-            et les recommandations aux auteurs avant de proposer votre
-            contribution scientifique.
-          </p>
-
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-xl bg-[#f6f6f6] flex items-center justify-center">
+          <Users className="w-5 h-5 text-black" />
         </div>
 
-        <div className="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-[#ececec] p-12 flex items-center">
+        <span className="label-text">
+          AXE 03
+        </span>
+      </div>
 
-          <Link
-            href="/authors#guidelines"
-            className="
-              w-full
-              text-center
-              border
-              border-[#ececec]
-              px-8
-              py-5
-              text-sm
-              font-medium
-              hover:border-[#2F0461]
-              transition-colors
-            "
-          >
-            Consulter les directives →
-          </Link>
+      <h3 className="text-4xl md:text-5xl font-light tracking-tight leading-[1.05] text-black">
+        Genre & Éducation
+      </h3>
 
-        </div>
+      <div className="flex flex-wrap gap-3 mt-8">
+
+        <span className="rounded-full bg-[#f6f6f6] px-4 py-2 text-xs font-medium">
+          Inclusion
+        </span>
+
+        <span className="rounded-full bg-[#f6f6f6] px-4 py-2 text-xs font-medium">
+          Équité
+        </span>
+
+        <span className="rounded-full bg-[#f6f6f6] px-4 py-2 text-xs font-medium">
+          Diversité
+        </span>
 
       </div>
 
     </div>
 
+    <div className="lg:col-span-8">
+
+      <div className="flex items-start gap-3">
+        <ChevronRight className="w-4 h-4 mt-1 text-[#999]" />
+        <p className="text-[#666]">
+          La place des femmes dans l'éducation
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
   </div>
 </section>
 
@@ -513,7 +517,7 @@ export default function AboutPage() {
 
     </div>
 
-    <div className="border border-[#ececec] p-16 md:p-24 text-center">
+    <div className="card-hover  p-16 md:p-24 text-center">
 
       <p className="text-3xl md:text-4xl font-light text-black">
         Les conférenciers invités seront annoncés prochainement.

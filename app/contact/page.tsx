@@ -100,114 +100,136 @@ export default function ContactPage() {
 
       {/* Form */}
 
-      <div className="lg:col-span-8">
+  {/* Form */}
 
-        <form
-          onSubmit={handleSubmit}
-          className="border border-[#ececec]"
-        >
+<div className="lg:col-span-8">
 
-          <div className="grid md:grid-cols-2">
+  <form
+    onSubmit={handleSubmit}
+    className="card-hover overflow-hidden"
+  >
 
-            <input
-              type="text"
-              placeholder="Nom complet"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="
-                border-b
-                md:border-r
-                border-[#ececec]
-                p-6
-                outline-none
-              "
-            />
+    <div className="grid md:grid-cols-2">
 
-            <input
-              type="email"
-              placeholder="Adresse e-mail"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              className="
-                border-b
-                border-[#ececec]
-                p-6
-                outline-none
-              "
-            />
+      <input
+        type="text"
+        placeholder="Nom complet"
+        value={formData.name}
+        onChange={(e) =>
+          setFormData({ ...formData, name: e.target.value })
+        }
+        className="
+          border-b
+          md:border-r
+          border-[#ececec]
+          p-6
+          outline-none
+          bg-white
+          transition-colors
+          focus:bg-[#fafafa]
+        "
+      />
 
-          </div>
+      <input
+        type="email"
+        placeholder="Adresse e-mail"
+        value={formData.email}
+        onChange={(e) =>
+          setFormData({ ...formData, email: e.target.value })
+        }
+        className="
+          border-b
+          border-[#ececec]
+          p-6
+          outline-none
+          bg-white
+          transition-colors
+          focus:bg-[#fafafa]
+        "
+      />
 
-          <select
-            value={formData.subject}
-            onChange={(e) =>
-              setFormData({ ...formData, subject: e.target.value })
-            }
-            className="
-              w-full
-              p-6
-              border-b
-              border-[#ececec]
-              outline-none
-            "
-          >
-            <option value="">
-              Sélectionner un sujet
-            </option>
+    </div>
 
-            <option value="submission">
-              Soumission
-            </option>
+    <select
+      value={formData.subject}
+      onChange={(e) =>
+        setFormData({ ...formData, subject: e.target.value })
+      }
+      className="
+        w-full
+        p-6
+        border-b
+        border-[#ececec]
+        outline-none
+        bg-white
+        transition-colors
+        focus:bg-[#fafafa]
+      "
+    >
+      <option value="">
+        Sélectionner un sujet
+      </option>
 
-            <option value="registration">
-              Inscription
-            </option>
+      <option value="submission">
+        Soumission
+      </option>
 
-            <option value="sponsorship">
-              Partenariat
-            </option>
+      <option value="registration">
+        Inscription
+      </option>
 
-          </select>
+      <option value="sponsorship">
+        Partenariat
+      </option>
 
-          <textarea
-            rows={8}
-            placeholder="Votre message..."
-            value={formData.message}
-            onChange={(e) =>
-              setFormData({ ...formData, message: e.target.value })
-            }
-            className="
-              w-full
-              p-6
-              outline-none
-              resize-none
-            "
-          />
+    </select>
 
-          <div className="border-t border-[#ececec] p-6">
+    <textarea
+      rows={8}
+      placeholder="Votre message..."
+      value={formData.message}
+      onChange={(e) =>
+        setFormData({ ...formData, message: e.target.value })
+      }
+      className="
+        w-full
+        p-6
+        outline-none
+        resize-none
+        bg-white
+        transition-colors
+        focus:bg-[#fafafa]
+      "
+    />
 
-            <button
-              type="submit"
-              className="
-                text-[#2F0461]
-                text-xl
-                font-light
-                hover:text-[#1B1142]
-                transition-colors
-              "
-            >
-              Envoyer le message →
-            </button>
+    <div className="border-t border-[#ececec] p-8 bg-[#fafafa]">
 
-          </div>
+      <button
+        type="submit"
+        className="
+          inline-flex
+          items-center
+          gap-2
+          text-[#2F0461]
+          text-xl
+          font-light
+          transition-all
+          hover:gap-4
+        "
+      >
+        Envoyer le message
 
-        </form>
+        <span>
+          →
+        </span>
 
-      </div>
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
 
     </div>
 

@@ -295,13 +295,13 @@ export default function CommitteePage() {
 
     </div>
 
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 border border-[#ececec]">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
       {scientificCommittee.map((member) => (
 
         <div
           key={member.name}
-          className="p-8 border-b border-r border-[#ececec]"
+          className="p-8 card-hover"
         >
 
           <h3 className="text-xl font-medium text-black">
@@ -348,7 +348,7 @@ export default function CommitteePage() {
 
         <div
           key={member.name}
-          className="border border-[#ececec] p-8"
+          className="card-hover p-8"
         >
 
           <h3 className="text-xl font-medium text-black">
