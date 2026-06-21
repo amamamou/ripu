@@ -102,6 +102,7 @@ html, body {
 }
 
 .pill-tab-item[data-active="true"] {
+  background: var(--brand);
   color: var(--white);
 }
 

@@ -14,18 +14,16 @@ const links = [
   { label: "À propos", href: "/about" },
   { label: "Auteurs", href: "/authors" },
   { label: "Comité", href: "/committee" },
-]
-
-const mobileLinks = [
-  ...links,
-  { label: "Contact", href: "/contact" },
   { label: "RIPU25", href: "/ripu25" },
+  { label: "Contact", href: "/contact" },
 ]
 
-export function SiteHeader() {
+const mobileLinks = [...links]
+
+export function SiteHeader({ solid = false }: { solid?: boolean }) {
   const pathname = usePathname()
   const isHome = pathname === "/"
-  const [onHero, setOnHero] = useState(isHome)
+  const [onHero, setOnHero] = useState(isHome && !solid)
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -33,7 +31,7 @@ export function SiteHeader() {
     const fn = () => {
       const y = window.scrollY
       setScrolled(y > 16)
-      if (isHome) {
+      if (isHome && !solid) {
         setOnHero(y < window.innerHeight * 0.82)
       } else {
         setOnHero(false)
@@ -42,7 +40,7 @@ export function SiteHeader() {
     fn()
     window.addEventListener("scroll", fn, { passive: true })
     return () => window.removeEventListener("scroll", fn)
-  }, [isHome])
+  }, [isHome, solid])
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : ""
@@ -51,8 +49,8 @@ export function SiteHeader() {
     }
   }, [open])
 
-  const transparentHero = isHome && onHero && !scrolled
-  const solidNav = !transparentHero
+  const transparentHero = !solid && isHome && onHero && !scrolled
+  const solidNav = solid || !transparentHero
 
   return (
     <>
@@ -62,7 +60,6 @@ export function SiteHeader() {
         initial={false}
         animate={{
           backgroundColor: transparentHero ? "rgba(0,0,0,0)" : "rgba(255,255,255,0.92)",
-          boxShadow: solidNav && scrolled ? "0 12px 40px rgba(47, 4, 97, 0.06)" : "0 0 0 rgba(0,0,0,0)",
         }}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
@@ -113,16 +110,6 @@ export function SiteHeader() {
           </nav>
 
           <div className="relative z-10 flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/contact"
-              className={cn(
-                "hidden text-[13px] font-semibold transition-colors duration-200 lg:inline",
-                solidNav ? "text-[var(--grey-600)] hover:text-[var(--brand)]" : "text-white/80 hover:text-white"
-              )}
-            >
-              Contact
-            </Link>
-
             <Link
               href="/authors"
               className={cn(
