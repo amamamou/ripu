@@ -1,293 +1,73 @@
-"use client";
-
-import Link from "next/link";
-import {
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-  FaFacebookF,
-} from "react-icons/fa";
+import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
+import { FaInstagram, FaLinkedinIn, FaYoutube, FaFacebookF } from "react-icons/fa"
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#1B1142] text-white">
-
-      {/* Glow */}
-
-      <div
-        className="
-          absolute
-          left-1/2
-          top-[-120px]
-          -translate-x-1/2
-          h-[700px]
-          w-[700px]
-          rounded-full
-          bg-[#2F0461]
-          opacity-30
-          blur-[180px]
-          pointer-events-none
-        "
-      />
-
-      {/* Watermark */}
-
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-
-        <div
-          className="
-            absolute
-            left-1/2
-            top-1/2
-            -translate-x-1/2
-            -translate-y-1/2
-            text-[24vw]
-            font-black
-            tracking-[-0.08em]
-            leading-none
-            text-white/[0.03]
-            whitespace-nowrap
-            select-none
-          "
-        >
-          RIPU26
-        </div>
-
-      </div>
-
-      <div className="relative px-8 lg:px-16 pt-40 pb-12">
-
-        {/* Hero Footer */}
-
-        <div className="max-w-7xl">
-
-          <div className="text-xs uppercase tracking-[0.25em] text-white/50">
-            Rencontre Internationale de la Pédagogie Universitaire
+    <footer className="bg-[var(--grey-50)]">
+      <div className="container-main py-12 sm:py-16 md:py-20">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <p className="t-nav text-2xl font-bold tracking-tight">RIPU26</p>
+            <p className="mt-4 max-w-xs t-body-sm text-[var(--grey-600)]">
+              Rencontre Internationale de la Pédagogie Universitaire — Sousse, 30–31 Octobre 2026.
+            </p>
+            <div className="mt-8 flex gap-3">
+              {[
+                { href: "https://instagram.com", Icon: FaInstagram, label: "Instagram" },
+                { href: "https://facebook.com", Icon: FaFacebookF, label: "Facebook" },
+                { href: "https://linkedin.com", Icon: FaLinkedinIn, label: "LinkedIn" },
+                { href: "https://youtube.com", Icon: FaYoutube, label: "YouTube" },
+              ].map(({ href, Icon, label }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--grey-400)] transition-all hover:bg-[var(--black)] hover:text-white"
+                >
+                  <Icon size={15} />
+                </Link>
+              ))}
+            </div>
           </div>
 
-          <h2
-            className="
-              mt-8
-              text-7xl
-              md:text-8xl
-              lg:text-[11rem]
-              font-light
-              tracking-[-0.07em]
-              leading-[0.88]
-            "
-          >
-            RIPU26
-          </h2>
-
-          <p
-            className="
-              mt-10
-              max-w-3xl
-              text-xl
-              md:text-2xl
-              leading-[1.8]
-              text-white/65
-            "
-          >
-            Une rencontre internationale dédiée à l’innovation pédagogique,
-            l’intelligence artificielle générative et l’avenir de
-            l’enseignement supérieur.
-          </p>
-
-        </div>
-
-        {/* Main Footer Content */}
-
-        <div className="mt-32 border-t border-white/10 pt-16">
-
-          <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-
-            {/* Social */}
-
-            <div>
-
-              <div className="text-xs uppercase tracking-[0.2em] text-white/40">
-                Suivez-nous
+          <div className="grid gap-10 sm:grid-cols-3 lg:col-span-8">
+            {[
+              { title: "Navigation", links: [["Accueil", "/"], ["À propos", "/about"], ["Comité", "/committee"], ["Contact", "/contact"]] },
+              { title: "Programme", links: [["Appel à communications", "/authors"], ["Axes du colloque", "/about#topics"], ["Comité scientifique", "/committee"], ["Dates & inscription", "/authors#dates"]] },
+              { title: "Contact", links: [["contact@ripu26.org", "mailto:contact@ripu26.org"], ["Sousse, Tunisie", "/contact"], ["30–31 Oct. 2026", "/authors#dates"]] },
+            ].map((col) => (
+              <div key={col.title}>
+                <p className="t-label dot-label">{col.title}</p>
+                <nav className="mt-5 flex flex-col gap-3">
+                  {col.links.map(([label, href]) => (
+                    <Link
+                      key={label}
+                      href={href}
+                      className="group inline-flex items-center gap-1 t-body-sm text-[var(--grey-600)] transition-colors hover:text-[var(--black)]"
+                    >
+                      {label}
+                      <ArrowUpRight className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />
+                    </Link>
+                  ))}
+                </nav>
               </div>
-
-              <div className="mt-8 flex items-center gap-8">
-
-                <Link
-                  href="https://instagram.com"
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  <FaInstagram size={20} />
-                </Link>
-
-                <Link
-                  href="https://facebook.com"
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  <FaFacebookF size={20} />
-                </Link>
-
-                <Link
-                  href="https://linkedin.com"
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  <FaLinkedinIn size={20} />
-                </Link>
-
-                <Link
-                  href="https://youtube.com"
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  <FaYoutube size={20} />
-                </Link>
-
-              </div>
-
-            </div>
-
-            {/* Navigation */}
-
-            <div>
-
-              <h4 className="text-sm font-medium text-white mb-6">
-                Navigation
-              </h4>
-
-              <div className="space-y-4">
-
-                <Link
-                  href="/"
-                  className="block text-white/60 hover:text-white transition-colors"
-                >
-                  Accueil
-                </Link>
-
-                <Link
-                  href="/about"
-                  className="block text-white/60 hover:text-white transition-colors"
-                >
-                  À propos
-                </Link>
-
-                <Link
-                  href="/committee"
-                  className="block text-white/60 hover:text-white transition-colors"
-                >
-                  Comité scientifique
-                </Link>
-
-                <Link
-                  href="/contact"
-                  className="block text-white/60 hover:text-white transition-colors"
-                >
-                  Contact
-                </Link>
-
-              </div>
-
-            </div>
-
-            {/* Programme */}
-
-            <div>
-
-              <h4 className="text-sm font-medium text-white mb-6">
-                Programme
-              </h4>
-
-              <div className="space-y-4">
-
-                <Link
-                  href="/authors"
-                  className="block text-white/60 hover:text-white transition-colors"
-                >
-                  Appel à communications
-                </Link>
-
-                <Link
-                  href="/about#topics"
-                  className="block text-white/60 hover:text-white transition-colors"
-                >
-                  Thématiques
-                </Link>
-
-                <Link
-                  href="/speakers"
-                  className="block text-white/60 hover:text-white transition-colors"
-                >
-                  Intervenants
-                </Link>
-
-                <Link
-                  href="/registration"
-                  className="block text-white/60 hover:text-white transition-colors"
-                >
-                  Inscription
-                </Link>
-
-              </div>
-
-            </div>
-
-            {/* Contact */}
-
-            <div>
-
-              <h4 className="text-sm font-medium text-white mb-6">
-                Contact
-              </h4>
-
-              <div className="space-y-4 text-white/60">
-
-                <p>contact@ripu26.org</p>
-
-                <p>
-                  Sousse
-                  <br />
-                  Tunisie
-                </p>
-
-                <p>
-                  30–31 Octobre 2026
-                </p>
-
-              </div>
-
-            </div>
-
+            ))}
           </div>
-
         </div>
 
-        {/* Bottom Bar */}
-
-        <div className="mt-20 border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-
-          <p className="text-sm text-white/40">
-            © 2026 RIPU26. Tous droits réservés.
-          </p>
-
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 pt-8 md:flex-row">
+          <p className="t-body-sm text-[var(--grey-400)]">© 2026 RIPU26. Tous droits réservés.</p>
           <div className="flex gap-8">
-
-            <Link
-              href="/legal"
-              className="text-sm text-white/40 hover:text-white transition-colors"
-            >
+            <Link href="/contact" className="t-body-sm text-[var(--grey-400)] transition-colors hover:text-[var(--black)]">
               Mentions légales
             </Link>
-
-            <Link
-              href="/privacy"
-              className="text-sm text-white/40 hover:text-white transition-colors"
-            >
-              Politique de confidentialité
+            <Link href="/contact" className="t-body-sm text-[var(--grey-400)] transition-colors hover:text-[var(--black)]">
+              Confidentialité
             </Link>
-
           </div>
-
         </div>
-
       </div>
-
     </footer>
-  );
+  )
 }

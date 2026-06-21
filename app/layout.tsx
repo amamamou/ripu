@@ -3,19 +3,20 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 
 import Footer from "@/components/Footer";
+import { RIPU26_EVENT_TITLE } from "@/lib/event-copy";
 
 import "./globals.css";
 
 const montserrat = Montserrat({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "RIPU26 — Rencontre Internationale de la Pédagogie Universitaire",
-  description:
-    "RIPU26 rassemble enseignants, chercheurs et responsables de l’enseignement supérieur autour des enjeux de l’intelligence artificielle, de l’innovation pédagogique et de l’approche par compétences. Sousse, Tunisie — 30–31 Octobre 2026.",
+  description: `${RIPU26_EVENT_TITLE} — RIPU26, Sousse, Tunisie, 30–31 octobre 2026.`,
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
@@ -36,8 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${montserrat.variable} bg-white`}>
-      <body className="bg-white font-sans text-black antialiased">
+    <html lang="fr" className={montserrat.variable}>
+      <body className="bg-white font-sans antialiased">
         {children}
 
         <Footer />

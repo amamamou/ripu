@@ -1,54 +1,46 @@
-import Image from 'next/image'
+"use client"
 
-export function CTASection() {
+import Link from "next/link"
+import Image from "next/image"
+import { ArrowRight } from "lucide-react"
+import { Reveal } from "@/components/landing/reveal"
+import { cn } from "@/lib/utils"
+
+export function CTASection({ className }: { className?: string }) {
   return (
-    <section className="bg-white px-12 pb-20">
-      <div className="max-w-7xl mx-auto">
-      <div className="relative overflow-hidden rounded-[28px] h-[320px] md:h-[420px]">
+    <section className={cn("section-block landing-section section-muted pb-20 md:pb-24", className)}>
+      <div className="container-main">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-[var(--radius-2xl)] bg-[var(--brand-dark)]">
+            <div className="mesh-bg pointer-events-none absolute inset-0 opacity-60" aria-hidden />
+            <div className="relative min-h-0 md:min-h-[360px]">
+              <Image src="/hero/2.png" alt="" fill className="object-cover opacity-40 mix-blend-luminosity" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-dark)] via-[var(--brand-dark)]/85 to-[var(--brand)]/40" />
 
-        <Image
-          src="/hero/3.png"
-          alt="RIPU26"
-          fill
-          className="object-cover"
-        />
-
-        {/* Overlay */}
-<div className="absolute inset-0 bg-[#2F0461]/20" />        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-
-          <span className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/80 mb-4">
-            ✦ PRÊT À PARTICIPER ?
-          </span>
-
-          <h2 className="text-white font-medium leading-tight text-3xl md:text-5xl max-w-3xl">
-            Votre place vous attend.
-            <br />
-            Rejoignez RIPU26.
-          </h2>
-
-          <button
-            className="
-              mt-8
-              rounded-full
-              border
-              border-white/40
-              bg-white/10
-              backdrop-blur-md
-              px-8
-              py-3
-              text-sm
-              font-medium
-              text-white
-              hover:bg-white/20
-              transition-all
-            "
-          >
-            Soumettre une communication
-          </button>
-
-        </div>
-</div>
+              <div className="relative flex flex-col justify-center px-5 py-12 sm:px-8 sm:py-16 md:min-h-[480px] md:px-16 lg:px-20">
+                <span className="pill-outline-white w-fit text-xs sm:text-sm">Prêt à participer ?</span>
+                <h2 className="t-section mt-5 max-w-xl text-white sm:mt-6">
+                  Rejoignez RIPU26 à Sousse
+                </h2>
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-white/70 sm:mt-4 sm:t-body">
+                  Soumettez votre communication et participez à la 2e édition
+                  internationale de la Rencontre Internationale de la Pédagogie Universitaire.
+                </p>
+                <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
+                  <Link href="/authors" className="btn-lime w-full justify-center sm:w-auto">
+                    Soumettre une communication
+                    <span className="btn-lime-icon"><ArrowRight className="h-4 w-4" /></span>
+                  </Link>
+                  <Link href="/contact" className="btn-hero w-full justify-center sm:w-auto">
+                    Nous contacter
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )
 }
+
