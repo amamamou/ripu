@@ -1,9 +1,7 @@
 "use client"
 
-import { useRef } from "react"
 import Link from "next/link"
 import { ArrowRight, ExternalLink } from "lucide-react"
-import { motion, useInView } from "framer-motion"
 import { Reveal } from "@/components/landing/reveal"
 
 const YOUTUBE_ID = "pnKB0Pl3hdQ"
@@ -27,19 +25,27 @@ const EMBED = [
 ].join("")
 
 export function AboutSection() {
-  const videoRef = useRef<HTMLDivElement>(null)
-  const videoInView = useInView(videoRef, { once: true, margin: "-40px" })
-
   return (
     <section id="about" className="section-block landing-section section-muted pt-16 md:pt-24">
       <div className="container-main">
         <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-[1fr_minmax(260px,320px)] lg:gap-20 xl:gap-28">
-          <div className="max-w-xl">
+          <div className="max-w-2xl">
             <Reveal>
               <p className="t-label dot-label">Le colloque RIPU26</p>
-              <h2 className="t-section mt-4 text-balance">
-                Une rencontre internationale dédiée à l&apos;excellence pédagogique
+            </Reveal>
+            <Reveal delay={0.06}>
+              <h2 className="mt-4">
+                <span className="t-section block text-balance">
+                  L&apos;Intelligence Artificielle Générative et l&apos;Approche par Compétences&nbsp;:
+                </span>
               </h2>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <p className="text-balance text-[clamp(1.125rem,3.5vw,1.875rem)] font-semibold leading-snug tracking-tight text-[var(--black)]">
+                quels défis pour enseigner, apprendre et évaluer&nbsp;?
+              </p>
+            </Reveal>
+            <Reveal delay={0.18}>
               <p className="mt-6 t-body text-[var(--grey-600)]">
                 RIPU rassemble depuis des années les acteurs de l&apos;enseignement supérieur.
                 Cette édition explore l&apos;intelligence artificielle, l&apos;approche par
@@ -47,13 +53,13 @@ export function AboutSection() {
               </p>
             </Reveal>
 
-            <Reveal delay={0.08}>
+            <Reveal delay={0.24}>
               <p className="mt-8 text-sm font-medium text-[var(--grey-400)]">
                 2e édition · International · Sousse, Tunisie · 30–31 oct. 2026
               </p>
             </Reveal>
 
-            <Reveal delay={0.12}>
+            <Reveal delay={0.3}>
               <Link href="/about" className="btn-lime mt-8 inline-flex w-full justify-center sm:mt-10 sm:w-auto">
                 En savoir plus
                 <span className="btn-lime-icon">
@@ -63,13 +69,7 @@ export function AboutSection() {
             </Reveal>
           </div>
 
-          <motion.div
-            ref={videoRef}
-            initial={{ opacity: 0, y: 32 }}
-            animate={videoInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-auto w-full max-w-[300px] lg:mx-0 lg:max-w-none"
-          >
+          <Reveal direction="right" delay={0.1} className="mx-auto w-full max-w-[300px] lg:mx-0 lg:max-w-none">
             <div className="video-reel">
               <div className="video-reel-screen">
                 <iframe
@@ -99,7 +99,7 @@ export function AboutSection() {
                 <ExternalLink className="h-3.5 w-3.5" />
               </a>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

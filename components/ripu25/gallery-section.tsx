@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { Reveal } from "@/components/landing/reveal"
+import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { SectionHead } from "@/components/landing/section-head"
 import { ripu25Affiche, ripu25Gallery, ripu25Intro } from "@/components/ripu25/data"
 
@@ -37,24 +38,26 @@ export function Ripu25Section() {
           <Reveal delay={0.08}>
             <p className="max-w-lg t-body leading-relaxed text-[var(--grey-600)]">{ripu25Intro}</p>
 
-            <div className="mt-10 grid grid-cols-3 gap-3 sm:gap-4">
+            <StaggerChildren className="mt-10 grid grid-cols-3 gap-3 sm:gap-4" stagger={0.06}>
               {ripu25Gallery.map((photo) => (
-                <figure key={photo.src}>
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                    <Image
-                      src={photo.src}
-                      alt={photo.alt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 28vw, 200px"
-                    />
-                  </div>
-                  <figcaption className="mt-2 hidden font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--grey-400)] sm:block">
-                    {photo.label}
-                  </figcaption>
-                </figure>
+                <StaggerItem key={photo.src}>
+                  <figure>
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                      <Image
+                        src={photo.src}
+                        alt={photo.alt}
+                        fill
+                        className="object-cover transition-transform duration-500 hover:scale-105"
+                        sizes="(max-width: 768px) 28vw, 200px"
+                      />
+                    </div>
+                    <figcaption className="mt-2 hidden font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--grey-400)] sm:block">
+                      {photo.label}
+                    </figcaption>
+                  </figure>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerChildren>
           </Reveal>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { SiteHeader } from "@/components/landing/site-header"
+import { ScrollProgress } from "@/components/landing/scroll-progress"
 import Hero from "@/components/hero"
 import { StatsStrip } from "@/components/stats-strip"
 import { ResearchTicker } from "@/components/research-ticker"
@@ -10,6 +11,7 @@ import { RIPU25SyncSections } from "@/components/ripu25-section"
 export default function HomePage() {
   return (
     <>
+      <ScrollProgress />
       <SiteHeader />
       <main className="overflow-x-clip">
         <Hero />

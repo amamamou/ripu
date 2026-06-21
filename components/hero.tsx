@@ -9,6 +9,15 @@ import { RIPU26_EVENT_THEME } from "@/lib/event-copy"
 
 const heroImages = ["/hero/1.png", "/hero/2.png", "/hero/3.png"]
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] as const },
+  },
+}
+
 const missionSlides = [
   {
     title: "Thème du colloque",
@@ -94,23 +103,28 @@ export default function Hero() {
 
         <div className="grid items-end gap-8 lg:grid-cols-[1fr_380px] lg:gap-16">
           <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+            }}
             className="max-w-2xl"
           >
-            <p className="dot-label text-xs font-semibold uppercase tracking-[0.14em] text-white/80 [&::before]:bg-white/80">
+            <motion.p
+              variants={fadeUp}
+              className="dot-label text-xs font-semibold uppercase tracking-[0.14em] text-white/80 [&::before]:bg-white/80"
+            >
               Pédagogie Universitaire &amp; IA
-            </p>
-            <h1 className="t-hero mt-4 text-white">
-              L&apos;innovation au cœur de votre parcours académique
-            </h1>
-            <p className="mt-6 max-w-lg t-body text-white/70">
+            </motion.p>
+            <motion.h1 variants={fadeUp} className="t-hero mt-4 text-white">
+              RIPU26
+            </motion.h1>
+            <motion.p variants={fadeUp} className="mt-6 max-w-lg t-body text-white/70">
               RIPU26 rassemble enseignants, chercheurs et responsables de
               l&apos;enseignement supérieur autour de l&apos;IA, de l&apos;APC
               et des enjeux de l&apos;évaluation.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
+            </motion.p>
+            <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
               <Link href="/authors" className="btn-lime w-full justify-center sm:w-auto">
                 Appel à communications
                 <span className="btn-lime-icon"><ArrowRight className="h-4 w-4" /></span>
@@ -118,7 +132,7 @@ export default function Hero() {
               <Link href="#about" className="btn-hero w-full justify-center sm:w-auto">
                 Découvrir le colloque
               </Link>
-            </div>
+            </motion.div>
           </motion.div>
 
           <motion.div
