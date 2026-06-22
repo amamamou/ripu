@@ -6,22 +6,17 @@ export const ripu25Affiche = {
 }
 
 export const ripu25Gallery = [
-  {
-    src: "/ripu/1.png",
-    alt: "Sessions plénières RIPU25",
-    label: "Sessions plénières",
-  },
-  {
-    src: "/ripu/2.png",
-    alt: "Ateliers pratiques RIPU25",
-    label: "Ateliers pratiques",
-  },
-  {
-    src: "/ripu/3.png",
-    alt: "Conférences et échanges RIPU25",
-    label: "Conférences & échanges",
-  },
+  { src: "/ripu/rrr.jpg", alt: "Moments forts RIPU25" },
+  { src: "/ripu/3.png", alt: "Moments forts RIPU25" },
+  { src: "/ripu/1.png", alt: "Moments forts RIPU25" },
+  { src: "/ripu/p10.jpg", alt: "Moments forts RIPU25" },
 ] as const
+
+export const ripu25Meta = {
+  date: "30–31 mai 2025",
+  venue: "Marriott Resort · Sousse",
+  highlights: ["Conférences", "Ateliers", "Échanges internationaux"],
+} as const
 
 export const ripu25Intro =
   "La première édition à Sousse a rassemblé enseignants-chercheurs de toute la région autour de l'excellence pédagogique, de l'IA éthique et de l'innovation dans l'enseignement supérieur."
@@ -42,7 +37,7 @@ export const ripu25Slides = [
     name: "Fattouma Mzali",
     role: "ISET Rades",
     avatar: "/fattouma.png",
-    gallery: "/ripu/2.png",
+    gallery: "/ripu/1.png",
     galleryLabel: "Ateliers pratiques",
     quote:
       "Ma participation dans la RIPU 2025 portant sur l'intelligence artificielle et pédagogie universitaire a fortement impacté mes pratiques pédagogiques et m'a permis de mieux orienter mes étudiants sur son utilisation. J'ai hâte d'apprendre davantage dans la même fluidité avec vous.",

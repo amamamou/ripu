@@ -102,10 +102,10 @@ const programByDay: { day: "Jour 1" | "Jour 2"; date: string; items: ProgramItem
 ]
 
 const galleryImages = [
-  { src: "/ripu/2.png", alt: "RIPU25", span: "lg:col-span-7 lg:row-span-2" },
+  { src: "/ripu/rrr.jpg", alt: "RIPU25", span: "lg:col-span-7 lg:row-span-2" },
   { src: "/ripu/1.png", alt: "RIPU25", span: "lg:col-span-5", objectPosition: "top" as const },
-  { src: "/ripu/p8.jpg", alt: "RIPU25", span: "lg:col-span-5" },
-  { src: "/ripu/3.png", alt: "RIPU25", span: "lg:col-span-12" },
+  { src: "/ripu/4.jpeg", alt: "RIPU25", span: "lg:col-span-5", objectPosition: "top" as const },
+  { src: "/ripu/22.png", alt: "RIPU25", span: "lg:col-span-12" },
 ] as const
 
 function TimelineItem({ item, isLast }: { item: ProgramItem; isLast: boolean }) {
