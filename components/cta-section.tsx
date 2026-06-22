@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
 
 export function CTASection({ className }: { className?: string }) {
   return (
-    <section className={cn("section-block landing-section section-muted pb-20 md:pb-24", className)}>
+    <section className={cn("section-block landing-section section-white pb-20 md:pb-24", className)}>
       <div className="container-main">
         <Reveal>
           <div className="relative overflow-hidden rounded-[var(--radius-2xl)] bg-[var(--brand-dark)]">
@@ -39,7 +39,7 @@ export function CTASection({ className }: { className?: string }) {
                 </StaggerItem>
                 <StaggerItem>
                   <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
-                    <Link href="/authors" className="btn-lime w-full justify-center sm:w-auto">
+                    <Link href="/soumission" className="btn-lime w-full justify-center sm:w-auto">
                       Soumettre une communication
                       <span className="btn-lime-icon"><ArrowRight className="h-4 w-4" /></span>
                     </Link>

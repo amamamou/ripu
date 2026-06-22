@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, ExternalLink } from "lucide-react"
 import { Reveal } from "@/components/landing/reveal"
@@ -24,9 +25,16 @@ const EMBED = [
   "&fs=0",
 ].join("")
 
+const partners = [
+  { name: "ISET Sousse", src: "/logos/isetsousse.webp" },
+  { name: "Avignon Université", src: "/logos/avignon.webp" },
+  { name: "EduLink", src: "/logos/edulink.png" },
+  { name: "Graasp", src: "/logos/graasp.jpg" },
+] as const
+
 export function AboutSection() {
   return (
-    <section id="about" className="section-block landing-section section-muted pt-16 md:pt-24">
+    <section id="about" className="section-block landing-section section-white pt-16 md:pt-24">
       <div className="container-main">
         <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-[1fr_minmax(260px,320px)] lg:gap-20 xl:gap-28">
           <div className="max-w-2xl">
@@ -60,12 +68,32 @@ export function AboutSection() {
             </Reveal>
 
             <Reveal delay={0.3}>
-              <Link href="/about" className="btn-lime mt-8 inline-flex w-full justify-center sm:mt-10 sm:w-auto">
-                En savoir plus
-                <span className="btn-lime-icon">
-                  <ArrowRight className="h-4 w-4" />
-                </span>
-              </Link>
+              <div className="mt-8 flex flex-col gap-5 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
+                <Link href="/about" className="btn-lime inline-flex w-full justify-center sm:w-auto">
+                  En savoir plus
+                  <span className="btn-lime-icon">
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </Link>
+                <ul
+                  className="flex items-center gap-4 sm:gap-5"
+                  aria-label="Partenaires institutionnels"
+                >
+                  {partners.map((partner) => (
+                    <li key={partner.name}>
+                      <div className="relative h-6 w-14 sm:h-7 sm:w-16">
+                        <Image
+                          src={partner.src}
+                          alt={partner.name}
+                          fill
+                          sizes="64px"
+                          className="object-contain object-left sm:object-center"
+                        />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Reveal>
           </div>
 

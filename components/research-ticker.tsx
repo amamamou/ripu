@@ -17,9 +17,9 @@ export function ResearchTicker() {
 
   return (
     <Reveal direction="none" duration={0.5}>
-      <div className="relative z-10 overflow-hidden bg-[var(--grey-50)] py-3 sm:py-4" aria-hidden>
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[var(--grey-50)] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[var(--grey-50)] to-transparent" />
+      <div className="relative z-10 overflow-hidden bg-white py-3 sm:py-4" aria-hidden>
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent" />
         <div className="ticker-track flex w-max gap-12">
           {loop.map((item, i) => (
             <span

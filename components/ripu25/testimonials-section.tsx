@@ -9,7 +9,7 @@ import { ripu25Slides } from "@/components/ripu25/data"
 
 export function TestimonialsSection() {
   return (
-    <section id="testimonials" className="section-block landing-section section-muted pb-0 md:pb-2">
+    <section id="testimonials" className="section-block landing-section section-white pb-0 md:pb-2">
       <div className="container-main">
         <Reveal>
           <SectionHead label="Témoignages" title="Ce qu'ils en retiennent" />

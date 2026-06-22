@@ -1,0 +1,27 @@
+export const SUBMISSION_EMAIL = "submissions@ripu26.org"
+
+export const SUBMISSION_DEADLINE_LABEL = "15 juillet 2026"
+
+export const SUBMISSION_AXES = [
+  "Intelligence Artificielle Générative & Enseignement",
+  "Approches Pédagogiques",
+  "Genre & Éducation",
+] as const
+
+export function buildSubmissionMailto() {
+  const subject = encodeURIComponent("[RIPU26] Soumission")
+  const body = encodeURIComponent(
+    `Bonjour,
+
+Veuillez trouver ci-joint ma communication pour RIPU26 (version anonyme, PDF).
+
+Titre de la communication :
+Axe choisi :
+Auteurs et affiliations :
+Auteur correspondant (e-mail, téléphone) :
+
+Cordialement,
+`
+  )
+  return `mailto:${SUBMISSION_EMAIL}?subject=${subject}&body=${body}`
+}

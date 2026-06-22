@@ -9,13 +9,6 @@ import { SectionHead } from "@/components/landing/section-head"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { cn } from "@/lib/utils"
 
-const stats = [
-  { value: "3", label: "Axes principaux" },
-  { value: "11+", label: "Sous-thématiques" },
-  { value: "FR", label: "Langue principale" },
-  { value: "PR", label: "Peer review" },
-] as const
-
 const axes = [
   {
     num: "01",
@@ -56,6 +49,13 @@ const ANNOUNCEMENT = {
   headline: "Les conférenciers invités seront annoncés prochainement.",
   body: "Les intervenants nationaux et internationaux seront dévoilés prochainement.",
 } as const
+
+const partners = [
+  { name: "ISET Sousse", src: "/logos/isetsousse.webp" },
+  { name: "Avignon Université", src: "/logos/avignon.webp" },
+  { name: "EduLink", src: "/logos/edulink.png" },
+  { name: "Graasp", src: "/logos/graasp.jpg" },
+] as const
 
 function AxeCard({
   num,
@@ -99,9 +99,9 @@ export function AboutPageContent() {
   return (
     <main className="overflow-x-clip bg-white pt-[4.25rem] md:pt-[4.75rem]">
       {/* Hero — same rhythm as landing about */}
-      <section id="about-intro" className="section-block pb-6 md:pb-10">
+      <section id="ripu" className="section-block pb-6 md:pb-10">
         <div className="container-main">
-          <div className="grid items-start gap-10 lg:grid-cols-[1fr_minmax(240px,300px)] lg:gap-16 xl:gap-24">
+          <div className="grid items-start gap-10 lg:grid-cols-[1fr_minmax(240px,300px)] lg:items-end lg:gap-16 xl:gap-24">
             <div className="max-w-2xl">
               <Reveal>
                 <p className="dot-label text-xs font-semibold uppercase tracking-[0.14em]">À propos</p>
@@ -131,8 +131,8 @@ export function AboutPageContent() {
               </Reveal>
             </div>
 
-            <Reveal direction="right" delay={0.12}>
-              <div className="lg:pt-6">
+            <Reveal direction="right" delay={0.12} className="lg:pb-1">
+              <div className="mt-16 sm:mt-20 lg:mt-0">
                 <div className="flex items-center">
                   {["/team/11.png", "/team/22.png", "/team/33.png"].map((src, i) => (
                     <Image
@@ -161,22 +161,32 @@ export function AboutPageContent() {
               </div>
             </Reveal>
           </div>
-        </div>
-      </section>
 
-      {/* Stats — landing floating panel */}
-      <section className="relative z-10 -mt-2 pb-16 md:-mt-4 md:pb-24">
-        <div className="container-main">
-          <StaggerChildren className="floating-panel grid grid-cols-2 md:grid-cols-4">
-            {stats.map((item) => (
-              <StaggerItem key={item.label}>
-                <div className="px-5 py-8 transition-colors hover:bg-[var(--brand-soft)]/40 sm:px-7 sm:py-10 md:px-8">
-                  <p className="t-stat text-[var(--black)]">{item.value}</p>
-                  <p className="mt-2 text-xs text-[var(--grey-600)] sm:text-sm">{item.label}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerChildren>
+          <Reveal delay={0.22}>
+            <div className="mt-14 md:mt-20">
+              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[var(--grey-400)]">
+                Partenaires institutionnels
+              </p>
+              <ul
+                className="mt-6 flex flex-wrap items-center gap-x-10 gap-y-8 sm:mt-7 sm:justify-between sm:gap-x-6 sm:gap-y-0"
+                aria-label="Partenaires institutionnels"
+              >
+                {partners.map((partner) => (
+                  <li key={partner.name} className="flex items-center">
+                    <div className="relative h-9 w-[6.75rem] sm:h-10 sm:w-[7.5rem]">
+                      <Image
+                        src={partner.src}
+                        alt={partner.name}
+                        fill
+                        sizes="120px"
+                        className="object-contain object-left sm:object-center"
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         </div>
       </section>
 
