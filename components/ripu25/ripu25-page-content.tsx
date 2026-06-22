@@ -8,37 +8,6 @@ import { SectionHead } from "@/components/landing/section-head"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { cn } from "@/lib/utils"
 
-const speakers = [
-  {
-    name: "Denis Gillet",
-    role: "Président de Graasp.org",
-    institution: "École Polytechnique Fédérale de Lausanne (EPFL)",
-    image: "/team/22.png",
-    bio: "Enseignant universitaire et président de Graasp.org, Denis Gillet dirige le groupe des systèmes d'interaction à l'EPFL. Il est également membre du comité pour l'éducation de l'IEEE et cofondateur du Swiss EdTech Collider.",
-  },
-  {
-    name: "Sonia Sahli",
-    role: "Experte en ingénierie pédagogique",
-    institution: "ISET Sousse, Tunisie",
-    image: "/team/11.png",
-    bio: "Enseignante universitaire en informatique et experte en ingénierie pédagogique, Sonia Sahli est créatrice de SonyPlanner et spécialiste en UI/UX Design.",
-  },
-  {
-    name: "Thierry Spriet",
-    role: "Maître de conférences HC",
-    institution: "Avignon Université, France",
-    image: "/team/33.png",
-    bio: "Expert en pédagogie universitaire et innovation numérique avec près de trente années d'expérience dans l'enseignement supérieur.",
-  },
-  {
-    name: "Nawel Souissi",
-    role: "Experte en accréditation internationale",
-    institution: "PRISTINI School of AI",
-    image: "/team/66.png",
-    bio: "Docteure en électronique et spécialiste de l'assurance qualité dans l'enseignement supérieur, reconnue pour son expertise en intelligence artificielle.",
-  },
-] as const
-
 type ProgramItem = {
   day: "Jour 1" | "Jour 2"
   time: string
@@ -181,26 +150,6 @@ function TimelineItem({ item, isLast }: { item: ProgramItem; isLast: boolean }) 
   )
 }
 
-function SpeakerProfile({ speaker }: { speaker: (typeof speakers)[number] }) {
-  return (
-    <article className="flex gap-5 sm:gap-6">
-      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full sm:h-[4.5rem] sm:w-[4.5rem]">
-        <Image src={speaker.image} alt={speaker.name} fill className="object-cover object-top" />
-      </div>
-      <div className="min-w-0 flex-1">
-        <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[var(--grey-400)]">
-          {speaker.institution}
-        </p>
-        <h3 className="mt-1.5 text-base font-semibold leading-snug text-[var(--black)]">
-          {speaker.name}
-        </h3>
-        <p className="mt-1 text-sm font-medium text-[var(--brand)]">{speaker.role}</p>
-        <p className="mt-3 text-sm leading-relaxed text-[var(--grey-600)]">{speaker.bio}</p>
-      </div>
-    </article>
-  )
-}
-
 export function Ripu25PageContent() {
   return (
     <main className="overflow-x-clip bg-white pt-[4.25rem] md:pt-[4.75rem]">
@@ -256,35 +205,6 @@ export function Ripu25PageContent() {
               </div>
             </Reveal>
           </div>
-        </div>
-      </section>
-
-      {/* Speakers — panel layout */}
-      <section id="speakers" className="section-block section-white">
-        <div className="container-main">
-          <Reveal>
-            <div className="rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-7 md:p-9">
-              <p className="dot-label text-xs font-semibold uppercase tracking-[0.14em]">
-                Conférenciers
-              </p>
-              <h2 className="mt-3 text-xl font-semibold tracking-tight text-[var(--black)] md:text-2xl">
-                Nos conférenciers invités
-              </h2>
-              <p className="mt-4 max-w-2xl t-body-sm text-[var(--grey-600)]">
-                Quatre intervenants internationaux — pédagogie universitaire, intelligence
-                artificielle et innovation éducative — ont animé conférences et ateliers lors de
-                cette première édition.
-              </p>
-
-              <StaggerChildren className="mt-10 grid gap-10 md:grid-cols-2 md:gap-x-12 md:gap-y-12">
-                {speakers.map((speaker) => (
-                  <StaggerItem key={speaker.name}>
-                    <SpeakerProfile speaker={speaker} />
-                  </StaggerItem>
-                ))}
-              </StaggerChildren>
-            </div>
-          </Reveal>
         </div>
       </section>
 

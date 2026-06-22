@@ -8,6 +8,13 @@ import { Reveal } from "@/components/landing/reveal"
 import { SectionHead } from "@/components/landing/section-head"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { cn } from "@/lib/utils"
+import { RIPU26_EVENT_THEME } from "@/lib/event-copy"
+
+const highlights = [
+  "Revue par les pairs",
+  "3 axes scientifiques",
+  "Réseau international",
+] as const
 
 const axes = [
   {
@@ -45,17 +52,24 @@ const axes = [
   },
 ] as const
 
-const ANNOUNCEMENT = {
-  headline: "Les conférenciers invités seront annoncés prochainement.",
-  body: "Les intervenants nationaux et internationaux seront dévoilés prochainement.",
+const programAnnouncement = {
+  headline: "Le programme scientifique sera publié prochainement.",
+  body: "Sessions plénières, communications par axes et ateliers — le calendrier détaillé des 30 et 31 octobre 2026 à Sousse sera disponible ici.",
 } as const
 
-const partners = [
-  { name: "ISET Sousse", src: "/logos/isetsousse.webp" },
-  { name: "Avignon Université", src: "/logos/avignon.webp" },
-  { name: "EduLink", src: "/logos/edulink.png" },
-  { name: "Graasp", src: "/logos/graasp.jpg" },
-] as const
+const speakersAnnouncement = {
+  headline: "Les conférenciers invités seront annoncés prochainement.",
+  body: "Des intervenants nationaux et internationaux seront dévoilés au fur et à mesure.",
+} as const
+
+function StatusNotice({ headline, body }: { headline: string; body: string }) {
+  return (
+    <div className="mt-6 border-t border-[var(--border)] pt-6">
+      <p className="text-[0.9375rem] font-medium leading-relaxed text-[var(--brand)]">{headline}</p>
+      <p className="mt-2.5 text-sm leading-relaxed text-[var(--grey-600)]">{body}</p>
+    </div>
+  )
+}
 
 function AxeCard({
   num,
@@ -109,6 +123,11 @@ export function AboutPageContent() {
               <Reveal delay={0.05}>
                 <h1 className="t-section mt-4 text-[var(--black)]">RIPU26</h1>
               </Reveal>
+              <Reveal delay={0.08}>
+                <p className="mt-3 max-w-xl text-balance text-base font-semibold leading-snug tracking-tight text-[var(--black)] sm:text-lg">
+                  {RIPU26_EVENT_THEME.question}
+                </p>
+              </Reveal>
               <Reveal delay={0.1}>
                 <p className="mt-4 text-sm font-medium text-[var(--grey-400)]">
                   2e édition internationale · Sousse, Tunisie · 30–31 octobre 2026
@@ -121,7 +140,7 @@ export function AboutPageContent() {
                   de l&apos;enseignement supérieur.
                 </p>
               </Reveal>
-              <Reveal delay={0.2}>
+              <Reveal delay={0.18}>
                 <p className="mt-4 t-body text-[var(--grey-600)]">
                   Cette 2ème édition explore les mutations induites par l&apos;intelligence
                   artificielle générative, l&apos;approche par compétences et les nouveaux modèles
@@ -129,64 +148,64 @@ export function AboutPageContent() {
                   transformation numérique.
                 </p>
               </Reveal>
+              <Reveal delay={0.22}>
+                <p className="mt-6 text-sm font-medium text-[var(--grey-400)]">
+                  {highlights.join(" · ")}
+                </p>
+              </Reveal>
+              <Reveal delay={0.26}>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2">
+                  <Link href="#topics" className="link-arrow inline-flex text-sm font-semibold">
+                    Voir les axes
+                    <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  </Link>
+                  <Link href="/soumission" className="link-arrow inline-flex text-sm font-semibold">
+                    Soumettre une communication
+                    <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  </Link>
+                </div>
+              </Reveal>
             </div>
 
             <Reveal direction="right" delay={0.12} className="lg:pb-1">
               <div className="mt-16 sm:mt-20 lg:mt-0">
-                <div className="flex items-center">
-                  {["/team/11.png", "/team/22.png", "/team/33.png"].map((src, i) => (
-                    <Image
-                      key={src}
-                      src={src}
-                      alt=""
-                      width={52}
-                      height={52}
-                      className={cn(
-                        "h-[3.25rem] w-[3.25rem] rounded-full object-cover ring-[3px] ring-white",
-                        i > 0 && "-ml-3"
-                      )}
-                    />
-                  ))}
-                  <div className="-ml-3 flex h-[3.25rem] w-[3.25rem] items-center justify-center rounded-full bg-[var(--brand)] text-xs font-bold text-white ring-[3px] ring-white">
-                    +18
+                <div className="rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-6 md:p-7">
+                  <div className="flex items-center">
+                    {["/team/11.png", "/team/22.png", "/team/33.png"].map((src, i) => (
+                      <Image
+                        key={src}
+                        src={src}
+                        alt=""
+                        width={52}
+                        height={52}
+                        className={cn(
+                          "h-[3.25rem] w-[3.25rem] rounded-full object-cover ring-[3px] ring-[var(--grey-50)]",
+                          i > 0 && "-ml-3"
+                        )}
+                      />
+                    ))}
+                    <div className="-ml-3 flex h-[3.25rem] w-[3.25rem] items-center justify-center rounded-full bg-[var(--brand)] text-xs font-bold text-white ring-[3px] ring-[var(--grey-50)]">
+                      +18
+                    </div>
                   </div>
+                  <p className="mt-5 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[var(--grey-400)]">
+                    Équipe RIPU26
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--grey-600)]">
+                    Comité scientifique et équipe d&apos;organisation — enseignants-chercheurs en
+                    Tunisie et à l&apos;international.
+                  </p>
+                  <Link
+                    href="/committee"
+                    className="link-arrow mt-4 inline-flex text-sm font-semibold"
+                  >
+                    Voir le comité complet
+                    <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  </Link>
                 </div>
-                <p className="mt-5 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[var(--grey-400)]">
-                  Équipe RIPU26
-                </p>
-                <Link href="/committee" className="link-arrow mt-2 inline-flex text-sm font-semibold">
-                  Voir le comité complet
-                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.75} />
-                </Link>
               </div>
             </Reveal>
           </div>
-
-          <Reveal delay={0.22}>
-            <div className="mt-14 md:mt-20">
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[var(--grey-400)]">
-                Partenaires institutionnels
-              </p>
-              <ul
-                className="mt-6 flex flex-wrap items-center gap-x-10 gap-y-8 sm:mt-7 sm:justify-between sm:gap-x-6 sm:gap-y-0"
-                aria-label="Partenaires institutionnels"
-              >
-                {partners.map((partner) => (
-                  <li key={partner.name} className="flex items-center">
-                    <div className="relative h-9 w-[6.75rem] sm:h-10 sm:w-[7.5rem]">
-                      <Image
-                        src={partner.src}
-                        alt={partner.name}
-                        fill
-                        sizes="120px"
-                        className="object-contain object-left sm:object-center"
-                      />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
         </div>
       </section>
 
@@ -213,34 +232,34 @@ export function AboutPageContent() {
       </section>
 
       {/* Programme & Conférenciers */}
-      <section className="section-block section-white">
+      <section className="section-block section-white pb-0 md:pb-2">
         <div className="container-main">
           <div className="grid gap-5 md:grid-cols-2">
             <Reveal>
-              <div id="program" className="h-full rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-7 md:p-9">
+              <div
+                id="program"
+                className="h-full scroll-mt-[5.5rem] rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-7 md:scroll-mt-[5.75rem] md:p-9"
+              >
                 <p className="dot-label text-xs font-semibold uppercase tracking-[0.14em]">Programme</p>
                 <h2 className="mt-3 text-xl font-semibold tracking-tight text-[var(--black)] md:text-2xl">
                   Programme scientifique
                 </h2>
-                <p className="mt-6 font-medium leading-snug text-[var(--black)]">
-                  {ANNOUNCEMENT.headline}
-                </p>
-                <p className="mt-3 t-body-sm text-[var(--grey-600)]">{ANNOUNCEMENT.body}</p>
+                <StatusNotice {...programAnnouncement} />
               </div>
             </Reveal>
 
             <Reveal delay={0.06}>
-              <div id="speakers" className="h-full rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-7 md:p-9">
+              <div
+                id="speakers"
+                className="h-full scroll-mt-[5.5rem] rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-7 md:scroll-mt-[5.75rem] md:p-9"
+              >
                 <p className="dot-label text-xs font-semibold uppercase tracking-[0.14em]">
                   Conférenciers
                 </p>
                 <h2 className="mt-3 text-xl font-semibold tracking-tight text-[var(--black)] md:text-2xl">
                   Nos Conférenciers
                 </h2>
-                <p className="mt-6 font-medium leading-snug text-[var(--black)]">
-                  {ANNOUNCEMENT.headline}
-                </p>
-                <p className="mt-3 t-body-sm text-[var(--grey-600)]">{ANNOUNCEMENT.body}</p>
+                <StatusNotice {...speakersAnnouncement} />
               </div>
             </Reveal>
           </div>

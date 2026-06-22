@@ -29,13 +29,13 @@ export const ripu25Intro =
 export const ripu25Slides = [
   {
     firstName: "Rym",
-    name: "Rym Mallouli",
+    name: "Rym Mamlouk Mallouli",
     role: "Université de Sousse",
     avatar: "/rym.png",
     gallery: "/ripu/1.png",
     galleryLabel: "Sessions plénières",
     quote:
-      "Les ateliers étaient pratiques et les conférences ont offert des cadres clairs pour l'IA éthique dans l'évaluation.",
+      "Une expérience académique tout simplement remarquable ! Le colloque RIPU 2025 a été une véritable réussite, tant sur le plan scientifique qu'humain. La qualité des interventions et la richesse des échanges autour de l'intelligence artificielle ont été particulièrement inspirantes et enrichissantes.",
   },
   {
     firstName: "Fattouma",
@@ -45,7 +45,7 @@ export const ripu25Slides = [
     gallery: "/ripu/2.png",
     galleryLabel: "Ateliers pratiques",
     quote:
-      "Un rythme posé, intense en idées. Les conversations ont mûri en stratégies concrètes pour la pratique pédagogique.",
+      "Ma participation dans la RIPU 2025 portant sur l'intelligence artificielle et pédagogie universitaire a fortement impacté mes pratiques pédagogiques et m'a permis de mieux orienter mes étudiants sur son utilisation. J'ai hâte d'apprendre davantage dans la même fluidité avec vous.",
   },
   {
     firstName: "Maher",
@@ -55,7 +55,7 @@ export const ripu25Slides = [
     gallery: "/ripu/3.png",
     galleryLabel: "Conférences & échanges",
     quote:
-      "Rigueur scientifique et échanges authentiques — des approches que j'ai immédiatement appliquées à mon enseignement.",
+      "J'ai beaucoup apprécié la qualité des échanges et des interventions tout au long de la RIPU 25. Le partage d'informations et d'expériences autour de l'intelligence artificielle dans le contexte pédagogique a été particulièrement enrichissant et inspirant pour moi. Bravo à toute l'équipe.",
   },
   {
     firstName: "Syrine",
@@ -65,6 +65,6 @@ export const ripu25Slides = [
     gallery: "/ripu/1.png",
     galleryLabel: "Réseau & collaborations",
     quote:
-      "De nouvelles approches pédagogiques, des collègues inspirants, et une vraie réflexion sur l'avenir de l'enseignement supérieur.",
+      "Ma participation à la RIPU 2025 a été une expérience très enrichissante. Les échanges autour de l'intelligence artificielle et de son intégration dans l'enseignement supérieur ont nourri ma réflexion et ouvert de nouvelles perspectives pour mes pratiques pédagogiques. Merci à toute l'équipe pour cette belle initiative.",
   },
 ] as const

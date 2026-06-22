@@ -1,9 +1,9 @@
 "use client"
 
-import Image from "next/image"
 import { Reveal } from "@/components/landing/reveal"
 import { SectionHead } from "@/components/landing/section-head"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
+import { COUNTRY_FLAGS, sortByLastName } from "@/lib/countries"
 
 const scientificCommittee = [
   {
@@ -69,61 +69,91 @@ const scientificCommittee = [
 ] as const
 
 const organizingCommittee = [
-  { name: "Maram Amamou", institution: "Université de Sousse" },
-  { name: "Ahmed Ksontini", institution: "ISET Sousse" },
-  { name: "Amal Karaoud", institution: "Université de Sfax" },
-  { name: "Selim Karaa", institution: "PRISTINI School of AI" },
-  { name: "Islem Dardouri", institution: "ISET Sousse" },
+  {
+    name: "Wissem Eltaief",
+    institution: "ISET Sousse",
+    country: "Tunisie",
+    role: "Président",
+  },
+  { name: "Maram Amamou", institution: "Université de Sousse", country: "Tunisie" },
+  { name: "Ahmed Ksontini", institution: "ISET Sousse", country: "Tunisie" },
+  { name: "Amal Karaoud", institution: "Université de Sfax", country: "Tunisie" },
+  { name: "Selim Karaa", institution: "PRISTINI School of AI", country: "Tunisie" },
+  { name: "Islem Dardouri", institution: "ISET Sousse", country: "Tunisie" },
 ] as const
 
 const generalChairs = [
   {
     name: "Sonia Sahli",
-    image: "/team/11.png",
     institution: "ISET Sousse",
     country: "Tunisie",
   },
   {
     name: "Denis Gillet",
-    image: "/team/22.png",
     institution: "EPFL",
     country: "Suisse",
   },
   {
     name: "Thierry Spriet",
-    image: "/team/33.png",
     institution: "Avignon Université",
     country: "France",
   },
 ] as const
 
+function CountryBadge({ country }: { country: string }) {
+  const flag = COUNTRY_FLAGS[country]
+
+  return (
+    <span className="inline-flex items-center gap-2">
+      <span
+        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-[0.9375rem] leading-none ring-1 ring-[var(--border)]"
+        aria-hidden
+      >
+        {flag ?? "🌐"}
+      </span>
+      <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--grey-400)]">
+        {country}
+      </span>
+    </span>
+  )
+}
+
 function MemberCard({
   name,
   institution,
   country,
+  role,
 }: {
   name: string
   institution?: string
   country?: string
+  role?: string
 }) {
   return (
     <article className="flex h-full flex-col rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-6 md:p-7">
       <h3 className="text-base font-semibold leading-snug tracking-tight text-[var(--black)]">
         {name}
       </h3>
+      {role && (
+        <p className="mt-1 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--brand)]">
+          {role}
+        </p>
+      )}
       {institution && (
-        <p className="mt-2 text-sm leading-relaxed text-[var(--grey-600)]">{institution}</p>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--grey-600)]">{institution}</p>
       )}
       {country && (
-        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--grey-400)]">
-          {country}
-        </p>
+        <div className="mt-3">
+          <CountryBadge country={country} />
+        </div>
       )}
     </article>
   )
 }
 
 export function CommitteePageContent() {
+  const sortedScientificCommittee = sortByLastName(scientificCommittee)
+
   return (
     <main className="overflow-x-clip bg-white pt-[4.25rem] md:pt-[4.75rem]">
       {/* General Chairs */}
@@ -140,25 +170,7 @@ export function CommitteePageContent() {
           <StaggerChildren className="section-inner grid gap-5 md:grid-cols-3">
             {generalChairs.map((chair) => (
               <StaggerItem key={chair.name} className="h-full">
-                <article className="group h-full overflow-hidden rounded-[var(--radius-xl)] bg-[var(--grey-50)]">
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    <Image
-                      src={chair.image}
-                      alt={chair.name}
-                      fill
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
-                    />
-                  </div>
-                  <div className="p-6 md:p-7">
-                    <h3 className="text-base font-semibold tracking-tight text-[var(--black)]">
-                      {chair.name}
-                    </h3>
-                    <p className="mt-2 text-sm text-[var(--grey-600)]">{chair.institution}</p>
-                    <p className="mt-2 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--grey-400)]">
-                      {chair.country}
-                    </p>
-                  </div>
-                </article>
+                <MemberCard {...chair} />
               </StaggerItem>
             ))}
           </StaggerChildren>
@@ -173,7 +185,7 @@ export function CommitteePageContent() {
           </Reveal>
 
           <StaggerChildren className="section-inner grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {scientificCommittee.map((member) => (
+            {sortedScientificCommittee.map((member) => (
               <StaggerItem key={member.name} className="h-full">
                 <MemberCard {...member} />
               </StaggerItem>

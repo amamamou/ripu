@@ -12,7 +12,11 @@ export function TestimonialsSection() {
     <section id="testimonials" className="section-block landing-section section-white pb-0 md:pb-2">
       <div className="container-main">
         <Reveal>
-          <SectionHead label="Témoignages" title="Ce qu'ils en retiennent" />
+          <SectionHead
+            label="Témoignages"
+            title="Ce qu'ils retiennent de RIPU"
+            description="Retours de participants après l'édition 2025."
+          />
         </Reveal>
 
         <StaggerChildren className="section-inner grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-5" stagger={0.07}>
@@ -37,11 +41,11 @@ export function TestimonialsSection() {
                 </div>
 
                 <blockquote className="mt-4 flex-1 text-[13px] leading-[1.5] text-[var(--grey-600)] sm:text-sm sm:leading-relaxed">
-                  &ldquo;{person.quote}&rdquo;
+                  {person.quote}
                 </blockquote>
 
                 <footer className="mt-4 sm:mt-5">
-                  <p className="text-xs font-semibold text-[var(--black)] sm:text-sm">{person.firstName}</p>
+                  <p className="text-xs font-semibold text-[var(--black)] sm:text-sm">{person.name}</p>
                   <p className="mt-0.5 text-[11px] leading-snug text-[var(--grey-400)] sm:text-xs">{person.role}</p>
                 </footer>
               </article>

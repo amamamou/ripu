@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowRight, ChevronLeft, ChevronRight, Download } from "lucide-react"
 import { useState, useEffect, useCallback, useRef } from "react"
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import { RIPU26_EVENT_THEME } from "@/lib/event-copy"
@@ -95,10 +95,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-6 flex flex-col gap-2 sm:mb-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3"
+          className="mb-6 sm:mb-8"
         >
           <span className="pill-outline-white w-fit text-xs sm:text-sm">2e édition internationale</span>
-          <span className="t-body-sm font-medium text-white/70">Sousse · 30–31 Octobre 2026</span>
         </motion.div>
 
         <div className="grid items-end gap-8 lg:grid-cols-[1fr_380px] lg:gap-16">
@@ -119,19 +118,33 @@ export default function Hero() {
             <motion.h1 variants={fadeUp} className="t-hero mt-4 text-white">
               RIPU26
             </motion.h1>
+            <motion.p
+              variants={fadeUp}
+              className="mt-3 text-sm font-medium tracking-[0.02em] text-white/75 sm:mt-4 sm:text-[0.9375rem]"
+            >
+              Sousse · 30–31 Octobre 2026
+            </motion.p>
             <motion.p variants={fadeUp} className="mt-6 max-w-lg t-body text-white/70">
               RIPU26 rassemble enseignants, chercheurs et responsables de
               l&apos;enseignement supérieur autour de l&apos;IA, de l&apos;APC
               et des enjeux de l&apos;évaluation.
             </motion.p>
-            <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
-              <Link href="/authors" className="btn-lime w-full justify-center sm:w-auto">
-                Appel à communications
-                <span className="btn-lime-icon"><ArrowRight className="h-4 w-4" /></span>
+            <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+              <Link href="/soumission" className="btn-lime w-full justify-center sm:w-auto">
+                Soumettre une communication
+                <span className="btn-lime-icon">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
               </Link>
-              <Link href="#about" className="btn-hero w-full justify-center sm:w-auto">
-                Découvrir le colloque
-              </Link>
+              <a
+                href="/documents/CFP-RIPU26.pdf"
+                download
+                aria-label="Télécharger l'appel à communications RIPU26 (PDF)"
+                className="btn-hero inline-flex w-full items-center justify-center gap-2 sm:w-auto"
+              >
+                Télécharger l&apos;appel
+                <Download className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
+              </a>
             </motion.div>
           </motion.div>
 

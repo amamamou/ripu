@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Download } from "lucide-react"
 import { Reveal } from "@/components/landing/reveal"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { cn } from "@/lib/utils"
@@ -38,14 +38,22 @@ export function CTASection({ className }: { className?: string }) {
                   </p>
                 </StaggerItem>
                 <StaggerItem>
-                  <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
+                  <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
                     <Link href="/soumission" className="btn-lime w-full justify-center sm:w-auto">
                       Soumettre une communication
-                      <span className="btn-lime-icon"><ArrowRight className="h-4 w-4" /></span>
+                      <span className="btn-lime-icon">
+                        <ArrowRight className="h-4 w-4" />
+                      </span>
                     </Link>
-                    <Link href="/contact" className="btn-hero w-full justify-center sm:w-auto">
-                      Nous contacter
-                    </Link>
+                    <a
+                      href="/documents/CFP-RIPU26.pdf"
+                      download
+                      aria-label="Télécharger l'appel à communications RIPU26 (PDF)"
+                      className="btn-hero inline-flex w-full items-center justify-center gap-2 sm:w-auto"
+                    >
+                      Télécharger l&apos;appel
+                      <Download className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
+                    </a>
                   </div>
                 </StaggerItem>
               </StaggerChildren>
