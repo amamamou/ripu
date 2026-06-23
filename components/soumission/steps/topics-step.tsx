@@ -25,13 +25,15 @@ function TopicSelect({
   onChange,
   error,
   exclude,
+  required = false,
 }: {
   id: string
   label: string
   value: TopicValue | ""
-  onChange: (value: TopicValue) => void
+  onChange: (value: TopicValue | "") => void
   error?: string
   exclude?: TopicValue | ""
+  required?: boolean
 }) {
   const grouped = SUBMISSION_TOPICS.reduce<Record<string, typeof SUBMISSION_TOPICS[number]["topic"][]>>(
     (acc, item) => {
@@ -45,7 +47,7 @@ function TopicSelect({
 
   return (
     <div>
-      <FieldLabel htmlFor={id} required>
+      <FieldLabel htmlFor={id} required={required}>
         {label}
       </FieldLabel>
       <select
@@ -89,7 +91,7 @@ export function TopicsStep({
     <div className="space-y-10">
       <SectionBlock
         title="Sujets thématiques"
-        description="Choisissez un sujet principal et un sujet secondaire distinct."
+        description="Choisissez un sujet principal. Un sujet secondaire distinct est optionnel."
       >
         <div className="grid gap-5 lg:grid-cols-2">
           <TopicSelect
@@ -99,6 +101,7 @@ export function TopicsStep({
             onChange={(primaryTopic) => onChange({ primaryTopic })}
             error={getError(errors, "primaryTopic")}
             exclude={draft.secondaryTopic}
+            required
           />
           <TopicSelect
             id="secondaryTopic"

@@ -1,5 +1,7 @@
 import type { ReactNode } from "react"
 import { cn } from "@/lib/utils"
+import { COUNTRIES, isKnownCountry } from "@/lib/countries"
+import { AUTHOR_SALUTATIONS, type AuthorSalutation } from "@/lib/submission-form"
 import type { StepErrors } from "@/lib/submission-form"
 
 export function FieldLabel({
@@ -174,4 +176,89 @@ export function SectionBlock({
 
 export function getError(errors: StepErrors, key: string) {
   return errors[key]
+}
+
+function formSelectClassName(error?: string, empty?: boolean) {
+  return cn(
+    "mt-2 w-full rounded-[var(--radius-xl)] border bg-white px-4 py-3 text-sm text-[var(--black)] outline-none transition-colors focus:border-[var(--brand)]/40 focus:ring-2 focus:ring-[var(--brand-soft)]",
+    error ? "border-[#f04438]" : "border-[var(--border)]",
+    empty && "text-[var(--grey-400)]"
+  )
+}
+
+export function SalutationPicker({
+  id,
+  value,
+  onChange,
+  error,
+  required,
+}: {
+  id: string
+  value: AuthorSalutation
+  onChange: (value: AuthorSalutation) => void
+  error?: string
+  required?: boolean
+}) {
+  return (
+    <div>
+      <FieldLabel htmlFor={id} required={required}>
+        Salutations
+      </FieldLabel>
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value as AuthorSalutation)}
+        aria-invalid={Boolean(error)}
+        className={formSelectClassName(error, !value)}
+      >
+        <option value="">Sélectionner une salutation…</option>
+        {AUTHOR_SALUTATIONS.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      <FieldError message={error} />
+    </div>
+  )
+}
+
+export function CountrySelect({
+  id,
+  value,
+  onChange,
+  error,
+  required,
+}: {
+  id: string
+  value: string
+  onChange: (value: string) => void
+  error?: string
+  required?: boolean
+}) {
+  const legacyValue = value.trim() && !isKnownCountry(value.trim()) ? value.trim() : ""
+
+  return (
+    <div>
+      <FieldLabel htmlFor={id} required={required}>
+        Pays
+      </FieldLabel>
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        aria-invalid={Boolean(error)}
+        className={formSelectClassName(error, !value)}
+      >
+        <option value="">Sélectionner un pays…</option>
+        {legacyValue && <option value={legacyValue}>{legacyValue}</option>}
+        {COUNTRIES.map((country) => (
+          <option key={country} value={country}>
+            {country}
+          </option>
+        ))}
+      </select>
+      <FieldError message={error} />
+    </div>
+  )
 }

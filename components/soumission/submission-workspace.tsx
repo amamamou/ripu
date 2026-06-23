@@ -21,6 +21,8 @@ import { PaperStep } from "@/components/soumission/steps/paper-step"
 import { TopicsStep } from "@/components/soumission/steps/topics-step"
 import { ReviewStep } from "@/components/soumission/steps/review-step"
 import { WIZARD_STEPS, hasSubmissionProgress } from "@/lib/submission-form"
+import { isSubmissionClosed } from "@/lib/submission"
+import { SubmissionClosedPanel } from "@/components/soumission/submission-closed-panel"
 import { cn } from "@/lib/utils"
 
 const stepMeta: Record<number, { title: string; description: string }> = {
@@ -82,6 +84,10 @@ export function SubmissionWorkspace() {
         <div className="floating-panel h-64 animate-pulse bg-[var(--grey-50)]" />
       </div>
     )
+  }
+
+  if (isSubmissionClosed()) {
+    return <SubmissionClosedPanel />
   }
 
   const meta = stepMeta[draft.currentStep]
