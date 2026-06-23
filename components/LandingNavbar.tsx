@@ -203,6 +203,13 @@ useEffect(() => {
                 Processus d'évaluation
               </Link>
 
+              <Link
+                href="/authors#award"
+                className="block px-5 py-3 text-sm hover:bg-[#fafafa]"
+              >
+                Best Paper Award
+              </Link>
+
             </div>
 
           </div>
@@ -449,6 +456,16 @@ overflow-hidden
                 }`}
               >
                 Processus d'évaluation
+              </Link>
+
+              <Link
+                href="/authors#award"
+                onClick={() => setMobileOpen(false)}
+                className={`text-sm ${
+                  scrolled ? "text-[#666]" : "text-white/70"
+                }`}
+              >
+                Best Paper Award
               </Link>
 
             </div>

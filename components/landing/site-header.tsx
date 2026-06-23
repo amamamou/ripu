@@ -25,6 +25,7 @@ const authorsSections = [
   { label: "Soumission", href: "/soumission" },
   { label: "Appel", href: "/authors#call" },
   { label: "Évaluation", href: "/authors#review" },
+  { label: "Best Paper Award", href: "/authors#award" },
   { label: "Présentation", href: "/authors#presentation" },
 ] as const
 

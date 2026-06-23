@@ -3,17 +3,12 @@
 import Link from "next/link"
 import {
   ArrowRight,
-  BadgeCheck,
-  Braces,
   CalendarDays,
   Check,
   Download,
-  EyeOff,
   FileCode2,
   FileText,
-  Languages,
-  Layers3,
-  UploadCloud,
+  Trophy,
 } from "lucide-react"
 import { CTASection } from "@/components/cta-section"
 import { Reveal } from "@/components/landing/reveal"
@@ -41,6 +36,7 @@ const sectionAnchors = [
   { label: "Soumission", href: "#guidelines" },
   { label: "Appel", href: "#call" },
   { label: "Évaluation", href: "#review" },
+  { label: "Distinction", href: "#award" },
   { label: "Présentation", href: "#presentation" },
 ] as const
 
@@ -99,14 +95,11 @@ const milestoneDefs = [
 ] as const
 
 const submissionGuidelines = [
-  { icon: Layers3, title: "Type de contribution", content: "Retour d'expérience ou Work in Progress aligné avec les axes scientifiques de RIPU26." },
-  { icon: FileText, title: "Longueur", content: "2 à 4 pages, incluant figures, tableaux et références." },
-  { icon: Languages, title: "Langues", content: "Les communications peuvent être soumises en français ou en anglais." },
-  { icon: FileCode2, title: "Template", content: "Utilisation obligatoire du modèle Springer LNCS (Word ou LaTeX)." },
-  { icon: EyeOff, title: "Soumission anonyme", content: "La version soumise pour évaluation ne doit contenir aucun nom d'auteur ou affiliation." },
-  { icon: BadgeCheck, title: "Version finale", content: "La version acceptée devra inclure les auteurs, affiliations et coordonnées du correspondant." },
-  { icon: Braces, title: "Choisir un axe", content: "Chaque communication doit être rattachée à un axe thématique de RIPU26." },
-  { icon: UploadCloud, title: "Mode de dépôt", content: "Soumission manuelle par e-mail à submissions@ripu26.org. Joignez le PDF anonyme et indiquez les métadonnées dans le message." },
+  { title: "Type de contribution", content: "Retour d'expérience ou Work in Progress aligné avec les axes scientifiques de RIPU26." },
+  { title: "Longueur", content: "2 à 4 pages, incluant figures, tableaux et références." },
+  { title: "Langues", content: "Les communications peuvent être soumises en français." },
+  { title: "Template", content: "Utilisation obligatoire du modèle Springer LNCS (Word ou LaTeX)." },
+  { title: "Choisir un axe", content: "Chaque communication doit être rattachée à un axe thématique de RIPU26." },
 ] as const
 
 const reviewSteps = [
@@ -122,6 +115,12 @@ const reviewPrinciples = [
   "Rigueur scientifique",
   "Pertinence thématique",
   "Qualité rédactionnelle",
+] as const
+
+const awardCriteria = [
+  "Excellence scientifique",
+  "Originalité de la contribution",
+  "Pertinence thématique",
 ] as const
 
 type MilestoneStatus = "done" | "current" | "upcoming"
@@ -157,22 +156,6 @@ function useTimeline() {
   const allDone = !active && today > end
 
   return { items, active, daysRemaining, allDone }
-}
-
-function GuidelineCard({
-  icon: Icon,
-  title,
-  content,
-}: (typeof submissionGuidelines)[number]) {
-  return (
-    <article className="flex h-full flex-col rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-6 md:p-7">
-      <Icon className="h-4 w-4 text-[var(--brand)]" strokeWidth={1.5} aria-hidden />
-      <h3 className="mt-4 text-base font-semibold leading-snug tracking-tight text-[var(--black)]">
-        {title}
-      </h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--grey-600)]">{content}</p>
-    </article>
-  )
 }
 
 function formatDateParts(date: Date) {
@@ -490,13 +473,22 @@ export function AuthorsPageContent() {
             />
           </Reveal>
 
-          <StaggerChildren className="section-inner grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {submissionGuidelines.map((item) => (
-              <StaggerItem key={item.title} className="h-full">
-                <GuidelineCard {...item} />
-              </StaggerItem>
-            ))}
-          </StaggerChildren>
+          <Reveal delay={0.06} className="section-inner">
+            <div className="rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-6 md:p-7">
+              <dl className="grid gap-6 sm:grid-cols-2 xl:grid-cols-5 xl:gap-0 xl:divide-x xl:divide-[var(--border)]">
+                {submissionGuidelines.map((item) => (
+                  <div key={item.title} className="min-w-0 xl:px-5 xl:first:pl-0 xl:last:pr-0">
+                    <dt className="text-base font-semibold leading-snug tracking-tight text-[var(--black)]">
+                      {item.title}
+                    </dt>
+                    <dd className="mt-2 text-sm leading-relaxed text-[var(--grey-600)]">
+                      {item.content}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </Reveal>
 
           <StaggerChildren className="mt-5 grid gap-5 md:grid-cols-3">
             <StaggerItem className="h-full">
@@ -635,6 +627,66 @@ export function AuthorsPageContent() {
               ))}
             </ul>
           </Reveal>
+        </div>
+      </section>
+
+      {/* Best Paper Award */}
+      <section id="award" className="section-block section-white">
+        <div className="container-main">
+          <div className="grid gap-5 lg:grid-cols-2">
+            <Reveal>
+              <div className="h-full rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-7 md:p-9">
+                <p className="dot-label text-xs font-semibold uppercase tracking-[0.14em]">
+                  Distinction
+                </p>
+                <h2 className="mt-3 text-xl font-semibold tracking-tight text-[var(--black)] md:text-2xl">
+                  Best Paper Award
+                </h2>
+                <p className="mt-6 t-body text-[var(--grey-600)]">
+                  Parmi les communications acceptées, un article sera distingué par le Best Paper
+                  Award, récompensant l&apos;excellence scientifique, l&apos;originalité de la
+                  contribution et sa pertinence pour les thématiques du colloque.
+                </p>
+                <p className="mt-8 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--grey-400)]">
+                  Critères de sélection
+                </p>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {awardCriteria.map((criterion) => (
+                    <li
+                      key={criterion}
+                      className="inline-flex items-center gap-2 rounded-full bg-[var(--brand-soft)] px-4 py-2 text-sm text-[var(--grey-600)]"
+                    >
+                      <Check className="h-3.5 w-3.5 text-[var(--brand)]" strokeWidth={2} aria-hidden />
+                      {criterion}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.06}>
+              <div className="relative h-full overflow-hidden rounded-[var(--radius-xl)] bg-[var(--brand-dark)] p-7 md:p-9">
+                <div className="mesh-bg pointer-events-none absolute inset-0 opacity-40" aria-hidden />
+                <div className="relative flex h-full flex-col">
+                  <Trophy className="h-5 w-5 text-white/80" strokeWidth={1.5} aria-hidden />
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.1em] text-white/60">
+                    Prix scientifique
+                  </p>
+                  <h2 className="mt-3 text-xl font-semibold tracking-tight text-white md:text-2xl">
+                    Décerné lors du colloque
+                  </h2>
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-white/75">
+                    Le comité scientifique sélectionnera la communication la plus remarquable parmi
+                    les articles acceptés, sur la base des mêmes exigences de rigueur que le
+                    processus d&apos;évaluation.
+                  </p>
+                  <p className="mt-8 text-xs font-medium uppercase tracking-[0.1em] text-white/45">
+                    Communications acceptées · RIPU26
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
