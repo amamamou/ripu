@@ -19,9 +19,9 @@ const steps: {
   {
     step: "01",
     title: "Soumettre",
-    description: "Envoyez votre communication avant le 15 juillet 2026.",
-    href: "/authors#call",
-    label: "Guide des auteurs",
+    description: "Soumettez votre communication avant le 15 juillet 2026.",
+    href: "/soumission",
+    label: "Espace de soumission",
     icon: FileText,
   },
   {

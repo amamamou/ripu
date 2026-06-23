@@ -13,7 +13,7 @@ const milestones = [
     day: "15",
     month: "Juillet",
     title: "Soumission des abstracts",
-    description: "Envoyez votre proposition avant le 15 juillet 2026.",
+    description: "Soumission des communications avant le 15 juillet 2026.",
     href: "/authors#call",
     label: "Guide des auteurs",
   },

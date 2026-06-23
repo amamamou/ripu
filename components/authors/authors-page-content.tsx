@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import {
   ArrowRight,
   Braces,
@@ -11,13 +12,13 @@ import {
   FileText,
   Languages,
   Layers3,
+  Trophy,
 } from "lucide-react"
 import { CTASection } from "@/components/cta-section"
 import { Reveal } from "@/components/landing/reveal"
 import { SectionHead } from "@/components/landing/section-head"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { cn } from "@/lib/utils"
-import { SUBMISSION_EMAIL } from "@/lib/submission"
 import type { LucideIcon } from "lucide-react"
 import type { ReactNode } from "react"
 
@@ -49,7 +50,7 @@ const authorHighlights = [
   "Format Springer LNCS",
   "Revue double aveugle",
   "2 à 4 pages",
-  "Soumission par e-mail",
+  "Espace de soumission",
 ] as const
 
 const milestoneDefs = [
@@ -57,7 +58,7 @@ const milestoneDefs = [
     date: new Date(2026, 6, 15),
     label: "15 Juillet 2026",
     event: "Date limite de soumission",
-    hint: `Envoi de votre communication par e-mail à ${SUBMISSION_EMAIL}.`,
+    hint: "Date limite pour le dépôt des communications.",
   },
   {
     date: new Date(2026, 7, 10),
@@ -114,10 +115,10 @@ const submissionGuidelines = [
 ] as const
 
 const reviewSteps = [
-  { num: "01", title: "Soumission", content: "Envoi de la communication par e-mail avant la date limite." },
+  { num: "01", title: "Soumission", content: "Dépôt de la communication avant la date limite." },
   { num: "02", title: "Expertise", content: "Évaluation en double aveugle par les membres du comité scientifique." },
   { num: "03", title: "Décision", content: "Notification d'acceptation, de révision ou de refus aux auteurs." },
-  { num: "04", title: "Publication", content: "Intégration des versions finales dans les actes et présentation lors du colloque." },
+  { num: "04", title: "Présentation", content: "Présentation orale de la communication lors du colloque à Sousse." },
 ] as const
 
 const reviewPrinciples = [
@@ -126,12 +127,6 @@ const reviewPrinciples = [
   "Rigueur scientifique",
   "Pertinence thématique",
   "Qualité rédactionnelle",
-] as const
-
-const awardCriteria = [
-  "Excellence scientifique",
-  "Originalité de la contribution",
-  "Pertinence thématique",
 ] as const
 
 type MilestoneStatus = "done" | "current" | "upcoming"
@@ -213,59 +208,6 @@ function PillList({ items }: { items: readonly string[] }) {
         </li>
       ))}
     </ul>
-  )
-}
-
-function GoldTrophyIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-hidden
-    >
-      <defs>
-        <linearGradient id="trophy-gold" x1="16" y1="2" x2="16" y2="30" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#F5E6A8" />
-          <stop offset="0.45" stopColor="#D4AF37" />
-          <stop offset="1" stopColor="#9A7B2E" />
-        </linearGradient>
-        <linearGradient id="trophy-gold-dark" x1="16" y1="8" x2="16" y2="24" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#C9A227" />
-          <stop offset="1" stopColor="#7A6224" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M10 4h12l1 3.5H9L10 4Z"
-        fill="url(#trophy-gold-dark)"
-      />
-      <path
-        d="M9 7.5h14c0 5.2-2.4 8.8-7 10.5-4.6-1.7-7-5.3-7-10.5Z"
-        fill="url(#trophy-gold)"
-        stroke="#8B6914"
-        strokeWidth="0.5"
-      />
-      <path
-        d="M9 9.5c-2.8 0-4.5-1.2-4.5-3.2S6.2 3 9 3v6.5Z"
-        fill="url(#trophy-gold)"
-        stroke="#8B6914"
-        strokeWidth="0.5"
-      />
-      <path
-        d="M23 9.5c2.8 0 4.5-1.2 4.5-3.2S25.8 3 23 3v6.5Z"
-        fill="url(#trophy-gold)"
-        stroke="#8B6914"
-        strokeWidth="0.5"
-      />
-      <path
-        d="M12.5 18.2h7v1.8c0 .8-.6 1.5-1.4 1.5h-4.2c-.8 0-1.4-.7-1.4-1.5v-1.8Z"
-        fill="url(#trophy-gold-dark)"
-      />
-      <rect x="10.5" y="21.5" width="11" height="2" rx="0.5" fill="url(#trophy-gold-dark)" />
-      <rect x="8.5" y="23.5" width="15" height="2.5" rx="1" fill="url(#trophy-gold)" stroke="#8B6914" strokeWidth="0.5" />
-      <path d="M14 11.5h4v2.2c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1v-2.2Z" fill="#F5E6A8" opacity="0.85" />
-    </svg>
   )
 }
 
@@ -441,7 +383,7 @@ export function AuthorsPageContent() {
               <Reveal delay={0.2}>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                   <Link href="/soumission" className="btn-lime w-full justify-center sm:w-auto">
-                    Soumettre par e-mail
+                    Soumettre une communication
                     <span className="btn-lime-icon">
                       <ArrowRight className="h-4 w-4" />
                     </span>
@@ -609,7 +551,7 @@ export function AuthorsPageContent() {
                   )}
                 </p>
                 <Link href="/soumission" className="link-arrow text-sm font-semibold">
-                  Soumettre par e-mail
+                  Soumettre une communication
                   <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.75} />
                 </Link>
               </div>
@@ -758,40 +700,31 @@ export function AuthorsPageContent() {
       <section id="award" className="section-block section-white">
         <div className="container-main">
           <Reveal>
-            <SectionHead
-              label="Distinction"
-              title="Best Paper Award"
-              description="Une communication acceptée sera distinguée pour l'excellence de sa contribution."
-            />
+            <SectionHead label="Distinction" title="Best Paper Award" />
           </Reveal>
 
           <Reveal delay={0.06} className="section-inner">
             <AuthorsPanel>
-              <div className="grid lg:grid-cols-[1fr_auto] lg:items-start">
-                <div className="px-7 py-8 md:px-10 md:py-10">
-                  <p className="max-w-2xl t-body text-[var(--grey-600)]">
-                    Parmi les communications acceptées, un article sera distingué par le Best Paper
-                    Award, récompensant l&apos;excellence scientifique, l&apos;originalité de la
-                    contribution et sa pertinence pour les thématiques du colloque.
-                  </p>
-                  <p className="mt-8 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--grey-400)]">
-                    Critères de sélection
-                  </p>
-                  <div className="mt-4">
-                    <PillList items={awardCriteria} />
-                  </div>
-                </div>
+              <Image
+                src="/Best Paper.png"
+                alt="Best Paper Award — RIPU26"
+                width={1600}
+                height={960}
+                className="block w-full h-auto"
+                sizes="(max-width: 1280px) 100vw, 1152px"
+              />
 
-                <div className="border-t border-[var(--border)] px-7 py-6 md:px-10 lg:border-t-0 lg:border-l lg:py-10 lg:pl-10 lg:pr-10">
-                  <div className="flex items-center gap-3 lg:flex-col lg:items-start lg:gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)]">
-                      <GoldTrophyIcon className="h-7 w-7" />
-                    </span>
-                    <p className="text-sm font-medium leading-relaxed text-[var(--grey-600)] lg:max-w-[12rem]">
-                      Décerné lors du colloque · Communications acceptées
-                    </p>
-                  </div>
-                </div>
+              <div className="flex gap-3 border-t border-[var(--border)] px-7 py-6 md:px-10 md:py-7">
+                <Trophy
+                  className="mt-0.5 h-5 w-5 shrink-0 text-[var(--brand)]"
+                  strokeWidth={1.5}
+                  aria-hidden
+                />
+                <p className="max-w-3xl text-sm leading-relaxed text-[var(--grey-600)]">
+                  Parmi les communications acceptées, un article sera distingué par le Best Paper
+                  Award, récompensant l&apos;excellence scientifique, l&apos;originalité de la
+                  contribution et sa pertinence pour les thématiques du colloque.
+                </p>
               </div>
             </AuthorsPanel>
           </Reveal>
@@ -813,7 +746,7 @@ export function AuthorsPageContent() {
             <AuthorsPanel>
               <div className="px-7 py-8 md:px-10 md:py-10">
                 <p className="text-sm font-medium text-[var(--black)]">
-                  25 min + 5 min de discussion
+                  15 min de présentation
                 </p>
                 <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--grey-600)]">
                   PDF ou PowerPoint · clé USB de secours · équipement AV sur place · slides
