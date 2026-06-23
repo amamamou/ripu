@@ -56,22 +56,22 @@ const authorHighlights = [
 
 const milestoneDefs = [
   {
-    date: new Date(2026, 6, 15),
-    label: "15 Juillet 2026",
-    event: "Date limite de soumission",
+    date: new Date(2026, 6, 25),
+    label: "25 Juillet 2026",
+    event: "Soumission des articles",
     hint: "Date limite pour le dépôt des communications.",
   },
   {
-    date: new Date(2026, 7, 10),
-    label: "10 Août 2026",
-    event: "Notification aux auteurs",
+    date: new Date(2026, 7, 25),
+    label: "25 Août 2026",
+    event: "Notification d'acceptation",
     hint: "Décision du comité scientifique après relecture par les pairs.",
   },
   {
     date: new Date(2026, 8, 1),
     label: "01 Septembre 2026",
-    event: "Date limite d'inscription",
-    hint: "Confirmation de votre participation au colloque.",
+    event: "Ouverture des inscriptions",
+    hint: "Ouverture des inscriptions au colloque.",
   },
   {
     date: new Date(2026, 9, 30),

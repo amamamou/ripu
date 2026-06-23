@@ -19,7 +19,7 @@ const steps: {
   {
     step: "01",
     title: "Soumettre",
-    description: "Soumettez votre communication avant le 15 juillet 2026.",
+    description: "Soumettez votre communication avant le 25 juillet 2026.",
     href: "/soumission",
     label: "Espace de soumission",
     icon: FileText,
@@ -27,7 +27,7 @@ const steps: {
   {
     step: "02",
     title: "Évaluation",
-    description: "Revue par les pairs et notification avant le 10 août.",
+    description: "Notification d'acceptation après relecture par les pairs, le 25 août 2026.",
     href: "/authors#review",
     label: "Processus de revue",
     icon: Users,
