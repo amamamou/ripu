@@ -3,18 +3,21 @@
 import Link from "next/link"
 import {
   ArrowRight,
+  Braces,
   CalendarDays,
   Check,
   Download,
   FileCode2,
   FileText,
-  Trophy,
+  Languages,
+  Layers3,
 } from "lucide-react"
 import { CTASection } from "@/components/cta-section"
 import { Reveal } from "@/components/landing/reveal"
 import { SectionHead } from "@/components/landing/section-head"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { cn } from "@/lib/utils"
+import type { LucideIcon } from "lucide-react"
 import type { ReactNode } from "react"
 
 const MONTHS = [
@@ -82,11 +85,31 @@ const milestoneDefs = [
 ] as const
 
 const submissionGuidelines = [
-  { title: "Type de contribution", content: "Retour d'expérience ou Work in Progress aligné avec les axes scientifiques de RIPU26." },
-  { title: "Longueur", content: "2 à 4 pages, incluant figures, tableaux et références." },
-  { title: "Langues", content: "Les communications peuvent être soumises en français." },
-  { title: "Template", content: "Utilisation obligatoire du modèle Springer LNCS (Word ou LaTeX)." },
-  { title: "Choisir un axe", content: "Chaque communication doit être rattachée à un axe thématique de RIPU26." },
+  {
+    icon: Layers3,
+    title: "Type de contribution",
+    content: "Retour d'expérience ou Work in Progress aligné avec les axes scientifiques de RIPU26.",
+  },
+  {
+    icon: FileText,
+    title: "Longueur",
+    content: "2 à 4 pages, incluant figures, tableaux et références.",
+  },
+  {
+    icon: Languages,
+    title: "Langues",
+    content: "Les communications peuvent être soumises en français.",
+  },
+  {
+    icon: FileCode2,
+    title: "Template",
+    content: "Utilisation obligatoire du modèle Springer LNCS (Word ou LaTeX).",
+  },
+  {
+    icon: Braces,
+    title: "Choisir un axe",
+    content: "Chaque communication doit être rattachée à un axe thématique de RIPU26.",
+  },
 ] as const
 
 const reviewSteps = [
@@ -189,6 +212,81 @@ function PillList({ items }: { items: readonly string[] }) {
         </li>
       ))}
     </ul>
+  )
+}
+
+function GoldTrophyIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden
+    >
+      <defs>
+        <linearGradient id="trophy-gold" x1="16" y1="2" x2="16" y2="30" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#F5E6A8" />
+          <stop offset="0.45" stopColor="#D4AF37" />
+          <stop offset="1" stopColor="#9A7B2E" />
+        </linearGradient>
+        <linearGradient id="trophy-gold-dark" x1="16" y1="8" x2="16" y2="24" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#C9A227" />
+          <stop offset="1" stopColor="#7A6224" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M10 4h12l1 3.5H9L10 4Z"
+        fill="url(#trophy-gold-dark)"
+      />
+      <path
+        d="M9 7.5h14c0 5.2-2.4 8.8-7 10.5-4.6-1.7-7-5.3-7-10.5Z"
+        fill="url(#trophy-gold)"
+        stroke="#8B6914"
+        strokeWidth="0.5"
+      />
+      <path
+        d="M9 9.5c-2.8 0-4.5-1.2-4.5-3.2S6.2 3 9 3v6.5Z"
+        fill="url(#trophy-gold)"
+        stroke="#8B6914"
+        strokeWidth="0.5"
+      />
+      <path
+        d="M23 9.5c2.8 0 4.5-1.2 4.5-3.2S25.8 3 23 3v6.5Z"
+        fill="url(#trophy-gold)"
+        stroke="#8B6914"
+        strokeWidth="0.5"
+      />
+      <path
+        d="M12.5 18.2h7v1.8c0 .8-.6 1.5-1.4 1.5h-4.2c-.8 0-1.4-.7-1.4-1.5v-1.8Z"
+        fill="url(#trophy-gold-dark)"
+      />
+      <rect x="10.5" y="21.5" width="11" height="2" rx="0.5" fill="url(#trophy-gold-dark)" />
+      <rect x="8.5" y="23.5" width="15" height="2.5" rx="1" fill="url(#trophy-gold)" stroke="#8B6914" strokeWidth="0.5" />
+      <path d="M14 11.5h4v2.2c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1v-2.2Z" fill="#F5E6A8" opacity="0.85" />
+    </svg>
+  )
+}
+
+function GuidelineItem({
+  icon: Icon,
+  title,
+  content,
+}: {
+  icon: LucideIcon
+  title: string
+  content: string
+}) {
+  return (
+    <article className="flex h-full flex-col rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-5 md:p-6">
+      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand)]">
+        <Icon className="h-4 w-4" strokeWidth={1.5} aria-hidden />
+      </span>
+      <h3 className="mt-4 text-base font-semibold leading-snug tracking-tight text-[var(--black)]">
+        {title}
+      </h3>
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--grey-600)]">{content}</p>
+    </article>
   )
 }
 
@@ -532,23 +630,19 @@ export function AuthorsPageContent() {
 
           <Reveal delay={0.06} className="section-inner">
             <AuthorsPanel>
-              <div className="px-7 py-8 md:px-10 md:py-10">
-                <dl className="grid gap-6 sm:grid-cols-2 xl:grid-cols-5 xl:gap-0 xl:divide-x xl:divide-[var(--border)]">
-                  {submissionGuidelines.map((item) => (
-                    <div key={item.title} className="min-w-0 xl:px-5 xl:first:pl-0 xl:last:pr-0">
-                      <dt className="text-base font-semibold leading-snug tracking-tight text-[var(--black)]">
-                        {item.title}
-                      </dt>
-                      <dd className="mt-2 text-sm leading-relaxed text-[var(--grey-600)]">
-                        {item.content}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
+              <StaggerChildren className="grid gap-4 p-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:p-10">
+                {submissionGuidelines.map((item) => (
+                  <StaggerItem key={item.title} className="h-full">
+                    <GuidelineItem {...item} />
+                  </StaggerItem>
+                ))}
+              </StaggerChildren>
 
               <PanelFooter>
-                <div className="grid gap-3 md:grid-cols-2">
+                <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--grey-400)]">
+                  Modèles Springer LNCS
+                </p>
+                <div className="mt-4 grid gap-3 md:grid-cols-2">
                   <TemplateLink href="/paper/MSWord.zip" icon={FileText} title="Template Word" />
                   <TemplateLink href="/paper/LaTeX2e.zip" icon={FileCode2} title="Template LaTeX" />
                 </div>
@@ -689,8 +783,8 @@ export function AuthorsPageContent() {
 
                 <div className="border-t border-[var(--border)] px-7 py-6 md:px-10 lg:border-t-0 lg:border-l lg:py-10 lg:pl-10 lg:pr-10">
                   <div className="flex items-center gap-3 lg:flex-col lg:items-start lg:gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand)]">
-                      <Trophy className="h-5 w-5" strokeWidth={1.5} aria-hidden />
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)]">
+                      <GoldTrophyIcon className="h-7 w-7" />
                     </span>
                     <p className="text-sm font-medium leading-relaxed text-[var(--grey-600)] lg:max-w-[12rem]">
                       Décerné lors du colloque · Communications acceptées
