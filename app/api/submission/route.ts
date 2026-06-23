@@ -10,6 +10,7 @@ export async function POST(request: Request) {
     const formData = await request.formData()
     const draftJson = formData.get('draft') as string
     const pdfFile = formData.get('pdf') as File | null
+    const reference = formData.get('reference') as string || generateSubmissionReference()
 
     if (!draftJson) {
       return NextResponse.json(
@@ -19,7 +20,6 @@ export async function POST(request: Request) {
     }
 
     const draft = JSON.parse(draftJson)
-    const reference = generateSubmissionReference()
 
     // Vérification de la clé API
     if (!process.env.RESEND_API_KEY) {
@@ -46,8 +46,8 @@ export async function POST(request: Request) {
     const { data, error } = await resend.emails.send({
       from: 'RIPU26 <onboarding@resend.dev>',
       to: [SUBMISSION_EMAIL],
-      replyTo: draft.authors[0]?.email || SUBMISSION_EMAIL,
-      subject: `[RIPU26] Soumission ${reference} - ${draft.title.trim().slice(0, 60)}`,
+      replyTo: draft.authors?.[0]?.email || SUBMISSION_EMAIL,
+      subject: `[RIPU26] Soumission ${reference} - ${draft.title?.trim()?.slice(0, 60) || 'Nouvelle soumission'}`,
       html: buildSubmissionEmailHtml(draft, reference),
       text: buildSubmissionEmailText(draft, reference),
       attachments: attachment ? [attachment] : undefined,
