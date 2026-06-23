@@ -6,7 +6,209 @@ import {
 } from "@/lib/submission-form"
 import { isSubmissionClosed } from "@/lib/submission"
 
-// --- TEMPLATES EMAIL ---
+const FONT_STACK =
+  "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
+
+
+const FOOTER_LOGO_URL = "https://ripusousse.com/email/signature.png"
+const FOOTER_LOGO_WIDTH = 96 
+
+function escapeHtml(value: string | undefined | null): string {
+  if (!value) return ""
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+}
+
+function wrapEmail(bodyHtml: string, preheader: string): string {
+  return `
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RIPU26</title>
+</head>
+<body style="margin:0;padding:0;background-color:#ffffff;color:#111111;font-family:${FONT_STACK};">
+  <span style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">
+    ${escapeHtml(preheader)}
+  </span>
+
+  <div style="max-width:560px;margin:0 auto;padding:40px 24px;">
+
+    <!-- Header -->
+    <div style="border-bottom:1px solid #111111;padding-bottom:16px;margin-bottom:32px;">
+      <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#666666;">
+        RIPU26
+      </div>
+      <div style="font-size:15px;color:#111111;margin-top:4px;">
+        Rencontre Internationale de la Pédagogie Universitaire
+      </div>
+    </div>
+
+    ${bodyHtml}
+
+    <!-- Footer -->
+    <div style="border-top:1px solid #dddddd;margin-top:40px;padding-top:24px;text-align:center;">
+      <img
+        src="${FOOTER_LOGO_URL}"
+        alt="RIPU26"
+        width="${FOOTER_LOGO_WIDTH}"
+        style="display:block;margin:0 auto 16px;width:${FOOTER_LOGO_WIDTH}px;max-width:100%;height:auto;filter:grayscale(100%);opacity:0.85;border:0;"
+      />
+      <div style="font-size:12px;color:#999999;line-height:1.6;">
+        RIPU26 &middot; Sousse, Tunisie &middot; 30&ndash;31 octobre 2026<br/>
+        Cet e-mail a été généré automatiquement par l'espace de soumission RIPU26.
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
+`
+}
+
+function fieldRow(label: string, value: string): string {
+  return `
+    <div style="margin-bottom:14px;">
+      <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#999999;margin-bottom:2px;">
+        ${escapeHtml(label)}
+      </div>
+      <div style="font-size:14px;color:#111111;line-height:1.5;">
+        ${value}
+      </div>
+    </div>
+  `
+}
+
+function sectionTitle(title: string): string {
+  return `
+    <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#666666;margin:32px 0 12px;padding-bottom:6px;border-bottom:1px solid #dddddd;">
+      ${escapeHtml(title)}
+    </div>
+  `
+}
+
+export function buildConfirmationEmailHtml(
+  draft: SubmissionDraft,
+  reference: string
+): string {
+  const currentDate = new Date().toLocaleString("fr-FR", {
+    timeZone: "Africa/Tunis",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  })
+
+  const authorName = draft.authors?.[0]?.firstName
+    ? `${draft.authors[0].firstName} ${draft.authors[0].lastName}`
+    : "Cher(e) collègue"
+
+  const typeLabels: Record<string, string> = {
+    experience: "Retour d'expérience",
+    wip: "Projet de recherche",
+    article: "Article",
+  }
+
+  const typeLabel =
+    typeLabels[draft.submissionType] || draft.submissionType || "Non spécifié"
+
+  const authorsNames = draft.authors
+    .map((a) => `${a.firstName} ${a.lastName}`)
+    .join(", ")
+
+  const body = `
+    <p style="font-size:15px;line-height:1.6;color:#111111;margin:0 0 20px;">
+      Cher(e) ${escapeHtml(authorName)},
+    </p>
+
+    <p style="font-size:14px;line-height:1.7;color:#333333;margin:0 0 12px;">
+      Nous vous remercions pour votre soumission à la Rencontre Internationale de la
+      Pédagogie Universitaire (RIPU26).
+    </p>
+
+    <p style="font-size:14px;line-height:1.7;color:#333333;margin:0 0 28px;">
+      Votre contribution a bien été enregistrée dans notre système et sera prochainement
+      transmise au processus d'évaluation en double aveugle.
+    </p>
+
+    <div style="border:1px solid #dddddd;padding:20px 24px;margin-bottom:8px;">
+      <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#666666;margin-bottom:16px;">
+        Détails de la soumission
+      </div>
+      ${fieldRow("Identifiant", escapeHtml(reference))}
+      ${fieldRow("Type de contribution", escapeHtml(typeLabel))}
+      ${fieldRow("Titre", escapeHtml(draft.title) || "Titre non spécifié")}
+      ${fieldRow("Auteur(s)", escapeHtml(authorsNames))}
+      ${fieldRow("Date de soumission", escapeHtml(currentDate))}
+    </div>
+
+    <p style="font-size:14px;line-height:1.7;color:#333333;margin:28px 0 0;">
+      Nous vous remercions de l'intérêt que vous portez à RIPU26 et nous réjouissons de
+      votre participation.
+    </p>
+
+    <p style="font-size:14px;line-height:1.7;color:#111111;margin:24px 0 0;">
+      Cordialement,<br/>
+      Comité d'Organisation RIPU26
+    </p>
+  `
+
+  return wrapEmail(body, `Confirmation de soumission — ${reference}`)
+}
+
+export function buildConfirmationEmailText(draft: SubmissionDraft, reference: string): string {
+  const currentDate = new Date().toLocaleString('fr-FR', {
+    timeZone: 'Africa/Tunis',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+
+  const authorName = draft.authors?.[0]?.firstName 
+    ? `${draft.authors[0].firstName} ${draft.authors[0].lastName}`
+    : 'Cher(e) collègue'
+
+  const typeLabels: Record<string, string> = {
+    'experience': 'Retour d\'expérience',
+    'wip': 'Projet de recherche',
+    'article': 'Article'
+  }
+  const typeLabel = typeLabels[draft.submissionType] || draft.submissionType || 'Non spécifié'
+  const authorsNames = draft.authors.map(a => `${a.firstName} ${a.lastName}`).join(', ')
+
+  return `
+Cher(e) ${authorName},
+
+Nous vous remercions pour votre soumission à la Rencontre Internationale de la Pédagogie Universitaire (RIPU26).
+
+Votre contribution a bien été enregistrée dans notre système et sera prochainement transmise au processus d'évaluation en double aveugle.
+
+Détails de la soumission
+-----------------------------------------------------------------------
+Identifiant de la contribution : ${reference}
+Type de contribution : ${typeLabel}
+Titre : ${draft.title || 'Titre non spécifié'}
+Auteur(s) : ${authorsNames}
+Date de soumission : ${currentDate}
+-----------------------------------------------------------------------
+
+Nous vous remercions de l'intérêt que vous portez à RIPU26 et nous réjouissons de votre participation.
+
+Cordialement,
+
+Comité d'Organisation RIPU26
+`
+}
+
+// =======================================================================
+// TEMPLATE POUR L'ÉQUIPE (notification interne)
+// =======================================================================
 
 export function buildSubmissionEmailHtml(draft: SubmissionDraft, reference: string): string {
   const currentDate = new Date().toLocaleString('fr-FR', {
@@ -18,114 +220,99 @@ export function buildSubmissionEmailHtml(draft: SubmissionDraft, reference: stri
     minute: '2-digit'
   })
 
-  const authorsList = draft.authors.map((author, index) => {
+  const typeLabels: Record<string, string> = {
+    'experience': 'Retour d\'expérience',
+    'wip': 'Projet de recherche',
+    'article': 'Article'
+  }
+  const typeLabel = typeLabels[draft.submissionType] || draft.submissionType || 'Non spécifié'
+
+  const authorsHtml = draft.authors.map((author, index) => {
     const isPresenting = author.id === draft.presentingAuthorId
     const isCorresponding = index === 0
-    const roles = []
+    const roles: string[] = []
     if (isPresenting) roles.push('Présentateur')
     if (isCorresponding) roles.push('Auteur correspondant')
-    
+
+    const primaryOrg = draft.organizations.find(org => org.id === author.primaryOrgId)
+    const primaryOrgStr = primaryOrg
+      ? `${primaryOrg.institution}${primaryOrg.department ? `, ${primaryOrg.department}` : ''}${primaryOrg.country ? `, ${primaryOrg.country}` : ''}`
+      : 'Affiliation non définie'
+
     return `
-      <div style="margin-bottom: 12px; padding: 10px; background: #f8f7ff; border-radius: 6px; border-left: 3px solid #7b1fa2;">
-        <p style="margin: 0; font-weight: 600; color: #1a202c;">
-          ${index + 1}. ${author.firstName} ${author.lastName}
-          ${author.orcid ? ` <span style="font-weight: 400; color: #718096; font-size: 12px;">(ORCID: ${author.orcid})</span>` : ''}
-        </p>
-        <p style="margin: 4px 0 0; font-size: 13px; color: #4a5568;">
-          📧 ${author.email}
-        </p>
-        ${roles.length ? `<p style="margin: 4px 0 0; font-size: 12px; color: #7b1fa2;">${roles.join(' · ')}</p>` : ''}
+      <div style="padding:14px 0;${index > 0 ? 'border-top:1px solid #eeeeee;' : ''}">
+        <div style="font-size:14px;color:#111111;margin-bottom:4px;">
+          ${index + 1}. ${escapeHtml(author.firstName)} ${escapeHtml(author.lastName)}
+          ${author.orcid ? `<span style="color:#999999;font-size:12px;"> &middot; ORCID ${escapeHtml(author.orcid)}</span>` : ''}
+        </div>
+        <div style="font-size:13px;color:#666666;line-height:1.6;">
+          ${escapeHtml(author.email)}<br/>
+          ${escapeHtml(primaryOrgStr)}
+          ${roles.length ? `<br/><span style="color:#999999;">${escapeHtml(roles.join(', '))}</span>` : ''}
+        </div>
       </div>
     `
   }).join('')
 
-  return `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nouvelle soumission - RIPU26</title>
-      </head>
-      <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; background-color: #f5f7fa; color: #1a202c;">
-        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f7fa; padding: 40px 0;">
-          <tr>
-            <td align="center">
-              <table width="700" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden;">
-                <tr>
-                  <td style="background: linear-gradient(135deg, #4a148c 0%, #7b1fa2 35%, #9c27b0 65%, #ce93d8 100%); padding: 40px 40px 30px; text-align: center;">
-                    <div style="display: inline-block; background: rgba(255,255,255,0.12); padding: 4px 20px; border-radius: 20px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                      <span style="color: #e1bee7; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;">Nouvelle soumission</span>
-                    </div>
-                    <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">RIPU26</h1>
-                    <p style="margin: 10px 0 0; color: #e1bee7; font-size: 15px; font-weight: 300; letter-spacing: 0.3px;">Rencontres Internationales Pédagogiques Universitaires</p>
-                    <div style="margin: 12px auto 0; width: 60px; height: 2px; background: rgba(255,255,255,0.3); border-radius: 2px;"></div>
-                    <p style="margin: 12px 0 0; color: #ce93d8; font-size: 13px; font-weight: 300; letter-spacing: 0.5px;">Sousse, Tunisie · 30–31 octobre 2026</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 40px 40px 30px;">
-                    <div style="background: #ede7f6; padding: 15px 20px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #d1c4e9;">
-                      <p style="margin: 0; font-size: 13px; color: #4a148c;">
-                        <strong>📌 Référence de soumission :</strong> <span style="font-size: 16px; font-weight: 700;">${reference}</span>
-                      </p>
-                      <p style="margin: 4px 0 0; font-size: 12px; color: #7b1fa2;">Reçue le ${currentDate}</p>
-                    </div>
+  const orgsHtml = draft.organizations.length
+    ? draft.organizations.map(o =>
+        `<div style="font-size:13px;color:#333333;line-height:1.7;">&middot; ${escapeHtml(o.institution)}${o.department ? `, ${escapeHtml(o.department)}` : ''}${o.country ? `, ${escapeHtml(o.country)}` : ''}</div>`
+      ).join('')
+    : `<div style="font-size:13px;color:#999999;">Aucune affiliation</div>`
 
-                    <div style="border-bottom: 2px solid #ede7f6; padding-bottom: 15px; margin-bottom: 20px;">
-                      <h2 style="margin: 0; font-size: 16px; color: #4a148c;">📄 Communication</h2>
-                    </div>
-                    <div style="margin-bottom: 20px;">
-                      <p style="margin: 0; font-size: 13px; color: #4a5568; font-weight: 600;">Titre</p>
-                      <p style="margin: 4px 0 0; font-size: 18px; font-weight: 600; color: #1a202c;">${draft.title || 'Titre non spécifié'}</p>
-                    </div>
-                    <div style="margin-bottom: 25px;">
-                      <p style="margin: 0; font-size: 13px; color: #4a5568; font-weight: 600;">Abstract</p>
-                      <div style="background: #f8f7ff; padding: 15px; border-radius: 6px; margin-top: 4px; border-left: 4px solid #7b1fa2;">
-                        <p style="margin: 0; font-size: 14px; color: #2d3748; line-height: 1.7; white-space: pre-wrap;">${draft.abstract || 'Abstract non fourni'}</p>
-                      </div>
-                    </div>
+  const fileInfo = draft.pdfMeta?.fileName
+    ? `${escapeHtml(draft.pdfMeta.fileName)}${draft.pdfMeta.fileSize ? ` (${(draft.pdfMeta.fileSize / 1024 / 1024).toFixed(1)} Mo)` : ''}`
+    : 'Fichier attaché'
 
-                    <div style="border-bottom: 2px solid #ede7f6; padding-bottom: 15px; margin-bottom: 20px;">
-                      <h2 style="margin: 0; font-size: 16px; color: #4a148c;">👥 Auteurs</h2>
-                    </div>
-                    ${authorsList}
+  const body = `
+    <p style="font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#666666;margin:0 0 4px;">
+      Nouvelle soumission
+    </p>
+    <p style="font-size:14px;color:#111111;margin:0 0 28px;">
+      Référence <strong>${escapeHtml(reference)}</strong> &middot; reçue le ${escapeHtml(currentDate)}
+    </p>
 
-                    <div style="border-bottom: 2px solid #ede7f6; padding-bottom: 15px; margin-bottom: 20px;">
-                      <h2 style="margin: 0; font-size: 16px; color: #4a148c;">📎 Document PDF</h2>
-                    </div>
-                    <div style="background: #ede7f6; padding: 15px; border-radius: 6px;">
-                      <p style="margin: 0; font-size: 14px; color: #2d3748;">
-                        📄 ${draft.pdfMeta?.fileName || 'Fichier attaché'}
-                        ${draft.pdfMeta?.fileSize ? ` (${(draft.pdfMeta.fileSize / 1024 / 1024).toFixed(1)} Mo)` : ''}
-                      </p>
-                    </div>
+    ${sectionTitle("Configuration")}
+    ${fieldRow("Type", escapeHtml(typeLabel))}
+    ${fieldRow("Présentation", escapeHtml(draft.presentationMode) || 'Non spécifié')}
+    ${fieldRow("Contribution étudiante", draft.studentContribution ? 'Oui' : 'Non')}
 
-                    ${draft.remarks?.trim() ? `
-                      <div style="border-bottom: 2px solid #ede7f6; padding-bottom: 15px; margin-bottom: 20px; margin-top: 30px;">
-                        <h2 style="margin: 0; font-size: 16px; color: #4a148c;">📝 Remarques</h2>
-                      </div>
-                      <div style="background: #f8f7ff; padding: 15px; border-radius: 6px;">
-                        <p style="margin: 0; font-size: 14px; color: #2d3748; white-space: pre-wrap;">${draft.remarks}</p>
-                      </div>
-                    ` : ''}
-                  </td>
-                </tr>
-                <tr>
-                  <td style="background: #f8f7ff; padding: 25px 40px; border-top: 1px solid #ede7f6; text-align: center;">
-                    <p style="margin: 0; font-size: 12px; color: #718096;">
-                      © 2026 RIPU26 · Tous droits réservés<br>
-                      <span style="color: #a0aec0;">Cette soumission a été transmise via l'espace de soumission du site</span>
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>
-    </html>
+    ${sectionTitle("Communication")}
+    ${fieldRow("Titre", escapeHtml(draft.title) || 'Titre non spécifié')}
+    <div style="margin-bottom:14px;">
+      <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#999999;margin-bottom:4px;">
+        Abstract
+      </div>
+      <div style="font-size:13px;color:#333333;line-height:1.7;white-space:pre-wrap;">
+        ${escapeHtml(draft.abstract) || 'Abstract non fourni'}
+      </div>
+    </div>
+
+    ${sectionTitle("Thématiques")}
+    ${fieldRow("Principal", escapeHtml(draft.primaryTopic) || 'Non spécifié')}
+    ${fieldRow("Secondaire", escapeHtml(draft.secondaryTopic) || 'Non spécifié')}
+    ${fieldRow("Mots-clés", escapeHtml(draft.keywords) || 'Non spécifié')}
+
+    ${sectionTitle("Auteurs")}
+    ${authorsHtml}
+
+    ${sectionTitle("Affiliations")}
+    ${orgsHtml}
+
+    ${sectionTitle("Document")}
+    <div style="font-size:13px;color:#333333;">${fileInfo}</div>
+
+    ${draft.remarks?.trim() ? `
+      ${sectionTitle("Remarques")}
+      <div style="font-size:13px;color:#333333;line-height:1.7;white-space:pre-wrap;">${escapeHtml(draft.remarks)}</div>
+    ` : ''}
+
+    <p style="font-size:12px;color:#999999;margin-top:32px;">
+      Soumission transmise via l'espace de soumission RIPU26.
+    </p>
   `
+
+  return wrapEmail(body, `Nouvelle soumission — ${reference}`)
 }
 
 export function buildSubmissionEmailText(draft: SubmissionDraft, reference: string): string {
@@ -138,6 +325,13 @@ export function buildSubmissionEmailText(draft: SubmissionDraft, reference: stri
     minute: '2-digit'
   })
 
+  const typeLabels: Record<string, string> = {
+    'experience': 'Retour d\'expérience',
+    'wip': 'Projet de recherche',
+    'article': 'Article'
+  }
+  const typeLabel = typeLabels[draft.submissionType] || draft.submissionType || 'Non spécifié'
+
   const authorsList = draft.authors.map((author, index) => {
     const isPresenting = author.id === draft.presentingAuthorId
     const isCorresponding = index === 0
@@ -145,8 +339,14 @@ export function buildSubmissionEmailText(draft: SubmissionDraft, reference: stri
     if (isPresenting) roles.push('Présentateur')
     if (isCorresponding) roles.push('Auteur correspondant')
     
+    const primaryOrg = draft.organizations.find(org => org.id === author.primaryOrgId)
+    const primaryOrgStr = primaryOrg 
+      ? `${primaryOrg.institution}${primaryOrg.department ? `, ${primaryOrg.department}` : ''}${primaryOrg.country ? `, ${primaryOrg.country}` : ''}`
+      : 'Affiliation non définie'
+    
     return `${index + 1}. ${author.firstName} ${author.lastName}${author.orcid ? ` (ORCID: ${author.orcid})` : ''}
    Email: ${author.email}
+   Affiliation: ${primaryOrgStr}
    ${roles.length ? `Rôle: ${roles.join(', ')}` : ''}`
   }).join('\n\n')
 
@@ -157,14 +357,27 @@ NOUVELLE SOUMISSION - RIPU26
 Référence: ${reference}
 Date: ${currentDate}
 
+--- CONFIGURATION ---
+Type: ${typeLabel}
+Présentation: ${draft.presentationMode || 'Non spécifié'}
+Étudiant: ${draft.studentContribution ? 'Oui' : 'Non'}
+
 --- COMMUNICATION ---
 Titre: ${draft.title || 'Titre non spécifié'}
 
 Abstract:
 ${draft.abstract || 'Abstract non fourni'}
 
+--- THÉMATIQUES ---
+Principal: ${draft.primaryTopic || 'Non spécifié'}
+Secondaire: ${draft.secondaryTopic || 'Non spécifié'}
+Mots-clés: ${draft.keywords || 'Non spécifié'}
+
 --- AUTEURS ---
 ${authorsList}
+
+--- AFFILIATIONS ---
+${draft.organizations.map(o => `• ${o.institution}${o.department ? `, ${o.department}` : ''}${o.country ? `, ${o.country}` : ''}`).join('\n') || 'Aucune affiliation'}
 
 --- DOCUMENT ---
 ${draft.pdfMeta?.fileName || 'Fichier attaché'}${draft.pdfMeta?.fileSize ? ` (${(draft.pdfMeta.fileSize / 1024 / 1024).toFixed(1)} Mo)` : ''}
@@ -179,7 +392,9 @@ Sousse, Tunisie · 30–31 octobre 2026
   `
 }
 
-// --- FONCTION PRINCIPALE DE TRANSMISSION ---
+// =======================================================================
+// FONCTION PRINCIPALE
+// =======================================================================
 
 export async function transmitSubmission(draft: SubmissionDraft, pdfFile: File | null): Promise<string> {
   if (isSubmissionClosed()) {
@@ -188,7 +403,6 @@ export async function transmitSubmission(draft: SubmissionDraft, pdfFile: File |
 
   const reference = generateSubmissionReference()
 
-  // Créer un FormData pour l'API
   const formData = new FormData()
   formData.append('draft', JSON.stringify(draft))
   formData.append('reference', reference)

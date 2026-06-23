@@ -1,4 +1,4 @@
-export const SUBMISSION_EMAIL = "ripu25sousse@gmail.com"
+export const SUBMISSION_EMAIL = "ripusousse@gmail.com"
 
 export const SUBMISSION_DEADLINE_LABEL = "25 juillet 2026"
 
