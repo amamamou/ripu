@@ -19,8 +19,8 @@ export const SUBMISSION_TYPES = [
   },
   {
     value: "wip",
-    label: "Work in Progress",
-    description: "Travaux en cours, protocoles ou avancées de recherche.",
+    label: "Projet de recherche",
+    description: "Travaux de recherche, protocoles et avancées scientifiques.",
   },
 ] as const
 

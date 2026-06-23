@@ -20,6 +20,10 @@ import { SectionHead } from "@/components/landing/section-head"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { cn } from "@/lib/utils"
 import { CFP_PDF_DOWNLOAD_NAME, CFP_PDF_HREF } from "@/lib/cfp-document"
+import {
+  SUBMISSION_CONTRIBUTION_TYPES,
+  SUBMISSION_FORMAT_HIGHLIGHTS,
+} from "@/lib/submission"
 import type { LucideIcon } from "lucide-react"
 import type { ReactNode } from "react"
 
@@ -47,12 +51,7 @@ const sectionAnchors = [
   { num: "06", label: "Présentation", href: "#presentation" },
 ] as const
 
-const authorHighlights = [
-  "Format Springer LNCS",
-  "Revue double aveugle",
-  "2 à 4 pages",
-  "Espace de soumission",
-] as const
+const authorHighlights = SUBMISSION_FORMAT_HIGHLIGHTS
 
 const milestoneDefs = [
   {
@@ -91,7 +90,7 @@ const submissionGuidelines = [
   {
     icon: Layers3,
     title: "Type de contribution",
-    content: "Retour d'expérience ou Work in Progress aligné avec les axes scientifiques de RIPU26.",
+    bullets: SUBMISSION_CONTRIBUTION_TYPES,
   },
   {
     icon: FileText,
@@ -216,10 +215,12 @@ function GuidelineItem({
   icon: Icon,
   title,
   content,
+  bullets,
 }: {
   icon: LucideIcon
   title: string
-  content: string
+  content?: string
+  bullets?: readonly string[]
 }) {
   return (
     <article className="flex h-full flex-col rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-5 md:p-6">
@@ -229,7 +230,20 @@ function GuidelineItem({
       <h3 className="mt-4 text-base font-semibold leading-snug tracking-tight text-[var(--black)]">
         {title}
       </h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--grey-600)]">{content}</p>
+      {content ? (
+        <p className="mt-2 text-sm leading-relaxed text-[var(--grey-600)]">{content}</p>
+      ) : null}
+      {bullets && bullets.length > 0 && (
+        <ul className={cn("flex-1 space-y-2", content ? "mt-4" : "mt-2")}>
+          {bullets.map((item) => (
+            <li key={item} className="flex items-start gap-2 text-sm leading-relaxed text-[var(--grey-600)]">
+              <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--brand)]" strokeWidth={2} aria-hidden />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {!bullets?.length && <div className="flex-1" />}
     </article>
   )
 }
@@ -464,7 +478,7 @@ export function AuthorsPageContent() {
 
                 <div className="px-6 py-6 md:px-7 md:py-7">
                   <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--grey-400)]">
-                    En bref
+                    Format de soumission
                   </p>
                   <ul className="mt-4 space-y-3">
                     {authorHighlights.map((item) => (
