@@ -3,6 +3,7 @@ import {
   generateSubmissionReference,
   type SubmissionDraft,
 } from "@/lib/submission-form"
+import { isSubmissionClosed } from "@/lib/submission"
 import {
   buildDossierContent,
   downloadSubmissionPackage,
@@ -15,6 +16,10 @@ export function downloadDossier(draft: SubmissionDraft, reference: string) {
 }
 
 export async function transmitSubmission(draft: SubmissionDraft, pdfFile: File | null) {
+  if (isSubmissionClosed()) {
+    throw new Error("SUBMISSION_CLOSED")
+  }
+
   const reference = generateSubmissionReference()
   await downloadSubmissionPackage(draft, reference, pdfFile?.name ?? null)
 

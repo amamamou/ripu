@@ -5,6 +5,7 @@ import { ArrowRight, Download, FileCode2, FileText } from "lucide-react"
 import { Reveal } from "@/components/landing/reveal"
 import { SubmissionWorkspace } from "@/components/soumission/submission-workspace"
 import { CFP_PDF_DOWNLOAD_NAME, CFP_PDF_HREF } from "@/lib/cfp-document"
+import { isSubmissionClosed, SUBMISSION_DEADLINE_LABEL } from "@/lib/submission"
 
 const SPRINGER_WORD_TEMPLATE_HREF = "/paper/MSWord.zip"
 const SPRINGER_LATEX_TEMPLATE_HREF = "/paper/LaTeX2e.zip"
@@ -45,6 +46,8 @@ function SpringerTemplateLink({
 }
 
 export function SoumissionPageContent() {
+  const submissionClosed = isSubmissionClosed()
+
   return (
     <main className="overflow-x-clip bg-white pt-[4.25rem] md:pt-[4.75rem]">
       <section className="section-block pb-6 md:pb-8">
@@ -59,19 +62,33 @@ export function SoumissionPageContent() {
               </Reveal>
               <Reveal delay={0.08}>
                 <p className="mt-3 max-w-xl text-balance text-base font-semibold leading-snug tracking-tight text-[var(--black)] sm:text-lg">
-                  Préparez et soumettez votre contribution scientifique.
+                  {submissionClosed
+                    ? "La période de soumission des articles est terminée."
+                    : "Préparez et soumettez votre contribution scientifique."}
                 </p>
               </Reveal>
               <Reveal delay={0.1}>
                 <p className="mt-4 text-sm font-medium text-[var(--grey-400)]">
-                  Parcours guidé · Sauvegarde automatique · Transmission au comité scientifique
+                  {submissionClosed
+                    ? `Date limite : ${SUBMISSION_DEADLINE_LABEL} · Dépôts clos`
+                    : "Parcours guidé · Sauvegarde automatique · Transmission au comité scientifique"}
                 </p>
               </Reveal>
               <Reveal delay={0.15}>
                 <p className="mt-6 t-body text-[var(--grey-600)]">
-                  Cet espace vous accompagne de la configuration initiale jusqu&apos;à la transmission
-                  de votre communication. Chaque étape est validée avant de poursuivre — votre dossier
-                  reste sauvegardé sur cet appareil.
+                  {submissionClosed ? (
+                    <>
+                      L&apos;espace de soumission n&apos;accepte plus de nouvelles communications.
+                      Consultez le guide des auteurs ou contactez le comité pour toute question relative
+                      à une soumission déjà transmise.
+                    </>
+                  ) : (
+                    <>
+                      Cet espace vous accompagne de la configuration initiale jusqu&apos;à la transmission
+                      de votre communication. Chaque étape est validée avant de poursuivre — votre dossier
+                      reste sauvegardé sur cet appareil.
+                    </>
+                  )}
                 </p>
               </Reveal>
               <Reveal delay={0.2}>
