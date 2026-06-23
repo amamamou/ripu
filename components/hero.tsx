@@ -6,6 +6,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, Download } from "lucide-react"
 import { useState, useEffect, useCallback, useRef } from "react"
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import { RIPU26_EVENT_THEME } from "@/lib/event-copy"
+import { CFP_PDF_DOWNLOAD_NAME, CFP_PDF_HREF } from "@/lib/cfp-document"
 
 const heroImages = ["/hero/1.png", "/hero/2.png", "/hero/3.png"]
 
@@ -137,8 +138,8 @@ export default function Hero() {
                 </span>
               </Link>
               <a
-                href="/documents/CFP-RIPU26.pdf"
-                download
+                href={CFP_PDF_HREF}
+                download={CFP_PDF_DOWNLOAD_NAME}
                 aria-label="Télécharger l'appel à communications RIPU26 (PDF)"
                 className="btn-hero inline-flex w-full items-center justify-center gap-2 sm:w-auto"
               >

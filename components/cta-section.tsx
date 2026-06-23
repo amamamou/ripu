@@ -6,6 +6,7 @@ import { ArrowRight, Download } from "lucide-react"
 import { Reveal } from "@/components/landing/reveal"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { cn } from "@/lib/utils"
+import { CFP_PDF_DOWNLOAD_NAME, CFP_PDF_HREF } from "@/lib/cfp-document"
 
 export function CTASection({ className }: { className?: string }) {
   return (
@@ -15,7 +16,7 @@ export function CTASection({ className }: { className?: string }) {
           <div className="relative overflow-hidden rounded-[var(--radius-2xl)] bg-[var(--brand-dark)]">
             <div className="mesh-bg pointer-events-none absolute inset-0 opacity-60" aria-hidden />
             <div className="relative min-h-0 md:min-h-[360px]">
-              <Image src="/hero/2.png" alt="" fill className="object-cover opacity-40 mix-blend-luminosity" />
+              <Image src="/banner.png" alt="" fill className="object-cover opacity-40 mix-blend-luminosity" />
               <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-dark)] via-[var(--brand-dark)]/85 to-[var(--brand)]/40" />
 
               <StaggerChildren
@@ -46,8 +47,8 @@ export function CTASection({ className }: { className?: string }) {
                       </span>
                     </Link>
                     <a
-                      href="/documents/CFP-RIPU26.pdf"
-                      download
+                      href={CFP_PDF_HREF}
+                      download={CFP_PDF_DOWNLOAD_NAME}
                       aria-label="Télécharger l'appel à communications RIPU26 (PDF)"
                       className="btn-hero inline-flex w-full items-center justify-center gap-2 sm:w-auto"
                     >

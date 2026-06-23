@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowRight, Download } from "lucide-react"
 import { Reveal } from "@/components/landing/reveal"
 import { SubmissionWorkspace } from "@/components/soumission/submission-workspace"
+import { CFP_PDF_DOWNLOAD_NAME, CFP_PDF_HREF } from "@/lib/cfp-document"
 
 export function SoumissionPageContent() {
   return (
@@ -41,8 +42,8 @@ export function SoumissionPageContent() {
                   <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.75} />
                 </Link>
                 <Link
-                  href="/documents/CFP-RIPU26.pdf"
-                  target="_blank"
+                  href={CFP_PDF_HREF}
+                  download={CFP_PDF_DOWNLOAD_NAME}
                   className="link-arrow inline-flex text-sm font-semibold"
                 >
                   Télécharger l&apos;appel (PDF)

@@ -19,6 +19,7 @@ import { Reveal } from "@/components/landing/reveal"
 import { SectionHead } from "@/components/landing/section-head"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { cn } from "@/lib/utils"
+import { CFP_PDF_DOWNLOAD_NAME, CFP_PDF_HREF } from "@/lib/cfp-document"
 import type { LucideIcon } from "lucide-react"
 import type { ReactNode } from "react"
 
@@ -389,8 +390,8 @@ export function AuthorsPageContent() {
                     </span>
                   </Link>
                   <Link
-                    href="/documents/CFP-RIPU26.pdf"
-                    target="_blank"
+                    href={CFP_PDF_HREF}
+                    download={CFP_PDF_DOWNLOAD_NAME}
                     className="btn-outline-pill w-full justify-center sm:w-auto"
                   >
                     Télécharger l&apos;appel (PDF)
@@ -638,8 +639,8 @@ export function AuthorsPageContent() {
                     PDF complet : thématiques, modalités de participation et informations auteurs.
                   </p>
                   <Link
-                    href="/documents/CFP-RIPU26.pdf"
-                    target="_blank"
+                    href={CFP_PDF_HREF}
+                    download={CFP_PDF_DOWNLOAD_NAME}
                     className="mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-5 py-2.5 text-sm font-semibold text-[var(--black)] transition-all hover:border-[var(--brand)]/30 hover:bg-[var(--brand-soft)] hover:text-[var(--brand)]"
                   >
                     Télécharger le PDF

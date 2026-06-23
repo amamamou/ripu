@@ -1,8 +1,6 @@
 "use client"
 
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight, BrainCircuit, GraduationCap, Users } from "lucide-react"
+import { BrainCircuit, GraduationCap, Users } from "lucide-react"
 import { useState } from "react"
 import { Reveal } from "@/components/landing/reveal"
 import { SectionHead } from "@/components/landing/section-head"
@@ -15,39 +13,41 @@ const axes = [
     num: "01",
     stat: "IAG",
     statLabel: "Intelligence Artificielle",
-    title: "IA générative & enseignement",
-    description:
-      "Apprentissage, évaluation et transformation des pratiques enseignantes à l'ère de l'IAG.",
+    title: "Intelligence Artificielle Générative & Enseignement",
+    tags: ["IA Générative", "Enseignement", "Innovation"],
     topics: [
-      "Tuteur d'apprentissage",
-      "Geste enseignant",
-      "Correction automatisée",
-      "Effets sur les apprentissages",
+      "L'IAG comme tuteur d'apprentissage",
+      "L'IAG et le geste enseignant",
+      "L'IAG pour la correction des examens",
+      "Les effets de l'IAG sur les apprentissages",
+      "L'IAG et la vie étudiante",
+      "L'avenir de l'enseignement supérieur à l'ère de l'IAG",
+      "Les plans d'études à l'heure de l'IAG",
     ],
-    href: "/authors#call",
-    featured: true,
   },
   {
     icon: GraduationCap,
     num: "02",
     stat: "APC",
     statLabel: "Pédagogie",
-    title: "Approches pédagogiques",
-    description: "Cursus, méthodes actives et approche par compétences à l'ère du numérique.",
-    topics: ["APC", "Plans d'études", "Gamification"],
-    href: "/authors#call",
+    title: "Approches Pédagogiques",
+    tags: ["APC", "Pédagogie", "Gamification"],
+    topics: [
+      "L'approche par compétences (APC)",
+      "Les plans d'études à l'ère de l'IA et de l'APC",
+      "La gamification comme levier d'apprentissage",
+    ],
   },
   {
     icon: Users,
     num: "03",
-    stat: "01",
+    stat: "Genre",
     statLabel: "Axe transversal",
-    title: "Genre & éducation",
-    description: "Équité, inclusion et place des femmes dans l'enseignement supérieur.",
-    topics: ["Équité", "Inclusion", "Leadership féminin"],
-    href: "/about#topics",
+    title: "Genre & Éducation",
+    tags: ["Inclusion", "Équité", "Diversité"],
+    topics: ["La place des femmes dans l'éducation"],
   },
-]
+] as const
 
 export function PhilosophySection() {
   const [hovered, setHovered] = useState<number | null>(null)
@@ -55,11 +55,20 @@ export function PhilosophySection() {
   return (
     <section
       id="topics"
-      className="section-block landing-section relative overflow-hidden bg-[var(--brand-dark)]"
+      className="section-block landing-section relative overflow-hidden bg-[#3a1570]"
     >
-      <div className="mesh-bg pointer-events-none absolute inset-0" aria-hidden />
       <div
-        className="pointer-events-none absolute inset-0 bg-[url('/hero/1.png')] bg-cover bg-center opacity-[0.12] mix-blend-luminosity"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(ellipse 80% 60% at 85% 15%, rgba(140, 90, 220, 0.22) 0%, transparent 55%),
+            radial-gradient(ellipse 60% 50% at 10% 85%, rgba(80, 40, 140, 0.2) 0%, transparent 50%)
+          `,
+        }}
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-0 bg-[url('/banner.png')] bg-cover bg-center opacity-[0.16] mix-blend-luminosity"
         aria-hidden
       />
 
@@ -70,88 +79,74 @@ export function PhilosophySection() {
             label="Appel à communications"
             title="Trois axes pour soumettre votre travail"
             description="Choisissez l'axe qui correspond à votre recherche, votre retour d'expérience ou votre communication scientifique."
-            action={{ label: "Guide des auteurs", href: "/authors#call", variant: "ghost" }}
+            action={{ label: "Découvrir les axes du colloque", href: "/about#topics", variant: "ghost" }}
           />
         </Reveal>
 
-        <StaggerChildren className="section-inner grid gap-4 md:grid-cols-3 md:items-stretch">
+        <StaggerChildren className="mt-14 grid gap-5 md:mt-20 md:grid-cols-3 md:items-stretch lg:mt-24">
           {axes.map((axe, i) => {
-            const active = hovered === i || (hovered === null && axe.featured)
+            const active = hovered === i
 
             return (
               <StaggerItem key={axe.num} className="h-full">
-                <Link
-                  href={axe.href}
+                <article
                   onMouseEnter={() => setHovered(i)}
                   onMouseLeave={() => setHovered(null)}
-                  onFocus={() => setHovered(i)}
-                  onBlur={() => setHovered(null)}
                   className={cn(
-                    "group relative flex h-full min-h-[220px] flex-col justify-between overflow-hidden rounded-[var(--radius-xl)] p-5 transition-all duration-500 sm:min-h-[260px] md:min-h-[280px] md:p-7",
+                    "group relative flex h-full min-h-[340px] flex-col justify-end overflow-hidden rounded-[var(--radius-xl)] p-5 transition-all duration-500 sm:min-h-[360px] md:min-h-[400px] md:p-6",
                     active
-                      ? "bg-white/14 shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
-                      : "bg-white/[0.06] hover:bg-white/10"
+                      ? "bg-white/16 shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
+                      : "bg-white/[0.08] hover:bg-white/12"
                   )}
                 >
                   <span
-                    className="pointer-events-none absolute -right-2 -top-4 select-none text-[7rem] font-bold leading-none text-white/[0.04] lg:text-[8rem]"
+                    className="pointer-events-none absolute -left-2 -top-4 select-none text-[7rem] font-bold leading-none text-white/[0.04] lg:text-[8rem]"
                     aria-hidden
                   >
                     {axe.num}
                   </span>
 
-                  {axe.featured && (
-                    <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-                      <Image
-                        src="/hii.png"
-                        alt=""
-                        fill
-                        className="object-cover opacity-50 transition-opacity duration-500 group-hover:opacity-60"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--brand-dark)] via-[var(--brand-dark)]/45 to-[var(--brand-dark)]/10" />
+                  <div className="mb-6 flex items-start gap-3">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/15 text-white transition-all duration-300 group-hover:bg-white group-hover:text-[var(--black)]">
+                      <axe.icon className="h-5 w-5" strokeWidth={1.5} />
                     </div>
-                  )}
-
-                  <div className="relative">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-white transition-all duration-300 group-hover:bg-white group-hover:text-[var(--black)]">
-                        <axe.icon className="h-5 w-5" strokeWidth={1.5} />
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-white">{axe.stat}</p>
-                        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/45">
-                          {axe.statLabel}
-                        </p>
-                      </div>
+                    <div>
+                      <p className="text-2xl font-bold text-white">{axe.stat}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-white/45">
+                        {axe.statLabel}
+                      </p>
                     </div>
                   </div>
 
-                  <div className="relative mt-auto pt-8">
+                  <div className="flex w-full flex-col gap-3 text-start">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
                       Axe {axe.num}
                     </span>
-                    <h3 className="mt-2 text-lg font-bold text-white md:text-xl">{axe.title}</h3>
-                    <p className="mt-2 t-body-sm leading-relaxed text-white/55">{axe.description}</p>
 
-                    {axe.topics.length > 0 && (
-                      <ul className="mt-4 flex flex-wrap gap-1.5">
-                        {axe.topics.map((topic) => (
-                          <li
-                            key={topic}
-                            className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium leading-none text-white/75"
-                          >
-                            {topic}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                    <h3 className="text-base font-bold leading-snug text-white md:text-lg">
+                      {axe.title}
+                    </h3>
 
-                    <span className="mt-5 inline-flex items-center gap-2 t-body-sm font-semibold text-white/80 transition-all group-hover:gap-3 group-hover:text-white">
-                      Soumettre sur cet axe
-                      <ArrowRight className="h-4 w-4" />
-                    </span>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/40">
+                      {axe.tags.join(" · ")}
+                    </p>
+
+                    <ul className="space-y-2">
+                      {axe.topics.map((topic) => (
+                        <li
+                          key={topic}
+                          className="flex items-start gap-2.5 text-[11px] leading-snug text-white/60 md:text-xs md:leading-relaxed"
+                        >
+                          <span
+                            className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/35"
+                            aria-hidden
+                          />
+                          <span>{topic}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </Link>
+                </article>
               </StaggerItem>
             )
           })}
