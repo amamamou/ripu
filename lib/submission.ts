@@ -1,4 +1,4 @@
-export const SUBMISSION_EMAIL = "submissions@ripu26.org"
+export const SUBMISSION_EMAIL = "ripu25sousse@gmail.com"
 
 export const SUBMISSION_DEADLINE_LABEL = "15 juillet 2026"
 
@@ -13,7 +13,7 @@ export function buildSubmissionMailto() {
   const body = encodeURIComponent(
     `Bonjour,
 
-Veuillez trouver ci-joint ma communication pour RIPU26 (version anonyme, PDF).
+Veuillez trouver ci-joint ma communication pour RIPU26 (PDF).
 
 Titre de la communication :
 Axe choisi :

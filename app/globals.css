@@ -37,6 +37,15 @@
   --shadow-soft: 0 20px 60px rgba(47, 4, 97, 0.05);
   --shadow-hover: 0 28px 72px rgba(47, 4, 97, 0.08);
   --shadow-panel: 0 32px 80px rgba(47, 4, 97, 0.07), 0 8px 24px rgba(0, 0, 0, 0.03);
+  --success: #067647;
+  --success-soft: #ecfdf3;
+  --success-border: #abefc6;
+  --warning: #b54708;
+  --warning-soft: #fffaeb;
+  --warning-border: #fedf89;
+  --error: #b42318;
+  --error-soft: #fef3f2;
+  --error-border: #fecdca;
 }
 
 * { box-sizing: border-box; }

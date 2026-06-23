@@ -17,6 +17,7 @@ import { Reveal } from "@/components/landing/reveal"
 import { SectionHead } from "@/components/landing/section-head"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
 import { cn } from "@/lib/utils"
+import { SUBMISSION_EMAIL } from "@/lib/submission"
 import type { LucideIcon } from "lucide-react"
 import type { ReactNode } from "react"
 
@@ -56,7 +57,7 @@ const milestoneDefs = [
     date: new Date(2026, 6, 15),
     label: "15 Juillet 2026",
     event: "Date limite de soumission",
-    hint: "Envoi de votre communication par e-mail à submissions@ripu26.org.",
+    hint: `Envoi de votre communication par e-mail à ${SUBMISSION_EMAIL}.`,
   },
   {
     date: new Date(2026, 7, 10),

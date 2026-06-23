@@ -25,7 +25,7 @@ const footerColumns = [
   {
     title: "Contact",
     links: [
-      ["contact@ripu26.org", "mailto:contact@ripu26.org"],
+      ["ripu25sousse@gmail.com", "mailto:ripu25sousse@gmail.com"],
       ["Sousse, Tunisie", "/contact"],
       ["30–31 Oct. 2026", "/authors#dates"],
     ],
