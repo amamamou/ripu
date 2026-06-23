@@ -2,26 +2,16 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { ArrowRight, FileText, Mail, Send, CheckCircle, AlertCircle, Info } from "lucide-react"
+import { ArrowRight, Mail, Send, CheckCircle, AlertCircle, Info } from "lucide-react"
 import { Reveal } from "@/components/landing/reveal"
 import { cn } from "@/lib/utils"
 
-const emails = [
-  {
-    icon: Mail,
-    label: "Contact général",
-    description: "Programme, inscription, organisation et informations pratiques.",
-    href: "mailto:ripu25sousse@gmail.com",
-    value: "ripu25sousse@gmail.com",
-  },
-  {
-    icon: FileText,
-    label: "Soumissions",
-    description: "Format des communications, délais et guide des auteurs.",
-    href: "mailto:ripu25sousse@gmail.com",
-    value: "ripu25sousse@gmail.com",
-  },
-] as const
+const contactEmail = {
+  label: "Contact général",
+  description: "Programme, inscription, organisation et informations pratiques.",
+  href: "mailto:ripusousse@gmail.com",
+  value: "ripusousse@gmail.com",
+} as const
 
 const subjects = [
   { value: "submission", label: "Soumission" },
@@ -167,30 +157,27 @@ export function ContactPageContent() {
                     Préférez l&apos;e-mail ? Choisissez l&apos;adresse adaptée à votre demande.
                   </p>
 
-                  <div className="mt-8 space-y-4">
-                    {emails.map((item) => (
-                      <a
-                        key={item.value}
-                        href={item.href}
-                        className="group block rounded-[var(--radius-xl)] bg-white p-5 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
-                      >
-                        <div className="flex items-start gap-4">
-                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand)] transition-colors group-hover:bg-[var(--brand)] group-hover:text-white">
-                            <item.icon className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+                  <div className="mt-8">
+                    <a
+                      href={contactEmail.href}
+                      className="group block rounded-[var(--radius-xl)] bg-white p-5 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
+                    >
+                      <div className="flex items-start gap-4">
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand)] transition-colors group-hover:bg-[var(--brand)] group-hover:text-white">
+                          <Mail className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+                        </span>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-[var(--black)]">{contactEmail.label}</p>
+                          <p className="mt-1 text-xs leading-relaxed text-[var(--grey-600)]">
+                            {contactEmail.description}
+                          </p>
+                          <span className="link-arrow mt-3 inline-flex text-sm font-semibold text-[var(--brand)]">
+                            {contactEmail.value}
+                            <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.75} />
                           </span>
-                          <div className="min-w-0">
-                            <p className="text-sm font-semibold text-[var(--black)]">{item.label}</p>
-                            <p className="mt-1 text-xs leading-relaxed text-[var(--grey-600)]">
-                              {item.description}
-                            </p>
-                            <span className="link-arrow mt-3 inline-flex text-sm font-semibold text-[var(--brand)]">
-                              {item.value}
-                              <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.75} />
-                            </span>
-                          </div>
                         </div>
-                      </a>
-                    ))}
+                      </div>
+                    </a>
                   </div>
 
                   <div className="mt-8 rounded-[var(--radius-xl)] border border-[var(--border)] bg-white/60 px-5 py-4">
