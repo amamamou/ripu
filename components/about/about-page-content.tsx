@@ -79,15 +79,22 @@ function AxeCard({
   topics,
 }: (typeof axes)[number]) {
   return (
-    <article className="flex h-full flex-col rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-6 md:p-7">
-      <div className="flex items-center gap-2.5">
+    <article className="relative flex h-full flex-col overflow-hidden rounded-[var(--radius-xl)] bg-[var(--grey-50)] p-6 md:p-7">
+      <span
+        className="pointer-events-none absolute -bottom-6 -right-2 select-none text-[7rem] font-bold leading-none text-[var(--brand)]/[0.06] lg:text-[8rem]"
+        aria-hidden
+      >
+        {num}
+      </span>
+
+      <div className="relative flex items-center gap-2.5">
         <Icon className="h-4 w-4 text-[var(--brand)]" strokeWidth={1.5} aria-hidden />
         <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--brand)]">
           Axe {num}
         </span>
       </div>
 
-      <h3 className="mt-4 text-base font-semibold leading-snug tracking-tight text-[var(--black)]">
+      <h3 className="relative mt-4 text-base font-semibold leading-snug tracking-tight text-[var(--black)]">
         {title}
       </h3>
 

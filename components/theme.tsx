@@ -99,13 +99,6 @@ export function PhilosophySection() {
                       : "bg-white/[0.08] hover:bg-white/12"
                   )}
                 >
-                  <span
-                    className="pointer-events-none absolute -left-2 -top-4 select-none text-[7rem] font-bold leading-none text-white/[0.04] lg:text-[8rem]"
-                    aria-hidden
-                  >
-                    {axe.num}
-                  </span>
-
                   <div className="mb-6 flex items-start gap-3">
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/15 text-white transition-all duration-300 group-hover:bg-white group-hover:text-[var(--black)]">
                       <axe.icon className="h-5 w-5" strokeWidth={1.5} />

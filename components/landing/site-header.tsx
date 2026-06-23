@@ -119,43 +119,44 @@ function MobileNavDropdown({
   expanded,
   onToggle,
   onClose,
-  motionDelay,
 }: {
   label: string
   href: string
-  overviewLabel: string
+  overviewLabel?: string
   sections: readonly NavSection[]
   active: boolean
   expanded: boolean
   onToggle: () => void
   onClose: () => void
-  motionDelay: number
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 16 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: motionDelay, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-    >
+    <div className="border-b border-[var(--border)]">
       <button
         type="button"
         onClick={onToggle}
         className={cn(
-          "flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-base font-semibold tracking-tight transition-colors",
-          active
-            ? "bg-[var(--brand-soft)] text-[var(--brand)]"
-            : "text-[var(--black)] hover:bg-[var(--grey-50)]"
+          "flex w-full items-center justify-between py-4 text-left text-[15px] font-medium tracking-tight transition-colors",
+          active ? "text-[var(--brand)]" : "text-[var(--black)]"
         )}
         aria-expanded={expanded}
       >
-        {label}
+        <span className="flex items-center gap-3">
+          <span
+            className={cn(
+              "h-1.5 w-1.5 rounded-full transition-colors",
+              active ? "bg-[var(--brand)]" : "bg-[var(--grey-300)]"
+            )}
+            aria-hidden
+          />
+          {label}
+        </span>
         <ChevronDown
           className={cn(
-            "h-4 w-4 transition-transform duration-200",
+            "h-4 w-4 shrink-0 transition-transform duration-200",
             expanded && "rotate-180",
             active ? "text-[var(--brand)]" : "text-[var(--grey-400)]"
           )}
-          strokeWidth={2}
+          strokeWidth={1.75}
           aria-hidden
         />
       </button>
@@ -168,20 +169,22 @@ function MobileNavDropdown({
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <div className="ml-4 mt-1 space-y-0.5 border-l border-[var(--border)] py-1 pl-3">
-              <Link
-                href={href}
-                onClick={onClose}
-                className="block rounded-lg px-3 py-2 text-sm font-semibold text-[var(--brand)] transition-colors hover:bg-[var(--grey-50)]"
-              >
-                {overviewLabel}
-              </Link>
+            <div className="space-y-0.5 pb-4 pl-6">
+              {overviewLabel ? (
+                <Link
+                  href={href}
+                  onClick={onClose}
+                  className="block py-2 text-sm font-semibold text-[var(--brand)] transition-opacity hover:opacity-80"
+                >
+                  {overviewLabel}
+                </Link>
+              ) : null}
               {sections.map((section) => (
                 <Link
                   key={section.href}
                   href={section.href}
                   onClick={onClose}
-                  className="block rounded-lg px-3 py-2 text-sm font-medium text-[var(--grey-600)] transition-colors hover:bg-[var(--grey-50)] hover:text-[var(--brand)]"
+                  className="block py-2 text-sm text-[var(--grey-500)] transition-colors hover:text-[var(--black)]"
                 >
                   {section.label}
                 </Link>
@@ -190,12 +193,12 @@ function MobileNavDropdown({
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   )
 }
 
 const navDropdownConfig = {
-  "/about": { overviewLabel: "RIPU26", sections: aboutSections },
+  "/about": { sections: aboutSections },
   "/authors": { overviewLabel: "Guide des auteurs", sections: authorsSections },
 } as const
 
@@ -337,14 +340,15 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
               type="button"
               onClick={() => setOpen(true)}
               className={cn(
-                "inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors md:hidden",
+                "inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors md:hidden",
                 solidNav
-                  ? "bg-[var(--grey-50)] text-[var(--black)] hover:bg-[var(--grey-100)]"
-                  : "bg-white/12 text-white hover:bg-white/20"
+                  ? "border-[var(--border)] bg-white text-[var(--black)] hover:bg-[var(--grey-50)]"
+                  : "border-white/20 bg-white/10 text-white hover:bg-white/18"
               )}
               aria-label="Ouvrir le menu"
+              aria-expanded={open}
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} />
             </button>
           </div>
         </div>
@@ -358,8 +362,8 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-[60] bg-[var(--brand-dark)]/20 backdrop-blur-sm md:hidden"
+              transition={{ duration: 0.28 }}
+              className="fixed inset-0 z-[60] bg-[var(--brand-dark)]/15 backdrop-blur-[6px] md:hidden"
               onClick={() => setOpen(false)}
               aria-label="Fermer le menu"
             />
@@ -368,25 +372,31 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 380, damping: 36 }}
-              className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-sm flex-col bg-[var(--white)] shadow-[-16px_0_48px_rgba(47,4,97,0.08)] md:hidden"
+              transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-y-0 right-0 z-[70] flex w-[min(100%,19.5rem)] flex-col border-l border-[var(--border)] bg-white md:hidden"
             >
-              <div className="flex items-center justify-between px-5 py-4">
+              <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
                 <Link href="/" onClick={() => setOpen(false)} aria-label="RIPU26 — Accueil">
-                  <Image src="/logo.png" alt="" width={160} height={52} className="h-11 w-auto origin-left scale-125 object-contain" />
+                  <Image
+                    src="/logo.png"
+                    alt=""
+                    width={140}
+                    height={46}
+                    className="h-9 w-auto object-contain"
+                  />
                 </Link>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--grey-50)] text-[var(--black)] transition-colors hover:bg-[var(--grey-100)]"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border)] text-[var(--black)] transition-colors hover:bg-[var(--grey-50)]"
                   aria-label="Fermer"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-4 w-4" strokeWidth={1.75} />
                 </button>
               </div>
 
-              <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 py-6">
-                {mobileLinks.map((l, i) => {
+              <nav className="flex flex-1 flex-col overflow-y-auto px-5 py-2" aria-label="Navigation mobile">
+                {mobileLinks.map((l) => {
                   const active = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href)
                   const dropdown = navDropdownConfig[l.href as keyof typeof navDropdownConfig]
 
@@ -408,44 +418,47 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
                         expanded={expanded}
                         onToggle={onToggle}
                         onClose={() => setOpen(false)}
-                        motionDelay={0.04 + i * 0.04}
                       />
                     )
                   }
 
                   return (
-                    <motion.div
+                    <Link
                       key={l.href}
-                      initial={{ opacity: 0, x: 16 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.04 + i * 0.04, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      href={l.href}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "flex items-center gap-3 border-b border-[var(--border)] py-4 text-[15px] font-medium tracking-tight transition-colors",
+                        active ? "text-[var(--brand)]" : "text-[var(--black)]"
+                      )}
                     >
-                      <Link
-                        href={l.href}
-                        onClick={() => setOpen(false)}
+                      <span
                         className={cn(
-                          "flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-semibold tracking-tight transition-colors",
-                          active
-                            ? "bg-[var(--brand-soft)] text-[var(--brand)]"
-                            : "text-[var(--black)] hover:bg-[var(--grey-50)]"
+                          "h-1.5 w-1.5 rounded-full",
+                          active ? "bg-[var(--brand)]" : "bg-[var(--grey-300)]"
                         )}
-                      >
-                        {l.label}
-                        <ArrowRight className={cn("h-4 w-4", active ? "text-[var(--brand)]" : "text-[var(--grey-400)]")} />
-                      </Link>
-                    </motion.div>
+                        aria-hidden
+                      />
+                      {l.label}
+                    </Link>
                   )
                 })}
               </nav>
 
-              <div className="space-y-3 px-5 pb-8 pt-2">
-                <Link href="/soumission" onClick={() => setOpen(false)} className="btn-lime w-full justify-center">
-                  Soumettre une communication
+              <div className="border-t border-[var(--border)] bg-[var(--grey-50)]/60 px-5 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+                <Link
+                  href="/soumission"
+                  onClick={() => setOpen(false)}
+                  className="btn-lime w-full justify-center"
+                >
+                  Soumettre
                   <span className="btn-lime-icon">
                     <ArrowRight className="h-4 w-4" />
                   </span>
                 </Link>
-                <p className="text-center text-xs text-[var(--grey-400)]">Sousse · 30–31 octobre 2026</p>
+                <p className="mt-3 text-center text-[11px] font-medium tracking-[0.08em] text-[var(--grey-400)] uppercase">
+                  Sousse · 30–31 octobre 2026
+                </p>
               </div>
             </motion.div>
           </>
