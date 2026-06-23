@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { ArrowRight, FileText, Mail, Send } from "lucide-react"
+import { ArrowRight, FileText, Mail, Send, CheckCircle, AlertCircle, Info } from "lucide-react"
 import { Reveal } from "@/components/landing/reveal"
 import { cn } from "@/lib/utils"
 
@@ -11,15 +11,15 @@ const emails = [
     icon: Mail,
     label: "Contact général",
     description: "Programme, inscription, organisation et informations pratiques.",
-    href: "mailto:contact@ripu26.org",
-    value: "contact@ripu26.org",
+    href: "mailto:ripu25sousse@gmail.com",
+    value: "ripu25sousse@gmail.com",
   },
   {
     icon: FileText,
     label: "Soumissions",
     description: "Format des communications, délais et guide des auteurs.",
-    href: "mailto:submissions@ripu26.org",
-    value: "submissions@ripu26.org",
+    href: "mailto:ripu25sousse@gmail.com",
+    value: "ripu25sousse@gmail.com",
   },
 ] as const
 
@@ -48,12 +48,74 @@ export function ContactPageContent() {
     subject: "",
     message: "",
   })
+  
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | 'info' | null
+    message: string
+  }>({ type: null, message: '' })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!formData.subject) return
-    console.log("Form submitted:", formData)
-    setFormData({ name: "", email: "", subject: "", message: "" })
+    
+    // Validation
+    if (!formData.subject) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Veuillez sélectionner un sujet'
+      })
+      return
+    }
+
+    if (!formData.message.trim()) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Veuillez écrire votre message'
+      })
+      return
+    }
+
+    if (!formData.email) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Veuillez entrer votre adresse email'
+      })
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de l\'envoi du message')
+      }
+
+      setSubmitStatus({
+        type: 'success',
+        message: ' Votre message a été envoyé avec succès ! Un email de confirmation vous a été envoyé.'
+      })
+      
+      // Réinitialiser le formulaire
+      setFormData({ name: "", email: "", subject: "", message: "" })
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: error instanceof Error ? error.message : '❌ Une erreur est survenue. Veuillez réessayer.'
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const fieldClass =
@@ -61,7 +123,7 @@ export function ContactPageContent() {
 
   return (
     <main className="overflow-x-clip bg-white pt-[4.25rem] md:pt-[4.75rem]">
-      {/* Hero — same rhythm as about */}
+      {/* Hero */}
       <section className="section-block pb-6 md:pb-10">
         <div className="container-main">
           <div className="max-w-2xl">
@@ -223,19 +285,56 @@ export function ContactPageContent() {
                       />
                     </div>
 
+                    {submitStatus.type && (
+                      <div className={cn(
+                        "flex items-start gap-3 rounded-xl p-4 text-sm",
+                        submitStatus.type === 'success' && "bg-green-50 text-green-800 border border-green-200",
+                        submitStatus.type === 'error' && "bg-red-50 text-red-800 border border-red-200",
+                        submitStatus.type === 'info' && "bg-blue-50 text-blue-800 border border-blue-200"
+                      )}>
+                        {submitStatus.type === 'success' && (
+                          <CheckCircle className="h-5 w-5 shrink-0 text-green-500 mt-0.5" />
+                        )}
+                        {submitStatus.type === 'error' && (
+                          <AlertCircle className="h-5 w-5 shrink-0 text-red-500 mt-0.5" />
+                        )}
+                        {submitStatus.type === 'info' && (
+                          <Info className="h-5 w-5 shrink-0 text-blue-500 mt-0.5" />
+                        )}
+                        <div>
+                          <p className="font-medium">{submitStatus.message}</p>
+                          {submitStatus.type === 'success' && (
+                            <p className="mt-1 text-xs text-green-700">
+                             Un email de confirmation vous a été envoyé à {formData.email || 'votre adresse'}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
                     <div className="flex flex-col gap-4 border-t border-[var(--border)] pt-6 sm:flex-row sm:items-center sm:justify-between">
-                      <p className="text-xs text-[var(--grey-400)]">
-                        Réponse habituelle sous 48 h ouvrées.
-                      </p>
+                      <div>
+                        <p className="text-xs text-[var(--grey-400)]">
+                           Réponse habituelle sous 48 h ouvrées
+                        </p>
+                      </div>
                       <button
                         type="submit"
-                        disabled={!formData.subject}
+                        disabled={!formData.subject || isSubmitting}
                         className="btn-lime w-full justify-center disabled:pointer-events-none disabled:opacity-50 sm:w-auto"
                       >
-                        Envoyer le message
-                        <span className="btn-lime-icon">
-                          <ArrowRight className="h-4 w-4" />
-                        </span>
+                        {isSubmitting ? (
+                          <>
+                            <span className="animate-pulse">⏳ Envoi en cours...</span>
+                          </>
+                        ) : (
+                          <>
+                            Envoyer le message
+                            <span className="btn-lime-icon">
+                              <ArrowRight className="h-4 w-4" />
+                            </span>
+                          </>
+                        )}
                       </button>
                     </div>
                   </form>
