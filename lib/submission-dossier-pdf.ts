@@ -12,8 +12,6 @@ import {
 
   topicAxis,
 
-  PRESENTATION_MODES,
-
   SUBMISSION_TYPES,
 
   type SubmissionDraft,
@@ -808,10 +806,6 @@ export async function createSubmissionDossierPdf(
 
     SUBMISSION_TYPES.find((t) => t.value === draft.submissionType)?.label ?? "—"
 
-  const modeLabel =
-
-    PRESENTATION_MODES.find((m) => m.value === draft.presentationMode)?.label ?? "—"
-
   const keywords = parseKeywords(draft.keywords).join(" · ")
 
   const jointPdf = resolveCommunicationPdfName(draft, communicationPdfName)
@@ -829,8 +823,6 @@ export async function createSubmissionDossierPdf(
   pdf.section("Configuration")
 
   pdf.field("Type de contribution", typeLabel)
-
-  pdf.field("Mode de présentation", modeLabel)
 
 
 

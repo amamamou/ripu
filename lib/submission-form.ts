@@ -45,8 +45,17 @@ export type PresentationMode = (typeof PRESENTATION_MODES)[number]["value"]
 export type SubmissionType = (typeof SUBMISSION_TYPES)[number]["value"]
 export type TopicValue = (typeof SUBMISSION_TOPICS)[number]["topic"]
 
+export const AUTHOR_SALUTATIONS = [
+  { value: "mr", label: "M." },
+  { value: "mrs", label: "Mme" },
+  { value: "prefer-not", label: "Préfère ne pas répondre" },
+] as const
+
+export type AuthorSalutation = (typeof AUTHOR_SALUTATIONS)[number]["value"] | ""
+
 export type Author = {
   id: string
+  salutation: AuthorSalutation
   orcid: string
   firstName: string
   lastName: string
@@ -104,6 +113,7 @@ export function createId() {
 export function createEmptyAuthor(): Author {
   return {
     id: createId(),
+    salutation: "",
     orcid: "",
     firstName: "",
     lastName: "",
@@ -221,7 +231,6 @@ export function validateStep(step: number, draft: SubmissionDraft): StepErrors {
   const errors: StepErrors = {}
 
   if (step === 1) {
-    if (!draft.presentationMode) errors.presentationMode = "Indiquez comment vous présenterez votre communication."
     if (!draft.submissionType) errors.submissionType = "Sélectionnez le type de votre contribution."
   }
 
@@ -243,6 +252,8 @@ export function validateStep(step: number, draft: SubmissionDraft): StepErrors {
     })
     draft.authors.forEach((author) => {
       const prefix = `author-${author.id}`
+      if (!author.salutation)
+        errors[`${prefix}-salutation`] = "Indiquez une salutation."
       if (!author.firstName.trim()) errors[`${prefix}-firstName`] = "Prénom requis."
       if (!author.lastName.trim()) errors[`${prefix}-lastName`] = "Nom requis."
       if (!author.email.trim()) errors[`${prefix}-email`] = "E-mail requis."
@@ -269,9 +280,8 @@ export function validateStep(step: number, draft: SubmissionDraft): StepErrors {
 
   if (step === 4) {
     if (!draft.primaryTopic) errors.primaryTopic = "Sélectionnez un sujet principal."
-    if (!draft.secondaryTopic) errors.secondaryTopic = "Sélectionnez un sujet secondaire."
     if (draft.primaryTopic && draft.secondaryTopic && draft.primaryTopic === draft.secondaryTopic)
-      errors.secondaryTopic = "Le sujet secondaire doit être distinct."
+      errors.secondaryTopic = "Le sujet secondaire doit être distinct du sujet principal."
     const keywords = parseKeywords(draft.keywords)
     if (keywords.length === 0) errors.keywords = "Ajoutez au moins un mot-clé."
     else if (keywords.length > KEYWORDS_MAX) errors.keywords = `Maximum ${KEYWORDS_MAX} mots-clés.`
@@ -297,7 +307,7 @@ export function isPdfReady(draft: SubmissionDraft, hasFile: boolean) {
 
 export function hasSubmissionProgress(draft: SubmissionDraft) {
   return (
-    Boolean(draft.presentationMode || draft.submissionType) ||
+    Boolean(draft.submissionType) ||
     draft.authors.some((a) => a.firstName || a.lastName || a.email) ||
     draft.organizations.some((o) => o.institution || o.country) ||
     Boolean(draft.title || draft.abstract) ||
@@ -365,7 +375,7 @@ function stepStatus(step: number, draft: SubmissionDraft): SectionStatus {
 }
 
 function stepHasContent(step: number, draft: SubmissionDraft): boolean {
-  if (step === 1) return Boolean(draft.presentationMode || draft.submissionType)
+  if (step === 1) return Boolean(draft.submissionType)
   if (step === 2)
     return draft.authors.some((a) => a.firstName || a.lastName || a.email) ||
       draft.organizations.some((o) => o.institution)
@@ -447,8 +457,16 @@ export function clearDraft() {
   localStorage.removeItem(SUBMISSION_STORAGE_KEY)
 }
 
+export function formatAuthorSalutationLabel(salutation: AuthorSalutation) {
+  return AUTHOR_SALUTATIONS.find((s) => s.value === salutation)?.label ?? ""
+}
+
 export function formatAuthorName(author: Author) {
-  return `${author.firstName.trim()} ${author.lastName.trim()}`.trim()
+  const name = `${author.firstName.trim()} ${author.lastName.trim()}`.trim()
+  if (!name) return ""
+  if (author.salutation === "mr") return `M. ${name}`
+  if (author.salutation === "mrs") return `Mme ${name}`
+  return name
 }
 
 export function generateSubmissionReference() {
@@ -459,9 +477,6 @@ export function generateSubmissionReference() {
 export function buildSubmissionMailtoFromDraft(draft: SubmissionDraft, reference: string) {
   const typeLabel =
     SUBMISSION_TYPES.find((t) => t.value === draft.submissionType)?.label ?? draft.submissionType
-  const modeLabel =
-    PRESENTATION_MODES.find((m) => m.value === draft.presentationMode)?.label ??
-    draft.presentationMode
 
   const orgMap = Object.fromEntries(
     draft.organizations.map((o) => [o.id, formatAffiliation(o)])
@@ -498,7 +513,6 @@ Canal officiel RIPU26 · ${SUBMISSION_EMAIL}
 
 —— CONFIGURATION ——
 Type : ${typeLabel}
-Présentation : ${modeLabel}
 
 —— COMMUNICATION ——
 Titre : ${draft.title.trim()}
@@ -509,7 +523,7 @@ ${draft.abstract.trim()}
 —— THÉMATIQUES ——
 Sujet principal : ${draft.primaryTopic}
 Axe : ${topicAxis(draft.primaryTopic)}
-Sujet secondaire : ${draft.secondaryTopic}
+Sujet secondaire : ${draft.secondaryTopic || "—"}
 Mots-clés : ${keywords}
 Contribution étudiante : ${draft.studentContribution ? "Oui" : "Non"}
 

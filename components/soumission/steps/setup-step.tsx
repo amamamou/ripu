@@ -1,7 +1,6 @@
 "use client"
 
 import {
-  PRESENTATION_MODES,
   SUBMISSION_TYPES,
   type SubmissionDraft,
 } from "@/lib/submission-form"
@@ -66,26 +65,6 @@ export function SetupStep({
           ))}
         </div>
         <FieldError message={getError(errors, "submissionType")} />
-      </SectionBlock>
-
-      <SectionBlock
-        title="Mode de présentation"
-        description="Indiquez comment vous envisagez de présenter votre communication si elle est acceptée."
-      >
-        <div className="grid gap-3 sm:grid-cols-2">
-          {PRESENTATION_MODES.map((mode) => (
-            <OptionCard
-              key={mode.value}
-              name="presentationMode"
-              value={mode.value}
-              title={mode.label}
-              description={mode.description}
-              selected={draft.presentationMode === mode.value}
-              onSelect={() => onChange({ presentationMode: mode.value })}
-            />
-          ))}
-        </div>
-        <FieldError message={getError(errors, "presentationMode")} />
       </SectionBlock>
     </div>
   )

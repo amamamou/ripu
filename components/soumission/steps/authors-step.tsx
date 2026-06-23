@@ -16,6 +16,8 @@ import {
   FieldHint,
   FieldLabel,
   getError,
+  CountrySelect,
+  SalutationPicker,
   SectionBlock,
   TextInput,
   type StepErrors,
@@ -108,14 +110,12 @@ function AffiliationCard({
           />
         </div>
         <div>
-          <FieldLabel htmlFor={`${prefix}-country`} required>
-            Pays
-          </FieldLabel>
-          <TextInput
+          <CountrySelect
             id={`${prefix}-country`}
             value={org.country}
             onChange={(country) => onChange({ ...org, country })}
-            placeholder="Tunisie, France…"
+            error={getError(errors, prefix)}
+            required
           />
         </div>
       </div>
@@ -196,6 +196,15 @@ function AuthorCard({
       </div>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <div>
+          <SalutationPicker
+            id={`${prefix}-salutation`}
+            value={author.salutation}
+            onChange={(salutation) => onChange({ ...author, salutation })}
+            error={getError(errors, `${prefix}-salutation`)}
+            required
+          />
+        </div>
         <div>
           <FieldLabel htmlFor={`${prefix}-firstName`} required>Prénom(s)</FieldLabel>
           <TextInput id={`${prefix}-firstName`} value={author.firstName} onChange={(firstName) => onChange({ ...author, firstName })} error={getError(errors, `${prefix}-firstName`)} />

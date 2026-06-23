@@ -19,7 +19,6 @@ import {
   getSubmissionCompleteness,
   isPdfReady,
   parseKeywords,
-  PRESENTATION_MODES,
   SUBMISSION_TYPES,
   topicAxis,
   topicLabel,
@@ -263,7 +262,6 @@ export function ReviewStep({
       <div className="grid gap-4 md:grid-cols-2">
         <ReviewBlock title="Configuration" status={sectionMap.setup.status} onEdit={() => onEditStep(1)}>
           <p>{SUBMISSION_TYPES.find((t) => t.value === draft.submissionType)?.label ?? "—"}</p>
-          <p>{PRESENTATION_MODES.find((m) => m.value === draft.presentationMode)?.label ?? "—"}</p>
         </ReviewBlock>
 
         <ReviewBlock title="Thématiques" status={sectionMap.topics.status} onEdit={() => onEditStep(4)}>

@@ -4,7 +4,6 @@ import {
   formatAuthorName,
   parseKeywords,
   topicAxis,
-  PRESENTATION_MODES,
   SUBMISSION_TYPES,
   type SubmissionDraft,
 } from "@/lib/submission-form"
@@ -13,8 +12,6 @@ import { SUBMISSION_EMAIL } from "@/lib/submission"
 export function buildDossierContent(draft: SubmissionDraft, reference: string) {
   const typeLabel =
     SUBMISSION_TYPES.find((t) => t.value === draft.submissionType)?.label ?? "—"
-  const modeLabel =
-    PRESENTATION_MODES.find((m) => m.value === draft.presentationMode)?.label ?? "—"
 
   return `DOSSIER DE SOUMISSION RIPU26
 Référence : ${reference}
@@ -25,7 +22,6 @@ Canal officiel : ${SUBMISSION_EMAIL}
 CONFIGURATION
 ═══════════════════════════════════════
 Type de contribution : ${typeLabel}
-Mode de présentation : ${modeLabel}
 
 ═══════════════════════════════════════
 COMMUNICATION
@@ -42,7 +38,7 @@ THÉMATIQUES
 ═══════════════════════════════════════
 Sujet principal : ${draft.primaryTopic}
 Axe : ${topicAxis(draft.primaryTopic)}
-Sujet secondaire : ${draft.secondaryTopic}
+Sujet secondaire : ${draft.secondaryTopic || "—"}
 Mots-clés : ${parseKeywords(draft.keywords).join(", ")}
 Contribution étudiante : ${draft.studentContribution ? "Oui" : "Non"}
 
