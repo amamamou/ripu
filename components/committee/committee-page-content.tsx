@@ -7,9 +7,19 @@ import { COUNTRY_FLAGS, sortByLastName } from "@/lib/countries"
 
 const scientificCommittee = [
   {
-    name: "Rym Mamlouk Mallouli",
-    institution: "Institut des Beaux-Arts de Sousse",
-    country: "Tunisie",
+    name: "Marwa Ben Ali",
+    institution: "Libera Università di Bolzano",
+    country: "Italie",
+  },
+  {
+    name: "Marianne Dubé",
+    institution: "Université de Sherbrooke",
+    country: "Canada",
+  },
+  {
+    name: "Denis Gillet",
+    institution: "EPFL",
+    country: "Suisse",
   },
   {
     name: "Hounaida Haddaji",
@@ -17,14 +27,24 @@ const scientificCommittee = [
     country: "Tunisie",
   },
   {
+    name: "Emmanuelle Hajj",
+    institution: "Université Sainte Famille, Batroun",
+    country: "Liban",
+  },
+  {
+    name: "Sandy Ingram",
+    institution: "HEIA de Fribourg",
+    country: "Suisse",
+  },
+  {
     name: "Dalel Kanzari",
     institution: "ISSAT Sousse",
     country: "Tunisie",
   },
   {
-    name: "Marwa Ben Ali",
-    institution: "Université Libre de Bolzano",
-    country: "Italie",
+    name: "Rym Mamlouk Mallouli",
+    institution: "Institut Supérieur des Beaux-Arts de Sousse",
+    country: "Tunisie",
   },
   {
     name: "Christophe Mathieu",
@@ -32,18 +52,18 @@ const scientificCommittee = [
     country: "France",
   },
   {
-    name: "Bertrand Mocquet",
-    institution: "MICA - Université Bordeaux Montaigne",
+    name: "Bertrand Moquet",
+    institution: "Université Bordeaux Montaigne",
     country: "France",
   },
   {
-    name: "Nicolas Thorel",
-    institution: "Université Technologique de Troyes",
-    country: "France",
+    name: "Sonia Sahli",
+    institution: "ISET Sousse",
+    country: "Tunisie",
   },
   {
-    name: "Sandy Ingram",
-    institution: "HEIA Fribourg",
+    name: "Jean-François Stassen",
+    institution: "Université de Genève",
     country: "Suisse",
   },
   {
@@ -52,19 +72,9 @@ const scientificCommittee = [
     country: "France",
   },
   {
-    name: "Jean François",
-    institution: "Université de Genève",
-    country: "Suisse",
-  },
-  {
-    name: "Emmanuelle Hajj",
-    institution: "USF",
-    country: "Liban",
-  },
-  {
-    name: "Marianne Dubé",
-    institution: "Université de Sherbrooke",
-    country: "Canada",
+    name: "Nicolas Thorel",
+    institution: "Université de Technologie de Troyes",
+    country: "France",
   },
 ] as const
 
@@ -181,7 +191,7 @@ export function CommitteePageContent() {
       <section className="section-block section-white">
         <div className="container-main">
           <Reveal>
-            <SectionHead label="Expertise" title="Comité Scientifique" />
+            <SectionHead label="Expertise" title="Comité Scientifique International" />
           </Reveal>
 
           <StaggerChildren className="section-inner grid gap-5 md:grid-cols-2 lg:grid-cols-3">
