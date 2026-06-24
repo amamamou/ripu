@@ -1,18 +1,18 @@
-// app/api/submission/route.ts
-import { NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
-import { SUBMISSION_EMAIL } from '@/lib/submission'
-import { generateSubmissionReference } from '@/lib/submission-form'
-import { 
-  buildSubmissionEmailHtml, 
+import { after, NextResponse } from "next/server"
+import nodemailer from "nodemailer"
+import { SUBMISSION_EMAIL } from "@/lib/submission"
+import { generateSubmissionReference, type SubmissionDraft } from "@/lib/submission-form"
+import {
+  buildSubmissionEmailHtml,
   buildSubmissionEmailText,
   buildConfirmationEmailHtml,
-  buildConfirmationEmailText
-} from '@/lib/submission-transmit'
+  buildConfirmationEmailText,
+} from "@/lib/submission-transmit"
+import { createClient } from "@/lib/supabase/server"
+import { SUBMISSION_ALREADY_SENT, toStoredSubmission } from "@/lib/submission-record"
 
-// Configuration du transporteur Gmail
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
+  host: "smtp.gmail.com",
   port: 587,
   secure: false,
   auth: {
@@ -23,42 +23,81 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: Request) {
   try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+      return NextResponse.json({ error: "Non authentifié" }, { status: 401 })
+    }
+
     const formData = await request.formData()
-    const draftJson = formData.get('draft') as string
-    const pdfFile = formData.get('pdf') as File | null
-    const reference = formData.get('reference') as string || generateSubmissionReference()
+    const draftJson = formData.get("draft") as string
+    const pdfFile = formData.get("pdf") as File | null
+    const reference = (formData.get("reference") as string) || generateSubmissionReference()
 
     if (!draftJson) {
+      return NextResponse.json({ error: "Données de soumission manquantes" }, { status: 400 })
+    }
+
+    const draft = JSON.parse(draftJson) as SubmissionDraft
+
+    const { data: existing } = await supabase
+      .from("submissions")
+      .select("reference, draft, status, created_at")
+      .eq("user_id", user.id)
+      .maybeSingle()
+
+    if (existing) {
       return NextResponse.json(
-        { error: 'Données de soumission manquantes' },
-        { status: 400 }
+        {
+          error: SUBMISSION_ALREADY_SENT,
+          reference: existing.reference,
+          submission: toStoredSubmission(existing),
+        },
+        { status: 409 }
       )
     }
 
-    const draft = JSON.parse(draftJson)
-
-    // Vérification des identifiants Gmail
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-      console.error('GMAIL_USER ou GMAIL_APP_PASSWORD non configurés')
+      console.error("GMAIL_USER ou GMAIL_APP_PASSWORD non configurés")
+      return NextResponse.json({ error: "Service d'email non configuré" }, { status: 500 })
+    }
+
+    const { error: insertError } = await supabase.from("submissions").insert({
+      user_id: user.id,
+      reference,
+      draft,
+      status: "pending",
+      pdf_url: null,
+    })
+
+    if (insertError) {
+      if (insertError.code === "23505") {
+        const { data: raceExisting } = await supabase
+          .from("submissions")
+          .select("reference, draft, status, created_at")
+          .eq("user_id", user.id)
+          .maybeSingle()
+
+        return NextResponse.json(
+          {
+            error: SUBMISSION_ALREADY_SENT,
+            reference: raceExisting?.reference,
+            submission: raceExisting ? toStoredSubmission(raceExisting) : undefined,
+          },
+          { status: 409 }
+        )
+      }
+
+      console.error("Erreur enregistrement soumission:", insertError)
       return NextResponse.json(
-        { error: 'Service d\'email non configuré' },
+        { error: "Impossible d'enregistrer la soumission" },
         { status: 500 }
       )
     }
 
-    // Vérification du transporteur
-    try {
-      await transporter.verify()
-      console.log('✅ Transporteur Gmail configuré avec succès')
-    } catch (verifyError) {
-      console.error('❌ Erreur de vérification du transporteur:', verifyError)
-      return NextResponse.json(
-        { error: 'Configuration email invalide' },
-        { status: 500 }
-      )
-    }
-
-    // Préparation du PDF pour l'attachement
     const attachments = []
     if (pdfFile) {
       const buffer = Buffer.from(await pdfFile.arrayBuffer())
@@ -68,48 +107,44 @@ export async function POST(request: Request) {
       })
     }
 
-    // 1. Envoi de l'email à l'équipe
     const mailOptions = {
       from: `"RIPU26" <${process.env.GMAIL_USER}>`,
       to: [SUBMISSION_EMAIL],
       replyTo: draft.authors?.[0]?.email || SUBMISSION_EMAIL,
-      subject: `[RIPU26] Soumission ${reference} - ${draft.title?.trim()?.slice(0, 60) || 'Nouvelle soumission'}`,
+      subject: `[RIPU26] Soumission ${reference} - ${draft.title?.trim()?.slice(0, 60) || "Nouvelle soumission"}`,
       html: buildSubmissionEmailHtml(draft, reference),
       text: buildSubmissionEmailText(draft, reference),
-      attachments: attachments,
+      attachments,
     }
 
-    const info = await transporter.sendMail(mailOptions)
-    console.log('✅ Email de soumission envoyé:', info.messageId)
+    await transporter.sendMail(mailOptions)
 
-    // 2. Envoi de la confirmation à l'auteur correspondant
-    if (draft.authors && draft.authors.length > 0) {
-      const correspondingAuthor = draft.authors[0]
-      try {
-        const confirmOptions = {
-          from: `"RIPU26" <${process.env.GMAIL_USER}>`,
-          to: [correspondingAuthor.email],
-          subject: `Confirmation - Soumission RIPU26 ${reference}`,
-          html: buildConfirmationEmailHtml(draft, reference),
-          text: buildConfirmationEmailText(draft, reference),
+    const authorEmail = draft.authors?.[0]?.email?.trim()
+    if (authorEmail) {
+      after(async () => {
+        try {
+          await transporter.sendMail({
+            from: `"RIPU26" <${process.env.GMAIL_USER}>`,
+            to: [authorEmail],
+            subject: `Confirmation - Soumission RIPU26 ${reference}`,
+            html: buildConfirmationEmailHtml(draft, reference),
+            text: buildConfirmationEmailText(draft, reference),
+          })
+        } catch (confirmError) {
+          console.error("Erreur lors de l'envoi de la confirmation (arrière-plan):", confirmError)
         }
-        await transporter.sendMail(confirmOptions)
-        console.log('✅ Email de confirmation envoyé à:', correspondingAuthor.email)
-      } catch (confirmError) {
-        console.error('❌ Erreur lors de l\'envoi de la confirmation:', confirmError)
-        // Ne pas bloquer la soumission si la confirmation échoue
-      }
+      })
     }
 
-    return NextResponse.json({ 
-      reference, 
+    return NextResponse.json({
+      reference,
       success: true,
-      message: 'Soumission envoyée avec succès'
+      message: "Soumission envoyée avec succès",
     })
   } catch (error) {
-    console.error('❌ Erreur générale:', error)
+    console.error("Erreur générale:", error)
     return NextResponse.json(
-      { error: 'Une erreur est survenue lors de la soumission' },
+      { error: "Une erreur est survenue lors de la soumission" },
       { status: 500 }
     )
   }

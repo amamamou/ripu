@@ -41,12 +41,18 @@ export function AuthTextInput({
   placeholder,
   autoComplete,
   required,
+  value,
+  onChange,
+  disabled,
 }: {
   id: string
   type?: string
   placeholder?: string
   autoComplete?: string
   required?: boolean
+  value?: string
+  onChange?: (value: string) => void
+  disabled?: boolean
 }) {
   return (
     <input
@@ -55,6 +61,9 @@ export function AuthTextInput({
       placeholder={placeholder}
       autoComplete={autoComplete}
       required={required}
+      value={value}
+      onChange={(e) => onChange?.(e.target.value)}
+      disabled={disabled}
       className={fieldClass}
     />
   )
@@ -65,11 +74,17 @@ export function AuthPasswordInput({
   placeholder = "••••••••",
   autoComplete,
   required,
+  value,
+  onChange,
+  disabled,
 }: {
   id: string
   placeholder?: string
   autoComplete?: string
   required?: boolean
+  value?: string
+  onChange?: (value: string) => void
+  disabled?: boolean
 }) {
   const [visible, setVisible] = useState(false)
 
@@ -81,6 +96,9 @@ export function AuthPasswordInput({
         placeholder={placeholder}
         autoComplete={autoComplete}
         required={required}
+        value={value}
+        onChange={(e) => onChange?.(e.target.value)}
+        disabled={disabled}
         className={cn(fieldClass, "pr-11")}
       />
       <button
@@ -105,27 +123,48 @@ export function AuthDivider({ label = "ou avec e-mail" }: { label?: string }) {
   )
 }
 
-export function SocialAuthButtons({ providers }: { providers: readonly AuthProvider[] }) {
+export function SocialAuthButtons({
+  providers,
+  onProviderClick,
+  loadingProvider,
+  disabled,
+}: {
+  providers: readonly AuthProvider[]
+  onProviderClick?: (providerId: AuthProvider["id"]) => void
+  loadingProvider?: AuthProvider["id"] | null
+  disabled?: boolean
+}) {
   return (
     <div className="space-y-2.5">
-      {providers.map((provider) => (
-        <button
-          key={provider.id}
-          type="button"
-          aria-label={provider.description}
-          className="flex w-full items-center justify-center gap-2.5 rounded-full border border-[var(--border)] bg-white py-3 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--grey-50)]"
-        >
-          <AuthProviderIcon provider={provider.id} className="h-4 w-4" />
-          {provider.label}
-        </button>
-      ))}
+      {providers.map((provider) => {
+        const isLoading = loadingProvider === provider.id
+        return (
+          <button
+            key={provider.id}
+            type="button"
+            aria-label={provider.description}
+            disabled={disabled || isLoading}
+            onClick={() => onProviderClick?.(provider.id)}
+            className="flex w-full items-center justify-center gap-2.5 rounded-full border border-[var(--border)] bg-white py-3 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--grey-50)] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <AuthProviderIcon provider={provider.id} className="h-4 w-4" />
+            {isLoading ? "Redirection…" : provider.label}
+          </button>
+        )
+      })}
     </div>
   )
 }
 
-export function AuthSubmitButton({ children }: { children: ReactNode }) {
+export function AuthSubmitButton({
+  children,
+  disabled,
+}: {
+  children: ReactNode
+  disabled?: boolean
+}) {
   return (
-    <button type="submit" className="btn-lime w-full justify-center">
+    <button type="submit" disabled={disabled} className="btn-lime w-full justify-center disabled:opacity-60">
       {children}
       <span className="btn-lime-icon">
         <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" aria-hidden>

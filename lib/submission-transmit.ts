@@ -5,6 +5,17 @@ import {
   type SubmissionDraft,
 } from "@/lib/submission-form"
 import { isSubmissionClosed } from "@/lib/submission"
+import { SUBMISSION_ALREADY_SENT } from "@/lib/submission-record"
+
+export class SubmissionAlreadySentError extends Error {
+  reference: string
+
+  constructor(reference: string) {
+    super("Vous avez déjà transmis une communication.")
+    this.name = "SubmissionAlreadySentError"
+    this.reference = reference
+  }
+}
 
 const FONT_STACK =
   "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
@@ -412,20 +423,26 @@ export async function transmitSubmission(draft: SubmissionDraft, pdfFile: File |
   }
 
   try {
-    const response = await fetch('/api/submission', {
-      method: 'POST',
+    const response = await fetch("/api/submission", {
+      method: "POST",
       body: formData,
+      credentials: "same-origin",
     })
 
-    if (!response.ok) {
-      const error = await response.json()
-      throw new Error(error.error || 'Erreur lors de la soumission')
+    const data = await response.json().catch(() => ({}))
+
+    if (response.status === 409 && data.error === SUBMISSION_ALREADY_SENT) {
+      throw new SubmissionAlreadySentError(data.reference || reference)
     }
 
-    const data = await response.json()
+    if (!response.ok) {
+      throw new Error(data.error || "Erreur lors de la soumission")
+    }
+
     return data.reference || reference
   } catch (error) {
-    console.error('Erreur de soumission:', error)
+    if (error instanceof SubmissionAlreadySentError) throw error
+    console.error("Erreur de soumission:", error)
     throw error
   }
 }

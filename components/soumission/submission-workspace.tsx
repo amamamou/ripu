@@ -23,6 +23,8 @@ import { ReviewStep } from "@/components/soumission/steps/review-step"
 import { WIZARD_STEPS, hasSubmissionProgress } from "@/lib/submission-form"
 import { isSubmissionClosed } from "@/lib/submission"
 import { SubmissionClosedPanel } from "@/components/soumission/submission-closed-panel"
+import { AlreadySubmittedPanel } from "@/components/soumission/already-submitted-panel"
+import { useAuth } from "@/contexts/auth-context"
 import { cn } from "@/lib/utils"
 
 const stepMeta: Record<number, { title: string; description: string }> = {
@@ -49,6 +51,7 @@ const stepMeta: Record<number, { title: string; description: string }> = {
 }
 
 export function SubmissionWorkspace() {
+  const { loading: authLoading, hasSubmitted, submission } = useAuth()
   const {
     draft,
     patch,
@@ -78,7 +81,7 @@ export function SubmissionWorkspace() {
 
   const [showResetDialog, setShowResetDialog] = useState(false)
 
-  if (!hydrated) {
+  if (!hydrated || authLoading) {
     return (
       <div className="container-main py-16">
         <div className="floating-panel h-64 animate-pulse bg-[var(--grey-50)]" />
@@ -88,6 +91,10 @@ export function SubmissionWorkspace() {
 
   if (isSubmissionClosed()) {
     return <SubmissionClosedPanel />
+  }
+
+  if (hasSubmitted && submission) {
+    return <AlreadySubmittedPanel submission={submission} />
   }
 
   const meta = stepMeta[draft.currentStep]

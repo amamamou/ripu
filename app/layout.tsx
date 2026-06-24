@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 
 import { ConditionalFooter } from "@/components/layout/conditional-footer";
+import { AppProviders } from "@/components/providers";
 import { RIPU26_EVENT_TITLE } from "@/lib/event-copy";
 
 import "./globals.css";
@@ -39,9 +40,11 @@ export default function RootLayout({
   return (
     <html lang="fr" className={montserrat.variable}>
       <body className="bg-white font-sans antialiased">
-        {children}
+        <AppProviders>
+          {children}
 
-        <ConditionalFooter />
+          <ConditionalFooter />
+        </AppProviders>
 
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>

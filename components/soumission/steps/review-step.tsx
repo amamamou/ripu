@@ -28,7 +28,8 @@ import {
   type SubmissionDraft,
   type StepErrors,
 } from "@/lib/submission-form"
-import { transmitSubmission } from "@/lib/submission-transmit"
+import { transmitSubmission, SubmissionAlreadySentError } from "@/lib/submission-transmit"
+import { useAuth } from "@/contexts/auth-context"
 import { cn } from "@/lib/utils"
 
 function StatusBadge({ status }: { status: SectionStatus }) {
@@ -155,7 +156,9 @@ export function ReviewStep({
 }) {
   const [showConfirm, setShowConfirm] = useState(false)
   const [pdfErrors, setPdfErrors] = useState<StepErrors>({})
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const submittingRef = useRef(false)
+  const { refreshSubmissionStatus } = useAuth()
 
   const { score, sections } = getSubmissionCompleteness(draft, Boolean(pdfFile))
   const pdfReady = isPdfReady(draft, Boolean(pdfFile))
@@ -176,11 +179,20 @@ export function ReviewStep({
     if (submittingRef.current) return
     submittingRef.current = true
     setIsSubmitting(true)
+    setSubmitError(null)
     try {
-      await new Promise((r) => setTimeout(r, 1200))
       const reference = await transmitSubmission(draft, pdfFile)
+      await refreshSubmissionStatus()
       onSubmitted(reference)
       setShowConfirm(false)
+    } catch (error) {
+      if (error instanceof SubmissionAlreadySentError) {
+        await refreshSubmissionStatus()
+        setSubmitError(error.message)
+        setShowConfirm(false)
+        return
+      }
+      setSubmitError(error instanceof Error ? error.message : "Erreur lors de la soumission.")
     } finally {
       setIsSubmitting(false)
       submittingRef.current = false
@@ -189,6 +201,11 @@ export function ReviewStep({
 
   return (
     <div className="space-y-8">
+      {submitError ? (
+        <div className="rounded-[var(--radius-xl)] border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700">
+          {submitError}
+        </div>
+      ) : null}
       {allReady && (
         <div className="flex items-center gap-3 rounded-[var(--radius-xl)] border border-[var(--success-border)] bg-[var(--success-soft)] px-5 py-4">
           <CheckCircle2 className="h-5 w-5 shrink-0 text-[var(--success)]" aria-hidden />

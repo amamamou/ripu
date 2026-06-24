@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ScrollProgress } from "@/components/landing/scroll-progress"
+import { useAuth } from "@/contexts/auth-context"
 
 const links = [
   { label: "Accueil", href: "/" },
@@ -204,6 +205,7 @@ const navDropdownConfig = {
 
 export function SiteHeader({ solid = false }: { solid?: boolean }) {
   const pathname = usePathname()
+  const { user, loading, signOut } = useAuth()
   const isHome = pathname === "/"
   const [onHero, setOnHero] = useState(isHome && !solid)
   const [scrolled, setScrolled] = useState(false)
@@ -246,6 +248,16 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
   const transparentHero = !solid && isHome && onHero && !scrolled
   const solidNav = solid || !transparentHero
   const landingHeader = isHome && !solid
+  const userLabel =
+    user?.user_metadata?.full_name?.toString() ||
+    user?.user_metadata?.first_name?.toString() ||
+    user?.email?.split("@")[0] ||
+    "Mon compte"
+
+  const handleSignOut = async () => {
+    await signOut()
+    window.location.href = "/"
+  }
 
   return (
     <>
@@ -323,21 +335,50 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
           </nav>
 
           <div className="relative z-10 flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/connexion"
-              className={cn(
-                "hidden items-center rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 lg:inline-flex",
-                solidNav
-                  ? pathname.startsWith("/connexion") || pathname.startsWith("/inscription")
-                    ? "bg-[var(--brand-soft)] text-[var(--brand)]"
-                    : "text-[var(--grey-600)] hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
-                  : pathname.startsWith("/connexion") || pathname.startsWith("/inscription")
-                    ? "bg-white/20 text-white"
-                    : "text-white/85 hover:bg-white/10 hover:text-white"
-              )}
-            >
-              Connexion
-            </Link>
+            {!loading && user ? (
+              <>
+                <Link
+                  href="/soumission"
+                  className={cn(
+                    "hidden max-w-[10rem] truncate rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 lg:inline-flex",
+                    solidNav
+                      ? "text-[var(--grey-600)] hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
+                      : "text-white/85 hover:bg-white/10 hover:text-white"
+                  )}
+                  title={user.email ?? undefined}
+                >
+                  {userLabel}
+                </Link>
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className={cn(
+                    "hidden items-center rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 lg:inline-flex",
+                    solidNav
+                      ? "text-[var(--grey-600)] hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
+                      : "text-white/85 hover:bg-white/10 hover:text-white"
+                  )}
+                >
+                  Déconnexion
+                </button>
+              </>
+            ) : !loading ? (
+              <Link
+                href="/connexion"
+                className={cn(
+                  "hidden items-center rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 lg:inline-flex",
+                  solidNav
+                    ? pathname.startsWith("/connexion") || pathname.startsWith("/inscription")
+                      ? "bg-[var(--brand-soft)] text-[var(--brand)]"
+                      : "text-[var(--grey-600)] hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
+                    : pathname.startsWith("/connexion") || pathname.startsWith("/inscription")
+                      ? "bg-white/20 text-white"
+                      : "text-white/85 hover:bg-white/10 hover:text-white"
+                )}
+              >
+                Connexion
+              </Link>
+            ) : null}
             <Link
               href="/soumission"
               className={cn(
@@ -461,13 +502,29 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
               </nav>
 
               <div className="border-t border-[var(--border)] bg-[var(--grey-50)]/60 px-5 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-                <Link
-                  href="/connexion"
-                  onClick={() => setOpen(false)}
-                  className="mb-3 flex w-full items-center justify-center rounded-full border border-[var(--border)] bg-white px-4 py-3 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--brand-soft)] hover:text-[var(--brand)]"
-                >
-                  Connexion
-                </Link>
+                {!loading && user ? (
+                  <>
+                    
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOpen(false)
+                        void handleSignOut()
+                      }}
+                      className="mb-3 flex w-full items-center justify-center rounded-full border border-[var(--border)] bg-white px-4 py-3 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--grey-50)]"
+                    >
+                      Déconnexion
+                    </button>
+                  </>
+                ) : !loading ? (
+                  <Link
+                    href="/connexion"
+                    onClick={() => setOpen(false)}
+                    className="mb-3 flex w-full items-center justify-center rounded-full border border-[var(--border)] bg-white px-4 py-3 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--brand-soft)] hover:text-[var(--brand)]"
+                  >
+                    Connexion
+                  </Link>
+                ) : null}
                 <Link
                   href="/soumission"
                   onClick={() => setOpen(false)}
