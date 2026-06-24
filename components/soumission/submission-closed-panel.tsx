@@ -23,7 +23,7 @@ export function SubmissionClosedPanel() {
                 Les dépôts ne sont plus acceptés
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-[var(--grey-600)]">
-                La date limite pour la soumission des articles était fixée au{" "}
+                La date limite pour la soumission des communications était fixée au{" "}
                 <span className="font-semibold text-[var(--black)]">{SUBMISSION_DEADLINE_LABEL}</span>.
                 L&apos;espace de soumission en ligne est désormais fermé.
               </p>

@@ -28,7 +28,7 @@ const missionSlides = [
   },
   {
     title: "Dates clés",
-    body: "25 Juillet — Soumission des articles · 25 Août — Notification d'acceptation · 01 Septembre — Ouverture des inscriptions · 30–31 Octobre 2026 — Conférence à Sousse, Tunisie.",
+    body: "25 Juillet — Soumission des communications · 25 Août — Notification d'acceptation · 01 Septembre — Ouverture des inscriptions · 30–31 Octobre 2026 — Conférence à Sousse, Tunisie.",
     href: "/authors#dates",
     label: "Calendrier complet",
   },

@@ -22,7 +22,7 @@ export function getSubmissionDaysRemaining(now = new Date()) {
 }
 
 export const SUBMISSION_FORMAT_HIGHLIGHTS = [
-  "Articles courts (2 à 4 pages)",
+  "Papiers courts (2 à 4 pages)",
   "Projet de recherche",
   "Retour d'expérience",
   "Format Springer LNCS",
@@ -32,7 +32,7 @@ export const SUBMISSION_FORMAT_HIGHLIGHTS = [
 export const SUBMISSION_CONTRIBUTION_SUMMARY = "Projet de recherche et retour d'expérience."
 
 export const SUBMISSION_CONTRIBUTION_TYPES = [
-  "Articles courts (2 à 4 pages)",
+  "Papiers courts (2 à 4 pages)",
   "Projet de recherche",
   "Retour d'expérience",
 ] as const

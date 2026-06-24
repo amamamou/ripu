@@ -12,7 +12,7 @@ const milestones = [
     index: "01",
     day: "25",
     month: "Juillet",
-    title: "Soumission des articles",
+    title: "Soumission des communications",
     description: "Dépôt des communications avant le 25 juillet 2026.",
     href: "/authors#call",
     label: "Guide des auteurs",

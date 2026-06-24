@@ -57,7 +57,7 @@ const milestoneDefs = [
   {
     date: new Date(2026, 6, 25),
     label: "25 Juillet 2026",
-    event: "Soumission des articles",
+    event: "Soumission des communications",
     hint: "Date limite pour le dépôt des communications.",
   },
   {
@@ -736,7 +736,7 @@ export function AuthorsPageContent() {
                   aria-hidden
                 />
                 <p className="max-w-3xl text-sm leading-relaxed text-[var(--grey-600)]">
-                  Parmi les communications acceptées, un article sera distingué par le Best Paper
+                  Parmi les communications acceptées, un papier sera distingué par le Best Paper
                   Award, récompensant l&apos;excellence scientifique, l&apos;originalité de la
                   contribution et sa pertinence pour les thématiques du colloque.
                 </p>

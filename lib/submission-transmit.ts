@@ -110,7 +110,7 @@ export function buildConfirmationEmailHtml(
   const typeLabels: Record<string, string> = {
     experience: "Retour d'expérience",
     wip: "Projet de recherche",
-    article: "Article",
+    article: "Papier",
   }
 
   const typeLabel =
@@ -177,7 +177,7 @@ export function buildConfirmationEmailText(draft: SubmissionDraft, reference: st
   const typeLabels: Record<string, string> = {
     'experience': 'Retour d\'expérience',
     'wip': 'Projet de recherche',
-    'article': 'Article'
+    'article': 'Papier'
   }
   const typeLabel = typeLabels[draft.submissionType] || draft.submissionType || 'Non spécifié'
   const authorsNames = draft.authors.map(a => `${a.firstName} ${a.lastName}`).join(', ')
@@ -223,7 +223,7 @@ export function buildSubmissionEmailHtml(draft: SubmissionDraft, reference: stri
   const typeLabels: Record<string, string> = {
     'experience': 'Retour d\'expérience',
     'wip': 'Projet de recherche',
-    'article': 'Article'
+    'article': 'Papier'
   }
   const typeLabel = typeLabels[draft.submissionType] || draft.submissionType || 'Non spécifié'
 
@@ -328,7 +328,7 @@ export function buildSubmissionEmailText(draft: SubmissionDraft, reference: stri
   const typeLabels: Record<string, string> = {
     'experience': 'Retour d\'expérience',
     'wip': 'Projet de recherche',
-    'article': 'Article'
+    'article': 'Papier'
   }
   const typeLabel = typeLabels[draft.submissionType] || draft.submissionType || 'Non spécifié'
 

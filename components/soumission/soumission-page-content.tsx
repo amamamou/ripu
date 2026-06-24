@@ -63,7 +63,7 @@ export function SoumissionPageContent() {
               <Reveal delay={0.08}>
                 <p className="mt-3 max-w-xl text-balance text-base font-semibold leading-snug tracking-tight text-[var(--black)] sm:text-lg">
                   {submissionClosed
-                    ? "La période de soumission des articles est terminée."
+                    ? "La période de soumission des communications est terminée."
                     : "Préparez et soumettez votre contribution scientifique."}
                 </p>
               </Reveal>
