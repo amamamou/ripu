@@ -736,7 +736,7 @@ export function AuthorsPageContent() {
                   aria-hidden
                 />
                 <p className="max-w-3xl text-sm leading-relaxed text-[var(--grey-600)]">
-                  Parmi les communications acceptées, un papier sera distingué par le Best Paper
+                  Parmi les communications acceptées, une communication sera distinguée par le Best Paper
                   Award, récompensant l&apos;excellence scientifique, l&apos;originalité de la
                   contribution et sa pertinence pour les thématiques du colloque.
                 </p>
