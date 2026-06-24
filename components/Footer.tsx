@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
-import { FaInstagram, FaLinkedinIn, FaYoutube, FaFacebookF } from "react-icons/fa"
+import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa"
 import { cn } from "@/lib/utils"
 
 const footerColumns = [
@@ -34,10 +34,21 @@ const footerColumns = [
 ] as const
 
 const socialLinks = [
-  { href: "https://instagram.com", Icon: FaInstagram, label: "Instagram" },
-  { href: "https://facebook.com", Icon: FaFacebookF, label: "Facebook" },
-  { href: "https://linkedin.com", Icon: FaLinkedinIn, label: "LinkedIn" },
-  { href: "https://youtube.com", Icon: FaYoutube, label: "YouTube" },
+  {
+    href: "https://www.instagram.com/ripu_sousse?igsh=MWp6czR1OXh2MzY0bQ==",
+    Icon: FaInstagram,
+    label: "Instagram",
+  },
+  {
+    href: "https://www.linkedin.com/company/ripu25/posts/",
+    Icon: FaLinkedinIn,
+    label: "LinkedIn",
+  },
+  {
+    href: "https://www.youtube.com/@RIPU26Ripusousse",
+    Icon: FaYoutube,
+    label: "YouTube",
+  },
 ] as const
 
 export default function Footer() {

@@ -4,9 +4,9 @@ import Link from "next/link"
 import { ArrowRight, ExternalLink } from "lucide-react"
 import { Reveal } from "@/components/landing/reveal"
 
-const YOUTUBE_ID = "pnKB0Pl3hdQ"
+const YOUTUBE_ID = "mxCetkHnI9I"
 const YOUTUBE_START = 16
-const YOUTUBE_URL = `https://www.youtube.com/watch?v=${YOUTUBE_ID}&t=${YOUTUBE_START}s`
+const YOUTUBE_URL = "https://www.youtube.com/shorts/mxCetkHnI9I"
 
 const EMBED = [
   `https://www.youtube-nocookie.com/embed/${YOUTUBE_ID}`,
