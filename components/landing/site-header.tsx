@@ -324,6 +324,21 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
 
           <div className="relative z-10 flex items-center gap-2 sm:gap-3">
             <Link
+              href="/connexion"
+              className={cn(
+                "hidden items-center rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 lg:inline-flex",
+                solidNav
+                  ? pathname.startsWith("/connexion") || pathname.startsWith("/inscription")
+                    ? "bg-[var(--brand-soft)] text-[var(--brand)]"
+                    : "text-[var(--grey-600)] hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
+                  : pathname.startsWith("/connexion") || pathname.startsWith("/inscription")
+                    ? "bg-white/20 text-white"
+                    : "text-white/85 hover:bg-white/10 hover:text-white"
+              )}
+            >
+              Connexion
+            </Link>
+            <Link
               href="/soumission"
               className={cn(
                 "hidden items-center gap-2 rounded-full px-4 py-2.5 text-[13px] font-bold transition-all duration-200 sm:inline-flex",
@@ -446,6 +461,13 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
               </nav>
 
               <div className="border-t border-[var(--border)] bg-[var(--grey-50)]/60 px-5 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+                <Link
+                  href="/connexion"
+                  onClick={() => setOpen(false)}
+                  className="mb-3 flex w-full items-center justify-center rounded-full border border-[var(--border)] bg-white px-4 py-3 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--brand-soft)] hover:text-[var(--brand)]"
+                >
+                  Connexion
+                </Link>
                 <Link
                   href="/soumission"
                   onClick={() => setOpen(false)}

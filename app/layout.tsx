@@ -2,7 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 
-import Footer from "@/components/Footer";
+import { ConditionalFooter } from "@/components/layout/conditional-footer";
 import { RIPU26_EVENT_TITLE } from "@/lib/event-copy";
 
 import "./globals.css";
@@ -41,7 +41,7 @@ export default function RootLayout({
       <body className="bg-white font-sans antialiased">
         {children}
 
-        <Footer />
+        <ConditionalFooter />
 
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
