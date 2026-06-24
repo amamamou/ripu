@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
+import { AuthClientGate } from "@/components/auth/auth-client-gate"
 import { AuthShell } from "@/components/auth/auth-shell"
 import {
   AuthDivider,
@@ -14,6 +15,7 @@ import {
   SocialAuthButtons,
 } from "@/components/auth/auth-ui"
 import { useAuth } from "@/contexts/auth-context"
+import { getAuthErrorMessage } from "@/lib/auth-errors"
 import type { AuthProvider } from "@/lib/auth-providers"
 
 export function ConnexionPageContent({ providers }: { providers: readonly AuthProvider[] }) {
@@ -40,7 +42,7 @@ export function ConnexionPageContent({ providers }: { providers: readonly AuthPr
       router.push(redirectTo.startsWith("/") ? redirectTo : "/soumission")
       router.refresh()
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Connexion impossible.")
+      setError(getAuthErrorMessage(err, "Connexion impossible."))
     } finally {
       setSubmitting(false)
     }
@@ -52,7 +54,7 @@ export function ConnexionPageContent({ providers }: { providers: readonly AuthPr
     try {
       await signInWithProvider(providerId, redirectTo.startsWith("/") ? redirectTo : "/soumission")
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Connexion impossible.")
+      setError(getAuthErrorMessage(err, "Connexion impossible."))
       setLoadingProvider(null)
     }
   }
@@ -63,6 +65,7 @@ export function ConnexionPageContent({ providers }: { providers: readonly AuthPr
       heading="Bon retour"
       description="Accédez à votre espace auteur pour gérer vos soumissions RIPU26."
     >
+      <AuthClientGate>
       {error ? (
         <p className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}
@@ -136,6 +139,7 @@ export function ConnexionPageContent({ providers }: { providers: readonly AuthPr
           label="Créer un compte"
         />
       </div>
+      </AuthClientGate>
     </AuthShell>
   )
 }

@@ -248,11 +248,6 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
   const transparentHero = !solid && isHome && onHero && !scrolled
   const solidNav = solid || !transparentHero
   const landingHeader = isHome && !solid
-  const userLabel =
-    user?.user_metadata?.full_name?.toString() ||
-    user?.user_metadata?.first_name?.toString() ||
-    user?.email?.split("@")[0] ||
-    "Mon compte"
 
   const handleSignOut = async () => {
     await signOut()
@@ -336,32 +331,18 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
 
           <div className="relative z-10 flex items-center gap-2 sm:gap-3">
             {!loading && user ? (
-              <>
-                <Link
-                  href="/soumission"
-                  className={cn(
-                    "hidden max-w-[10rem] truncate rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 lg:inline-flex",
-                    solidNav
-                      ? "text-[var(--grey-600)] hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
-                      : "text-white/85 hover:bg-white/10 hover:text-white"
-                  )}
-                  title={user.email ?? undefined}
-                >
-                  {userLabel}
-                </Link>
-                <button
-                  type="button"
-                  onClick={handleSignOut}
-                  className={cn(
-                    "hidden items-center rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 lg:inline-flex",
-                    solidNav
-                      ? "text-[var(--grey-600)] hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
-                      : "text-white/85 hover:bg-white/10 hover:text-white"
-                  )}
-                >
-                  Déconnexion
-                </button>
-              </>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className={cn(
+                  "hidden items-center rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 lg:inline-flex",
+                  solidNav
+                    ? "text-[var(--grey-600)] hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
+                    : "text-white/85 hover:bg-white/10 hover:text-white"
+                )}
+              >
+                Déconnexion
+              </button>
             ) : !loading ? (
               <Link
                 href="/connexion"
@@ -503,19 +484,16 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
 
               <div className="border-t border-[var(--border)] bg-[var(--grey-50)]/60 px-5 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
                 {!loading && user ? (
-                  <>
-                    
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setOpen(false)
-                        void handleSignOut()
-                      }}
-                      className="mb-3 flex w-full items-center justify-center rounded-full border border-[var(--border)] bg-white px-4 py-3 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--grey-50)]"
-                    >
-                      Déconnexion
-                    </button>
-                  </>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpen(false)
+                      void handleSignOut()
+                    }}
+                    className="mb-3 flex w-full items-center justify-center rounded-full border border-[var(--border)] bg-white px-4 py-3 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--grey-50)]"
+                  >
+                    Déconnexion
+                  </button>
                 ) : !loading ? (
                   <Link
                     href="/connexion"

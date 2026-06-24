@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation"
 import { useMemo, useState } from "react"
+import { AuthClientGate } from "@/components/auth/auth-client-gate"
 import { AuthShell } from "@/components/auth/auth-shell"
 import {
   AuthDivider,
@@ -14,6 +15,7 @@ import {
   SocialAuthButtons,
 } from "@/components/auth/auth-ui"
 import { useAuth } from "@/contexts/auth-context"
+import { getAuthErrorMessage } from "@/lib/auth-errors"
 import type { AuthProvider } from "@/lib/auth-providers"
 
 function passwordStrengthLevel(password: string): 0 | 1 | 2 | 3 | 4 {
@@ -71,7 +73,7 @@ export function InscriptionPageContent({ providers }: { providers: readonly Auth
       router.push(redirectTo.startsWith("/") ? redirectTo : "/soumission")
       router.refresh()
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Inscription impossible.")
+      setError(getAuthErrorMessage(err, "Inscription impossible."))
     } finally {
       setSubmitting(false)
     }
@@ -95,6 +97,7 @@ export function InscriptionPageContent({ providers }: { providers: readonly Auth
       heading="Créer un compte"
       description="Rejoignez l'espace auteur pour soumettre et suivre vos communications."
     >
+      <AuthClientGate>
       {error ? (
         <p className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}
@@ -215,6 +218,7 @@ export function InscriptionPageContent({ providers }: { providers: readonly Auth
           label="Se connecter"
         />
       </div>
+      </AuthClientGate>
     </AuthShell>
   )
 }

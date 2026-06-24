@@ -1,6 +1,6 @@
-export type AuthProviderId = "google" | "microsoft" | "orcid"
+export type AuthProviderId = "google" | "orcid"
 
-export type SupabaseOAuthProvider = "google" | "azure"
+export type SupabaseOAuthProvider = "google"
 
 export type AuthProvider = {
   id: AuthProviderId
@@ -16,12 +16,6 @@ export const AUTH_PROVIDERS: readonly AuthProvider[] = [
     label: "Google",
     description: "Continuer avec votre compte Google",
     supabaseProvider: "google",
-  },
-  {
-    id: "microsoft",
-    label: "Microsoft",
-    description: "Continuer avec Microsoft",
-    supabaseProvider: "azure",
   },
   {
     id: "orcid",

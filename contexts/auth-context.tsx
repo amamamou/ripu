@@ -124,7 +124,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           last_name: lastName,
           full_name: `${firstName} ${lastName}`.trim(),
         },
-        emailRedirectTo: buildCallbackUrl("/soumission"),
+        emailRedirectTo: buildCallbackUrl("/auth/email-confirme"),
       },
     })
     if (error) throw error
