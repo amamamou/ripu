@@ -285,7 +285,6 @@ export function buildSubmissionEmailHtml(draft: SubmissionDraft, reference: stri
 
     ${sectionTitle("Configuration")}
     ${fieldRow("Type", escapeHtml(typeLabel))}
-    ${fieldRow("Présentation", escapeHtml(draft.presentationMode) || 'Non spécifié')}
     ${fieldRow("Contribution étudiante", draft.studentContribution ? 'Oui' : 'Non')}
 
     ${sectionTitle("Communication")}
@@ -370,7 +369,6 @@ Date: ${currentDate}
 
 --- CONFIGURATION ---
 Type: ${typeLabel}
-Présentation: ${draft.presentationMode || 'Non spécifié'}
 Étudiant: ${draft.studentContribution ? 'Oui' : 'Non'}
 
 --- COMMUNICATION ---
