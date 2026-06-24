@@ -20,6 +20,8 @@ interface AuthContextType {
     lastName: string
   }) => Promise<{ needsEmailConfirmation: boolean }>
   signInWithProvider: (providerId: AuthProviderId, redirectTo?: string) => Promise<void>
+  requestPasswordReset: (email: string) => Promise<void>
+  updatePassword: (password: string) => Promise<void>
   signOut: () => Promise<void>
   hasSubmitted: boolean
   submission: StoredSubmission | null
@@ -153,6 +155,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setSubmission(null)
   }
 
+  const requestPasswordReset = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: buildCallbackUrl("/auth/nouveau-mot-de-passe"),
+    })
+    if (error) throw error
+  }
+
+  const updatePassword = async (password: string) => {
+    const { error } = await supabase.auth.updateUser({ password })
+    if (error) throw error
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -162,6 +176,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         signIn,
         signUp,
         signInWithProvider,
+        requestPasswordReset,
+        updatePassword,
         signOut,
         hasSubmitted: submission !== null,
         submission,

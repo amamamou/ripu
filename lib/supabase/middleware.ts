@@ -37,7 +37,12 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  if ((pathname === "/connexion" || pathname === "/inscription") && user) {
+  if (
+    (pathname === "/connexion" ||
+      pathname === "/inscription" ||
+      pathname === "/mot-de-passe-oublie") &&
+    user
+  ) {
     const redirect = request.nextUrl.searchParams.get("redirect")
     const url = request.nextUrl.clone()
     url.pathname = redirect && redirect.startsWith("/") ? redirect : "/soumission"

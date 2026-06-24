@@ -106,7 +106,7 @@ export function ConnexionPageContent({ providers }: { providers: readonly AuthPr
               Mot de passe
             </AuthFieldLabel>
             <Link
-              href="/connexion"
+              href="/mot-de-passe-oublie"
               className="text-xs font-semibold text-[var(--brand)] hover:text-[var(--brand-dark)]"
             >
               Oublié ?
