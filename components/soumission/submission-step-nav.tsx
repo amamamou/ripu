@@ -1,8 +1,7 @@
 "use client"
 
-import { Check, Circle, Cloud, Loader2, RotateCcw } from "lucide-react"
+import { Check, Cloud, Loader2, RotateCcw } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { WIZARD_STEPS } from "@/lib/submission-form"
 
 type StepProgress = {
   id: number
@@ -14,32 +13,25 @@ type StepProgress = {
 
 export function SubmissionStepNav({
   steps,
-  currentStep,
   onStepClick,
 }: {
   steps: StepProgress[]
-  currentStep: number
   onStepClick: (step: number) => void
 }) {
   return (
-    <nav aria-label="Étapes de soumission" className="space-y-1">
-      {steps.map((step, index) => {
-        const reachable = step.id <= currentStep || step.complete
-        const upcoming = !step.complete && !step.active
+    <nav aria-label="Sections de soumission" className="space-y-1">
+      {steps.map((step) => {
         const completed = step.complete && !step.active
 
         return (
           <button
             key={step.id}
             type="button"
-            onClick={() => reachable && onStepClick(step.id)}
-            disabled={!reachable}
+            onClick={() => onStepClick(step.id)}
             className={cn(
               "flex w-full items-center gap-3 rounded-[var(--radius-xl)] px-4 py-3 text-left transition-colors",
               step.active && "bg-[var(--brand-soft)]",
-              completed && "hover:bg-[var(--grey-50)]",
-              upcoming && reachable && "hover:bg-[var(--grey-50)]",
-              !reachable && "cursor-not-allowed opacity-45"
+              !step.active && "hover:bg-[var(--grey-50)]"
             )}
           >
             <span
@@ -47,35 +39,27 @@ export function SubmissionStepNav({
                 "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors",
                 completed && "bg-[var(--brand)] text-white",
                 step.active && "bg-[var(--brand)] text-white ring-4 ring-[var(--brand-soft)]",
-                upcoming && "border-2 border-[var(--grey-100)] bg-white text-[var(--grey-400)]"
+                !completed && !step.active && "border-2 border-[var(--grey-100)] bg-white text-[var(--grey-400)]"
               )}
               aria-hidden
             >
               {completed ? (
                 <Check className="h-4 w-4" strokeWidth={2.5} />
-              ) : step.active ? (
-                String(step.id).padStart(2, "0")
               ) : (
-                <Circle className="h-3.5 w-3.5" strokeWidth={2} />
+                String(step.id).padStart(2, "0")
               )}
             </span>
             <span className="min-w-0">
               <span
                 className={cn(
                   "block text-sm font-semibold tracking-tight",
-                  step.active ? "text-[var(--black)]" : completed ? "text-[var(--grey-600)]" : "text-[var(--grey-600)]"
+                  step.active ? "text-[var(--black)]" : "text-[var(--grey-600)]"
                 )}
               >
                 {step.label}
               </span>
               <span className="block text-xs text-[var(--grey-400)]">
-                {completed
-                  ? "Complété"
-                  : step.active
-                    ? step.id === 5
-                      ? "Revue en cours"
-                      : "En cours"
-                    : `Étape ${index + 1} sur ${WIZARD_STEPS.length}`}
+                {completed ? "Complété" : step.active ? "Section active" : "À compléter"}
               </span>
             </span>
           </button>
@@ -87,16 +71,16 @@ export function SubmissionStepNav({
 
 export function SubmissionMobileSteps({
   steps,
-  currentStep,
   completenessScore,
   hasProgress,
+  onSectionClick,
 }: {
   steps: StepProgress[]
-  currentStep: number
   completenessScore: number
   hasProgress: boolean
+  onSectionClick: (step: number) => void
 }) {
-  const active = steps.find((s) => s.id === currentStep)
+  const active = steps.find((s) => s.active)
   const completedCount = steps.filter((s) => s.complete).length
   const ready = hasProgress && completenessScore === 100
 
@@ -105,9 +89,9 @@ export function SubmissionMobileSteps({
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--brand)]">
-            Étape {currentStep} / {WIZARD_STEPS.length}
+            Dossier de soumission
           </p>
-          <p className="mt-1 text-sm font-semibold text-[var(--black)]">{active?.label}</p>
+          <p className="mt-1 text-sm font-semibold text-[var(--black)]">{active?.label ?? "Configuration"}</p>
         </div>
         {hasProgress && (
           <p
@@ -131,8 +115,27 @@ export function SubmissionMobileSteps({
           />
         </div>
       )}
+      <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+        {steps.map((step) => (
+          <button
+            key={step.id}
+            type="button"
+            onClick={() => onSectionClick(step.id)}
+            className={cn(
+              "shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors",
+              step.active
+                ? "bg-[var(--brand)] text-white"
+                : step.complete
+                  ? "bg-white text-[var(--grey-600)]"
+                  : "bg-white text-[var(--grey-400)]"
+            )}
+          >
+            {step.short}
+          </button>
+        ))}
+      </div>
       <p className="mt-2 text-xs text-[var(--grey-400)]">
-        {completedCount} étape{completedCount > 1 ? "s" : ""} validée{completedCount > 1 ? "s" : ""}
+        {completedCount} section{completedCount > 1 ? "s" : ""} complétée{completedCount > 1 ? "s" : ""}
       </p>
     </div>
   )

@@ -18,21 +18,25 @@ export function AuthShell({
 }) {
   return (
     <main className="flex min-h-screen flex-col bg-white">
-      <header className="border-b border-[var(--border)]">
-        <div className="container-main flex h-[4.25rem] items-center justify-between md:h-[4.75rem]">
-          <Link href="/" aria-label="RIPU26 — Accueil">
+      <header className="fixed inset-x-0 top-0 z-50 overflow-visible bg-white/92 backdrop-blur-xl backdrop-saturate-150">
+        <div className="container-main flex h-[4.25rem] items-center justify-between gap-4 md:h-[4.75rem]">
+          <Link
+            href="/"
+            className="relative z-10 flex h-full shrink-0 items-center"
+            aria-label="RIPU26 — Accueil"
+          >
             <Image
               src="/logo.png"
               alt=""
-              width={140}
-              height={46}
-              className="h-8 w-auto object-contain md:h-9"
+              width={220}
+              height={72}
               priority
+              className="h-[2.75rem] w-auto max-w-[42vw] origin-left scale-110 object-contain sm:max-w-none sm:h-[3.25rem] sm:scale-[1.35] md:scale-[1.55]"
             />
           </Link>
           <Link
             href="/"
-            className="link-arrow inline-flex text-sm font-semibold text-[var(--grey-600)]"
+            className="link-arrow relative z-10 inline-flex text-sm font-semibold text-[var(--grey-600)]"
           >
             <ArrowLeft className="h-3.5 w-3.5" strokeWidth={2} />
             Retour au site
@@ -40,7 +44,7 @@ export function AuthShell({
         </div>
       </header>
 
-      <div className="container-main flex flex-1 items-center justify-center py-12 md:py-16">
+      <div className="container-main flex flex-1 items-center justify-center pb-12 pt-[4.25rem] md:pb-16 md:pt-[4.75rem]">
         <div className="w-full max-w-[24rem] sm:max-w-[26rem]">
           <p className="dot-label text-xs font-semibold uppercase tracking-[0.14em]">{eyebrow}</p>
           <h1 className="mt-4 text-[clamp(1.75rem,5vw,2.25rem)] font-bold tracking-tight text-[var(--black)]">

@@ -1,9 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { ArrowLeft, ArrowRight } from "lucide-react"
-import { AnimatePresence, motion } from "framer-motion"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import { ArrowRight } from "lucide-react"
 import { useSubmissionWorkspace } from "@/components/soumission/use-submission-workspace"
 import {
   DraftRestoredBanner,
@@ -15,19 +14,23 @@ import {
   SubmissionStepNav,
   SubmissionSuccessNotice,
 } from "@/components/soumission/submission-step-nav"
+import { SubmissionSection } from "@/components/soumission/submission-section"
 import { SetupStep } from "@/components/soumission/steps/setup-step"
 import { AuthorsStep } from "@/components/soumission/steps/authors-step"
 import { PaperStep } from "@/components/soumission/steps/paper-step"
 import { TopicsStep } from "@/components/soumission/steps/topics-step"
 import { ReviewStep } from "@/components/soumission/steps/review-step"
-import { WIZARD_STEPS, hasSubmissionProgress } from "@/lib/submission-form"
+import {
+  hasSubmissionProgress,
+  validateStep,
+  WIZARD_STEPS,
+} from "@/lib/submission-form"
 import { isSubmissionClosed } from "@/lib/submission"
 import { SubmissionClosedPanel } from "@/components/soumission/submission-closed-panel"
 import { AlreadySubmittedPanel } from "@/components/soumission/already-submitted-panel"
 import { useAuth } from "@/contexts/auth-context"
-import { cn } from "@/lib/utils"
 
-const stepMeta: Record<number, { title: string; description: string }> = {
+const sectionMeta: Record<number, { title: string; description: string }> = {
   1: {
     title: "Configuration",
     description: "Définissez le cadre de votre contribution avant de rédiger.",
@@ -45,9 +48,17 @@ const stepMeta: Record<number, { title: string; description: string }> = {
     description: "Positionnez votre travail dans le programme scientifique de RIPU26.",
   },
   5: {
-    title: "Revue finale",
-    description: "Inspectez votre dossier, vérifiez le PDF et transmettez au comité.",
+    title: "Revue & transmission",
+    description: "Vérifiez votre dossier, joignez le PDF et transmettez au comité.",
   },
+}
+
+function mergeStepErrors(draft: Parameters<typeof validateStep>[1], steps: number[]) {
+  const merged: Record<string, string> = {}
+  for (const step of steps) {
+    Object.assign(merged, validateStep(step, draft))
+  }
+  return merged
 }
 
 export function SubmissionWorkspace() {
@@ -61,9 +72,6 @@ export function SubmissionWorkspace() {
     savedAtLabel,
     stepProgress,
     completeness,
-    goToStep,
-    nextStep,
-    prevStep,
     pdfFile,
     setPdf,
     clearPdf,
@@ -80,6 +88,59 @@ export function SubmissionWorkspace() {
   } = useSubmissionWorkspace()
 
   const [showResetDialog, setShowResetDialog] = useState(false)
+  const [activeSection, setActiveSection] = useState(1)
+  const [revealAllErrors, setRevealAllErrors] = useState(false)
+
+  const scrollToSection = useCallback((step: number) => {
+    const el = document.getElementById(`submission-section-${step}`)
+    el?.scrollIntoView({ behavior: "smooth", block: "start" })
+    setActiveSection(step)
+  }, [])
+
+  const displayErrors = useMemo(() => {
+    if (Object.keys(errors).length > 0) return errors
+    if (!revealAllErrors) return {}
+    return mergeStepErrors(draft, [1, 2, 3, 4])
+  }, [draft, errors, revealAllErrors])
+
+  const navSteps = useMemo(
+    () => stepProgress.map((step) => ({ ...step, active: step.id === activeSection })),
+    [stepProgress, activeSection]
+  )
+
+  useEffect(() => {
+    const sections = WIZARD_STEPS.map((s) => document.getElementById(`submission-section-${s.id}`)).filter(
+      Boolean
+    ) as HTMLElement[]
+    if (!sections.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (!visible.length) return
+        const id = visible[0].target.id
+        const step = Number(id.replace("submission-section-", ""))
+        if (!Number.isNaN(step)) setActiveSection(step)
+      },
+      { rootMargin: "-20% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [hydrated])
+
+  const handleIncompleteSubmit = useCallback(() => {
+    setRevealAllErrors(true)
+    const merged = mergeStepErrors(draft, [1, 2, 3, 4])
+    const firstIncomplete = WIZARD_STEPS.find((step) => {
+      if (step.id === 5) return false
+      return Object.keys(validateStep(step.id, draft)).length > 0
+    })
+    if (firstIncomplete) scrollToSection(firstIncomplete.id)
+    else if (Object.keys(merged).length > 0) scrollToSection(1)
+  }, [draft, scrollToSection])
 
   if (!hydrated || authLoading) {
     return (
@@ -97,9 +158,6 @@ export function SubmissionWorkspace() {
     return <AlreadySubmittedPanel submission={submission} />
   }
 
-  const meta = stepMeta[draft.currentStep]
-  const isFirst = draft.currentStep === 1
-  const isLast = draft.currentStep === WIZARD_STEPS.length
   const hasProgress = hasSubmissionProgress(draft)
 
   return (
@@ -110,10 +168,10 @@ export function SubmissionWorkspace() {
       {draftRestored && <DraftRestoredBanner onDismiss={dismissRestored} />}
 
       <SubmissionMobileSteps
-        steps={stepProgress}
-        currentStep={draft.currentStep}
+        steps={navSteps}
         completenessScore={completeness.score}
         hasProgress={hasProgress}
+        onSectionClick={scrollToSection}
       />
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(240px,280px)_1fr] lg:gap-12 xl:gap-16">
@@ -124,10 +182,10 @@ export function SubmissionWorkspace() {
                 Espace de soumission
               </p>
               <p className="mt-2 text-sm leading-relaxed text-[var(--grey-600)]">
-                Votre progression est sauvegardée automatiquement. Aucune perte en cas de rafraîchissement.
+                Complétez les sections ci-dessous. Votre progression est sauvegardée automatiquement.
               </p>
             </div>
-            <SubmissionStepNav steps={stepProgress} currentStep={draft.currentStep} onStepClick={goToStep} />
+            <SubmissionStepNav steps={navSteps} onStepClick={scrollToSection} />
             <SubmissionCompleteness score={completeness.score} hasProgress={hasProgress} />
             <SaveIndicator state={saveState} savedAtLabel={savedAtLabel} hasProgress={hasProgress} />
             <RestartSubmissionButton onClick={() => setShowResetDialog(true)} />
@@ -141,82 +199,73 @@ export function SubmissionWorkspace() {
         <div className="min-w-0">
           <div className="floating-panel overflow-hidden">
             <div className="border-b border-[var(--border)] bg-[var(--grey-50)] px-6 py-6 md:px-8 md:py-7">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand)]">
-                  Étape {String(draft.currentStep).padStart(2, "0")}
-                </p>
-                <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--black)] md:text-2xl">
-                  {meta.title}
-                </h2>
-                <p className="mt-1.5 text-sm text-[var(--grey-600)]">{meta.description}</p>
-              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--brand)]">
+                Dossier de soumission
+              </p>
+              <h1 className="mt-2 text-xl font-semibold tracking-tight text-[var(--black)] md:text-2xl">
+                Préparez votre communication
+              </h1>
+              <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-[var(--grey-600)]">
+                Remplissez chaque section dans l&apos;ordre suggéré. Faites défiler la page ou utilisez le
+                sommaire pour naviguer.
+              </p>
             </div>
 
-            <div className="px-6 py-8 md:px-8 md:py-10">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={draft.currentStep}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  {draft.currentStep === 1 && <SetupStep draft={draft} onChange={patch} errors={errors} />}
-                  {draft.currentStep === 2 && <AuthorsStep draft={draft} onChange={patch} errors={errors} />}
-                  {draft.currentStep === 3 && <PaperStep draft={draft} onChange={patch} errors={errors} />}
-                  {draft.currentStep === 4 && <TopicsStep draft={draft} onChange={patch} errors={errors} />}
-                  {draft.currentStep === 5 && (
-                    <ReviewStep
-                      draft={draft}
-                      pdfFile={pdfFile}
-                      pdfNeedsReattach={pdfNeedsReattach}
-                      onEditStep={goToStep}
-                      onPdfFile={(file, meta) => setPdf(file, meta)}
-                      onPdfClear={clearPdf}
-                      onSubmitted={completeSubmission}
-                      isSubmitting={isSubmitting}
-                      setIsSubmitting={setIsSubmitting}
-                    />
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+            <SubmissionSection
+              step={1}
+              title={sectionMeta[1].title}
+              description={sectionMeta[1].description}
+              complete={stepProgress[0]?.complete}
+            >
+              <SetupStep draft={draft} onChange={patch} errors={displayErrors} />
+            </SubmissionSection>
 
-            {!isLast && (
-              <div className="flex flex-col-reverse gap-3 border-t border-[var(--border)] bg-[var(--grey-50)]/80 px-6 py-5 sm:flex-row sm:items-center sm:justify-between md:px-8">
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  disabled={isFirst}
-                  className={cn(
-                    "inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] bg-white px-5 py-2.5 text-sm font-semibold text-[var(--black)]",
-                    isFirst && "pointer-events-none opacity-40"
-                  )}
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  Étape précédente
-                </button>
-                <button type="button" onClick={nextStep} className="btn-lime w-full justify-center sm:w-auto">
-                  Continuer
-                  <span className="btn-lime-icon">
-                    <ArrowRight className="h-4 w-4" />
-                  </span>
-                </button>
-              </div>
-            )}
+            <SubmissionSection
+              step={2}
+              title={sectionMeta[2].title}
+              description={sectionMeta[2].description}
+              complete={stepProgress[1]?.complete}
+            >
+              <AuthorsStep draft={draft} onChange={patch} errors={displayErrors} />
+            </SubmissionSection>
 
-            {isLast && (
-              <div className="border-t border-[var(--border)] bg-[var(--grey-50)]/80 px-6 py-5 md:px-8">
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--brand)]"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  Revenir aux thématiques
-                </button>
-              </div>
-            )}
+            <SubmissionSection
+              step={3}
+              title={sectionMeta[3].title}
+              description={sectionMeta[3].description}
+              complete={stepProgress[2]?.complete}
+            >
+              <PaperStep draft={draft} onChange={patch} errors={displayErrors} />
+            </SubmissionSection>
+
+            <SubmissionSection
+              step={4}
+              title={sectionMeta[4].title}
+              description={sectionMeta[4].description}
+              complete={stepProgress[3]?.complete}
+            >
+              <TopicsStep draft={draft} onChange={patch} errors={displayErrors} />
+            </SubmissionSection>
+
+            <SubmissionSection
+              step={5}
+              title={sectionMeta[5].title}
+              description={sectionMeta[5].description}
+              complete={stepProgress[4]?.complete}
+            >
+              <ReviewStep
+                draft={draft}
+                pdfFile={pdfFile}
+                pdfNeedsReattach={pdfNeedsReattach}
+                onEditStep={scrollToSection}
+                onPdfFile={(file, meta) => setPdf(file, meta)}
+                onPdfClear={clearPdf}
+                onSubmitted={completeSubmission}
+                onIncompleteSubmit={handleIncompleteSubmit}
+                isSubmitting={isSubmitting}
+                setIsSubmitting={setIsSubmitting}
+              />
+            </SubmissionSection>
           </div>
         </div>
       </div>
@@ -228,6 +277,7 @@ export function SubmissionWorkspace() {
         onConfirm={() => {
           resetSubmission()
           setShowResetDialog(false)
+          setRevealAllErrors(false)
         }}
       />
     </div>

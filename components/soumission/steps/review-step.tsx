@@ -105,8 +105,7 @@ function ConfirmModal({
           Soumettre votre communication ?
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-[var(--grey-600)]">
-          Votre dossier sera préparé, vérifié et transmis au comité scientifique RIPU26 via le canal
-          officiel de soumission.
+          Votre contribution sera enregistrée et transmise au processus d&apos;évaluation.
         </p>
         <div className="mt-6 flex flex-col gap-3">
           <button type="button" onClick={onConfirm} disabled={loading} className="btn-lime w-full justify-center">
@@ -141,6 +140,7 @@ export function ReviewStep({
   onPdfFile,
   onPdfClear,
   onSubmitted,
+  onIncompleteSubmit,
   isSubmitting,
   setIsSubmitting,
 }: {
@@ -151,6 +151,7 @@ export function ReviewStep({
   onPdfFile: (file: File, meta: NonNullable<SubmissionDraft["pdfMeta"]>) => void
   onPdfClear: () => void
   onSubmitted: (reference: string) => void
+  onIncompleteSubmit?: () => void
   isSubmitting: boolean
   setIsSubmitting: (v: boolean) => void
 }) {
@@ -171,7 +172,10 @@ export function ReviewStep({
     const pErrors = validatePdfFile(pdfFile, draft.pdfMeta)
     setPdfErrors(pErrors)
     if (Object.keys(pErrors).length > 0) return
-    if (!allReady) return
+    if (!allReady) {
+      onIncompleteSubmit?.()
+      return
+    }
     setShowConfirm(true)
   }
 

@@ -26,7 +26,7 @@ export function AlreadySubmittedPanel({ submission }: { submission: StoredSubmis
                 Soumission enregistrée
               </p>
               <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--black)] md:text-2xl">
-                Vous avez déjà transmis une communication
+                Vous avez transmis une communication
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-[var(--grey-600)]">
                 Chaque compte auteur ne peut soumettre qu&apos;une seule communication à RIPU26. Votre
