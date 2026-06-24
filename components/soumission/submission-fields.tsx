@@ -202,7 +202,7 @@ export function SalutationPicker({
   return (
     <div>
       <FieldLabel htmlFor={id} required={required}>
-        Salutations
+        Titre
       </FieldLabel>
       <select
         id={id}

@@ -22,7 +22,7 @@ export function TestimonialsSection() {
         <StaggerChildren className="section-inner grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-5" stagger={0.07}>
           {ripu25Slides.map((person) => (
             <StaggerItem key={person.name}>
-              <article className="group flex h-full flex-col rounded-2xl bg-[var(--white)] p-4 shadow-[var(--shadow-soft)] transition-transform duration-300 hover:-translate-y-1 sm:p-5">
+              <article className="group flex h-full flex-col rounded-2xl border border-[var(--brand)]/25 bg-[var(--white)] p-4 shadow-[var(--shadow-soft)] transition-all duration-300 active:-translate-y-0.5 active:border-[var(--brand)]/35 md:border-[var(--brand)]/15 md:hover:-translate-y-1 md:hover:border-[var(--brand)]/25 sm:p-5">
                 <div className="flex items-start justify-between gap-2">
                   <span className="relative block h-11 w-11 shrink-0 overflow-hidden rounded-full sm:h-12 sm:w-12">
                     <Image

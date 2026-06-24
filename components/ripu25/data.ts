@@ -25,7 +25,7 @@ export const ripu25Slides = [
   {
     firstName: "Rym",
     name: "Rym Mamlouk Mallouli",
-    role: "Université de Sousse",
+    role: "ISBA Sousse",
     avatar: "/rym.png",
     gallery: "/ripu/1.png",
     galleryLabel: "Sessions plénières",

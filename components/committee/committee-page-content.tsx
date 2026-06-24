@@ -76,6 +76,11 @@ const scientificCommittee = [
     institution: "Université de Technologie de Troyes",
     country: "France",
   },
+  {
+    name: "Thierry Spriet",
+    institution: "Avignon Université",
+    country: "France",
+  },
 ] as const
 
 const organizingCommittee = [
@@ -97,6 +102,7 @@ const generalChairs = [
     name: "Sonia Sahli",
     institution: "ISET Sousse",
     country: "Tunisie",
+    role: "Présidente RIPU26",
   },
   {
     name: "Denis Gillet",
@@ -109,6 +115,13 @@ const generalChairs = [
     country: "France",
   },
 ] as const
+
+const scientificCommitteePresident = {
+  name: "Thierry Spriet",
+  institution: "Avignon Université",
+  country: "France",
+  role: "Président du comité scientifique",
+} as const
 
 function CountryBadge({ country }: { country: string }) {
   const flag = COUNTRY_FLAGS[country]
@@ -195,6 +208,9 @@ export function CommitteePageContent() {
           </Reveal>
 
           <StaggerChildren className="section-inner grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <StaggerItem key="scientific-president" className="h-full">
+              <MemberCard {...scientificCommitteePresident} />
+            </StaggerItem>
             {sortedScientificCommittee.map((member) => (
               <StaggerItem key={member.name} className="h-full">
                 <MemberCard {...member} />
