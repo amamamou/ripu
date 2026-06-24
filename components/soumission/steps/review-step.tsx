@@ -279,6 +279,10 @@ export function ReviewStep({
               {author.id === draft.presentingAuthorId && (
                 <span className="ml-2 text-xs font-semibold text-[var(--brand)]">· Présentateur</span>
               )}
+              <span className="mt-0.5 block text-[var(--grey-600)]">
+                {author.email.trim()}
+                {author.phone.trim() ? ` · ${author.phone.trim()}` : ""}
+              </span>
               <span className="mt-0.5 block">{primary ? formatAffiliation(primary) : "Affiliation à définir"}</span>
             </p>
           )

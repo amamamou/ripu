@@ -246,7 +246,7 @@ export function buildSubmissionEmailHtml(draft: SubmissionDraft, reference: stri
           ${author.orcid ? `<span style="color:#999999;font-size:12px;"> &middot; ORCID ${escapeHtml(author.orcid)}</span>` : ''}
         </div>
         <div style="font-size:13px;color:#666666;line-height:1.6;">
-          ${escapeHtml(author.email)}<br/>
+          ${escapeHtml(author.email)}${author.phone?.trim() ? `<br/>${escapeHtml(author.phone.trim())}` : ''}<br/>
           ${escapeHtml(primaryOrgStr)}
           ${roles.length ? `<br/><span style="color:#999999;">${escapeHtml(roles.join(', '))}</span>` : ''}
         </div>
@@ -345,7 +345,7 @@ export function buildSubmissionEmailText(draft: SubmissionDraft, reference: stri
       : 'Affiliation non définie'
     
     return `${index + 1}. ${author.firstName} ${author.lastName}${author.orcid ? ` (ORCID: ${author.orcid})` : ''}
-   Email: ${author.email}
+   Email: ${author.email}${author.phone?.trim() ? `\n   Téléphone: ${author.phone.trim()}` : ''}
    Affiliation: ${primaryOrgStr}
    ${roles.length ? `Rôle: ${roles.join(', ')}` : ''}`
   }).join('\n\n')

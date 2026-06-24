@@ -60,6 +60,7 @@ export type Author = {
   firstName: string
   lastName: string
   email: string
+  phone: string
   orgIds: string[]
   primaryOrgId: string
 }
@@ -118,9 +119,20 @@ export function createEmptyAuthor(): Author {
     firstName: "",
     lastName: "",
     email: "",
+    phone: "",
     orgIds: [],
     primaryOrgId: "",
   }
+}
+
+export function createAuthorWithAffiliation(): { author: Author; organization: Organization } {
+  const organization = createEmptyOrganization()
+  const author: Author = {
+    ...createEmptyAuthor(),
+    orgIds: [organization.id],
+    primaryOrgId: organization.id,
+  }
+  return { author, organization }
 }
 
 export function createEmptyOrganization(): Organization {
@@ -128,13 +140,13 @@ export function createEmptyOrganization(): Organization {
 }
 
 export function createDefaultDraft(): SubmissionDraft {
-  const firstAuthor = createEmptyAuthor()
+  const { author: firstAuthor, organization } = createAuthorWithAffiliation()
   return {
     version: 2,
     presentationMode: "",
     submissionType: "",
     authors: [firstAuthor],
-    organizations: [createEmptyOrganization()],
+    organizations: [organization],
     presentingAuthorId: firstAuthor.id,
     title: "",
     abstract: "",
@@ -236,35 +248,23 @@ export function validateStep(step: number, draft: SubmissionDraft): StepErrors {
 
   if (step === 2) {
     if (draft.authors.length === 0) errors.authors = "Au moins un auteur est requis."
-    const completeOrgs = draft.organizations.filter(isOrganizationComplete)
-    if (completeOrgs.length === 0) {
-      errors.organizations = "Créez au moins une affiliation complète (institution et pays)."
-    }
-    draft.organizations.forEach((org) => {
-      const referenced = draft.authors.some((a) => a.orgIds.includes(org.id))
-      const partial =
-        org.institution.trim() || org.department.trim() || org.country.trim()
-      if (referenced && !isOrganizationComplete(org)) {
-        errors[`org-${org.id}`] = "Institution et pays sont requis pour cette affiliation."
-      } else if (partial && !isOrganizationComplete(org)) {
-        errors[`org-${org.id}`] = "Complétez l'institution et le pays."
-      }
-    })
-    draft.authors.forEach((author) => {
+    draft.authors.forEach((author, index) => {
       const prefix = `author-${author.id}`
       if (!author.salutation)
-        errors[`${prefix}-salutation`] = "Indiquez une salutation."
+        errors[`${prefix}-salutation`] = "Indiquez un titre."
       if (!author.firstName.trim()) errors[`${prefix}-firstName`] = "Prénom requis."
       if (!author.lastName.trim()) errors[`${prefix}-lastName`] = "Nom requis."
       if (!author.email.trim()) errors[`${prefix}-email`] = "E-mail requis."
       else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(author.email.trim()))
         errors[`${prefix}-email`] = "Format d'e-mail invalide."
-      if (author.orgIds.length === 0)
-        errors[`${prefix}-orgs`] = "Associez au moins une affiliation à cet auteur."
-      if (author.orgIds.length > 0 && !author.primaryOrgId)
-        errors[`${prefix}-primary`] = "Indiquez l'affiliation principale."
-      if (author.primaryOrgId && !author.orgIds.includes(author.primaryOrgId))
-        errors[`${prefix}-primary`] = "L'affiliation principale doit être sélectionnée."
+      if (index === 0 && !author.phone.trim())
+        errors[`${prefix}-phone`] = "Téléphone requis pour l'auteur correspondant."
+      else if (author.phone.trim() && !/^[\d\s+().-]{8,}$/.test(author.phone.trim()))
+        errors[`${prefix}-phone`] = "Format de téléphone invalide."
+      const org = draft.organizations.find((o) => o.id === author.primaryOrgId)
+      if (!org || !isOrganizationComplete(org)) {
+        errors[`org-${author.primaryOrgId}`] = "Institution et pays requis."
+      }
     })
     if (!draft.presentingAuthorId || !draft.authors.some((a) => a.id === draft.presentingAuthorId))
       errors.presentingAuthor = "Désignez l'auteur qui présentera la communication."
@@ -385,6 +385,27 @@ function stepHasContent(step: number, draft: SubmissionDraft): boolean {
   return false
 }
 
+export function normalizeAuthorAffiliations(draft: SubmissionDraft): SubmissionDraft {
+  const orgMap = new Map(draft.organizations.map((o) => [o.id, { ...o }]))
+
+  const authors = draft.authors.map((author) => {
+    const phone = author.phone ?? ""
+    let orgId = author.primaryOrgId && orgMap.has(author.primaryOrgId) ? author.primaryOrgId : ""
+    if (!orgId && author.orgIds?.[0] && orgMap.has(author.orgIds[0])) {
+      orgId = author.orgIds[0]
+    }
+    if (!orgId) {
+      const org = createEmptyOrganization()
+      orgMap.set(org.id, org)
+      orgId = org.id
+    }
+    return { ...author, phone, orgIds: [orgId], primaryOrgId: orgId }
+  })
+
+  const organizations = authors.map((a) => orgMap.get(a.primaryOrgId)!).filter(Boolean)
+  return { ...draft, authors, organizations }
+}
+
 export function migrateDraft(parsed: Record<string, unknown>): SubmissionDraft {
   const base = createDefaultDraft()
   if (parsed.version === 2) {
@@ -392,7 +413,7 @@ export function migrateDraft(parsed: Record<string, unknown>): SubmissionDraft {
     if (loaded.pdfMeta) {
       loaded.pdfMeta = { fileName: loaded.pdfMeta.fileName, fileSize: loaded.pdfMeta.fileSize }
     }
-    return loaded
+    return normalizeAuthorAffiliations(loaded)
   }
 
   const orgs = Array.isArray(parsed.organizations)
@@ -410,11 +431,12 @@ export function migrateDraft(parsed: Record<string, unknown>): SubmissionDraft {
     ? (parsed.authors as Author[]).map((a) => ({
         ...createEmptyAuthor(),
         ...a,
+        phone: (a as Author).phone ?? "",
         primaryOrgId: a.primaryOrgId || a.orgIds?.[0] || "",
       }))
     : base.authors
 
-  return {
+  return normalizeAuthorAffiliations({
     ...base,
     ...(parsed as Partial<SubmissionDraft>),
     version: 2,
@@ -422,7 +444,7 @@ export function migrateDraft(parsed: Record<string, unknown>): SubmissionDraft {
     authors,
     pdfMeta: null,
     submittedReference: null,
-  }
+  })
 }
 
 export function loadDraft(): { draft: SubmissionDraft; restored: boolean } {
@@ -484,7 +506,6 @@ export function buildSubmissionMailtoFromDraft(draft: SubmissionDraft, reference
 
   const authorsBlock = draft.authors
     .map((author, index) => {
-      const affiliations = author.orgIds.map((id) => orgMap[id]).filter(Boolean)
       const primary = orgMap[author.primaryOrgId]
       const flags = [
         author.id === draft.presentingAuthorId ? "Présentateur" : null,
@@ -493,9 +514,8 @@ export function buildSubmissionMailtoFromDraft(draft: SubmissionDraft, reference
         .filter(Boolean)
         .join(", ")
       return `${index + 1}. ${formatAuthorName(author)}${author.orcid.trim() ? ` (ORCID: ${author.orcid.trim()})` : ""}
-   E-mail : ${author.email.trim()}
-   Affiliation principale : ${primary || "—"}
-   Autres affiliations : ${affiliations.filter((a) => a !== primary).join(" ; ") || "—"}
+   E-mail : ${author.email.trim()}${author.phone.trim() ? `\n   Téléphone : ${author.phone.trim()}` : ""}
+   Affiliation : ${primary || "—"}
    ${flags ? `Rôle : ${flags}` : ""}`
     })
     .join("\n\n")

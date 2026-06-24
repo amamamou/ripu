@@ -88,7 +88,7 @@ const organizingCommittee = [
     name: "Wissem Eltaief",
     institution: "ISET Sousse",
     country: "Tunisie",
-    role: "Président",
+    role: "Président du comité d'organisation",
   },
   { name: "Maram Amamou", institution: "Université de Sousse", country: "Tunisie" },
   { name: "Ahmed Ksontini", institution: "ISET Sousse", country: "Tunisie" },

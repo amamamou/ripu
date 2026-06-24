@@ -32,7 +32,7 @@ const stepMeta: Record<number, { title: string; description: string }> = {
   },
   2: {
     title: "Auteurs & affiliations",
-    description: "Identifiez les auteurs et leurs établissements de rattachement.",
+    description: "Renseignez les auteurs, leurs coordonnées et l'établissement de rattachement de chacun.",
   },
   3: {
     title: "Communication",
