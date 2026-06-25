@@ -26,16 +26,14 @@ export const SUBMISSION_TYPES = [
 ] as const
 
 export const SUBMISSION_TOPICS = [
-  { axis: "Intelligence Artificielle Générative & Enseignement", topic: "L'IAG comme tuteur d'apprentissage" },
-  { axis: "Intelligence Artificielle Générative & Enseignement", topic: "L'IAG et le geste enseignant" },
-  { axis: "Intelligence Artificielle Générative & Enseignement", topic: "L'IAG pour la correction des examens" },
-  { axis: "Intelligence Artificielle Générative & Enseignement", topic: "Les effets de l'IAG sur les apprentissages" },
-  { axis: "Intelligence Artificielle Générative & Enseignement", topic: "L'IAG et la vie étudiante" },
+  { axis: "IA Générative & Enseignement", topic: "L'IA générative pour la correction des examens" },
+  { axis: "IA Générative & Enseignement", topic: "Les effets de l'IA générative sur les apprentissages" },
+  { axis: "IA Générative & Enseignement", topic: "L'IA générative et la vie étudiante" },
   {
-    axis: "Intelligence Artificielle Générative & Enseignement",
-    topic: "L'avenir de l'enseignement supérieur à l'ère de l'IAG",
+    axis: "IA Générative & Enseignement",
+    topic: "L'avenir de l'enseignement supérieur à l'ère de l'IA générative",
   },
-  { axis: "Intelligence Artificielle Générative & Enseignement", topic: "Les plans d'études à l'heure de l'IAG" },
+  { axis: "IA Générative & Enseignement", topic: "Les plans d'études à l'heure de l'IA générative" },
   { axis: "Approches Pédagogiques", topic: "L'approche par compétences (APC)" },
   { axis: "Approches Pédagogiques", topic: "Les plans d'études à l'ère de l'IA et de l'APC" },
   { axis: "Approches Pédagogiques", topic: "La gamification comme levier d'apprentissage" },

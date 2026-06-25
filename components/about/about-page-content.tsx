@@ -20,16 +20,14 @@ const axes = [
   {
     num: "01",
     icon: BrainCircuit,
-    title: "Intelligence Artificielle Générative & Enseignement",
+    title: "IA Générative & Enseignement",
     tags: ["IA Générative", "Enseignement", "Innovation"],
     topics: [
-      "L'IAG comme tuteur d'apprentissage",
-      "L'IAG et le geste enseignant",
-      "L'IAG pour la correction des examens",
-      "Les effets de l'IAG sur les apprentissages",
-      "L'IAG et la vie étudiante",
-      "L'avenir de l'enseignement supérieur à l'ère de l'IAG",
-      "Les plans d'études à l'heure de l'IAG",
+      "L'IA générative pour la correction des examens",
+      "Les effets de l'IA générative sur les apprentissages",
+      "L'IA générative et la vie étudiante",
+      "L'avenir de l'enseignement supérieur à l'ère de l'IA générative",
+      "Les plans d'études à l'heure de l'IA générative",
     ],
   },
   {

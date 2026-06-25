@@ -125,7 +125,7 @@ export function TopicsStep({
           id="keywords"
           value={draft.keywords}
           onChange={(keywords) => onChange({ keywords })}
-          placeholder="pédagogie universitaire, IAG, APC…"
+          placeholder="pédagogie universitaire, IA générative, APC…"
           error={getError(errors, "keywords")}
         />
         <FieldHint>

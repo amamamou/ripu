@@ -38,7 +38,7 @@ export const SUBMISSION_CONTRIBUTION_TYPES = [
 ] as const
 
 export const SUBMISSION_AXES = [
-  "Intelligence Artificielle Générative & Enseignement",
+  "IA Générative & Enseignement",
   "Approches Pédagogiques",
   "Genre & Éducation",
 ] as const
