@@ -8,7 +8,7 @@ import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import { RIPU26_EVENT_THEME } from "@/lib/event-copy"
 import { CFP_PDF_DOWNLOAD_NAME, CFP_PDF_HREF } from "@/lib/cfp-document"
 
-const heroImages = ["/hero/1.png", "/hero/2.png", "/hero/3.png"]
+const heroImages = ["/hero/1.png", "/hero/3.png"]
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { Reveal } from "@/components/landing/reveal"
 import { SectionHead } from "@/components/landing/section-head"
 import { StaggerChildren, StaggerItem } from "@/components/landing/stagger-children"
@@ -83,13 +84,15 @@ const scientificCommittee = [
   },
 ] as const
 
+const organizingCommitteePresident = {
+  name: "Wissem Eltaief",
+  institution: "ISET Sousse",
+  country: "Tunisie",
+  role: "Président du comité d'organisation",
+  image: "/team/44.png",
+} as const
+
 const organizingCommittee = [
-  {
-    name: "Wissem Eltaief",
-    institution: "ISET Sousse",
-    country: "Tunisie",
-    role: "Président du comité d'organisation",
-  },
   { name: "Maram Amamou", institution: "Université de Sousse", country: "Tunisie" },
   { name: "Ahmed Ksontini", institution: "ISET Sousse", country: "Tunisie" },
   { name: "Amal Karaoud", institution: "Université de Sfax", country: "Tunisie" },
@@ -102,17 +105,8 @@ const generalChairs = [
     name: "Sonia Sahli",
     institution: "ISET Sousse",
     country: "Tunisie",
+    image: "/team/11.png",
     role: "Présidente RIPU26",
-  },
-  {
-    name: "Denis Gillet",
-    institution: "EPFL",
-    country: "Suisse",
-  },
-  {
-    name: "Thierry Spriet",
-    institution: "Avignon Université",
-    country: "France",
   },
 ] as const
 
@@ -121,6 +115,7 @@ const scientificCommitteePresident = {
   institution: "Avignon Université",
   country: "France",
   role: "Président du comité scientifique",
+  image: "/team/33.png",
 } as const
 
 function CountryBadge({ country }: { country: string }) {
@@ -138,6 +133,45 @@ function CountryBadge({ country }: { country: string }) {
         {country}
       </span>
     </span>
+  )
+}
+
+function ProfileCard({
+  name,
+  institution,
+  country,
+  image,
+  role,
+}: {
+  name: string
+  institution: string
+  country: string
+  image: string
+  role?: string
+}) {
+  return (
+    <article className="w-full max-w-[16.5rem]">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-xl)] bg-[var(--grey-100)]">
+        <Image
+          src={image}
+          alt={name}
+          fill
+          sizes="(max-width: 640px) 70vw, 16.5rem"
+          className="object-cover object-top"
+          priority
+        />
+      </div>
+      <div className="mt-5">
+        <h3 className="text-base font-semibold leading-snug tracking-tight text-[var(--black)]">{name}</h3>
+        {role ? (
+          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--brand)]">{role}</p>
+        ) : null}
+        <p className="mt-2 text-sm leading-relaxed text-[var(--grey-600)]">{institution}</p>
+        <div className="mt-4">
+          <CountryBadge country={country} />
+        </div>
+      </div>
+    </article>
   )
 }
 
@@ -175,7 +209,9 @@ function MemberCard({
 }
 
 export function CommitteePageContent() {
-  const sortedScientificCommittee = sortByLastName(scientificCommittee)
+  const sortedScientificCommittee = sortByLastName(scientificCommittee).filter(
+    (member) => member.name !== scientificCommitteePresident.name
+  )
 
   return (
     <main className="overflow-x-clip bg-white pt-[4.25rem] md:pt-[4.75rem]">
@@ -183,20 +219,12 @@ export function CommitteePageContent() {
       <section className="section-block section-white">
         <div className="container-main">
           <Reveal>
-            <SectionHead
-              label="Direction"
-              title="General Chairs"
-              description="La direction scientifique et stratégique de RIPU26 est assurée par des experts internationaux reconnus pour leurs contributions à l'innovation pédagogique et à l'enseignement supérieur."
-            />
+            <SectionHead label="Direction" title="Présidence de RIPU26" />
           </Reveal>
 
-          <StaggerChildren className="section-inner grid gap-5 md:grid-cols-3">
-            {generalChairs.map((chair) => (
-              <StaggerItem key={chair.name} className="h-full">
-                <MemberCard {...chair} />
-              </StaggerItem>
-            ))}
-          </StaggerChildren>
+          <Reveal delay={0.06} className="section-inner">
+            <ProfileCard {...generalChairs[0]} />
+          </Reveal>
         </div>
       </section>
 
@@ -207,10 +235,11 @@ export function CommitteePageContent() {
             <SectionHead label="Expertise" title="Comité Scientifique International" />
           </Reveal>
 
+          <Reveal delay={0.06} className="section-inner">
+            <ProfileCard {...scientificCommitteePresident} />
+          </Reveal>
+
           <StaggerChildren className="section-inner grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            <StaggerItem key="scientific-president" className="h-full">
-              <MemberCard {...scientificCommitteePresident} />
-            </StaggerItem>
             {sortedScientificCommittee.map((member) => (
               <StaggerItem key={member.name} className="h-full">
                 <MemberCard {...member} />
@@ -225,6 +254,10 @@ export function CommitteePageContent() {
         <div className="container-main">
           <Reveal>
             <SectionHead label="Organisation" title="Comité d'Organisation" />
+          </Reveal>
+
+          <Reveal delay={0.06} className="section-inner">
+            <ProfileCard {...organizingCommitteePresident} />
           </Reveal>
 
           <StaggerChildren className="section-inner grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

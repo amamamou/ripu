@@ -51,7 +51,15 @@ const sectionAnchors = [
   { num: "06", label: "Présentation", href: "#presentation" },
 ] as const
 
-const authorHighlights = SUBMISSION_FORMAT_HIGHLIGHTS
+const AUTHORS_FORMAT_HIGHLIGHTS = SUBMISSION_FORMAT_HIGHLIGHTS.map((item) =>
+  item === "Papiers courts (2 à 4 pages)" ? "Communication (2 à 4 pages)" : item
+)
+
+const AUTHORS_CONTRIBUTION_TYPES = SUBMISSION_CONTRIBUTION_TYPES.map((item) =>
+  item === "Papiers courts (2 à 4 pages)" ? "Communication (2 à 4 pages)" : item
+)
+
+const authorHighlights = AUTHORS_FORMAT_HIGHLIGHTS
 
 const milestoneDefs = [
   {
@@ -90,7 +98,7 @@ const submissionGuidelines = [
   {
     icon: Layers3,
     title: "Type de contribution",
-    bullets: SUBMISSION_CONTRIBUTION_TYPES,
+    bullets: AUTHORS_CONTRIBUTION_TYPES,
   },
   {
     icon: FileText,
@@ -615,8 +623,8 @@ export function AuthorsPageContent() {
         <div className="container-main">
           <Reveal>
             <SectionHead
-              label="Appel à communications"
-              title="Call for Papers"
+              label="Appel"
+              title="Appel à communications"
               description="Thématiques, axes du colloque et document officiel à consulter avant de rédiger."
             />
           </Reveal>
