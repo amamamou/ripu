@@ -5,6 +5,7 @@ import {
   createAuthorWithAffiliation,
   formatAffiliation,
   formatAuthorName,
+  MAX_AUTHORS,
   type Author,
   type Organization,
   type SubmissionDraft,
@@ -287,7 +288,7 @@ export function AuthorsStep({
     <div className="space-y-8">
       <SectionBlock
         title="Les auteurs"
-        description="Renseignez chaque auteur avec ses coordonnées et son établissement de rattachement."
+        description={`Renseignez chaque auteur avec ses coordonnées et son établissement de rattachement (maximum ${MAX_AUTHORS} auteurs).`}
       >
         <div className="space-y-5">
           {draft.authors.map((author, index) => (
@@ -319,20 +320,27 @@ export function AuthorsStep({
           ))}
         </div>
 
-        <button
-          type="button"
-          onClick={() => {
-            const { author, organization } = createAuthorWithAffiliation()
-            onChange({
-              authors: [...draft.authors, author],
-              organizations: [...draft.organizations, organization],
-            })
-          }}
-          className="mt-5 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-4 py-2.5 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--grey-50)]"
-        >
-          <Plus className="h-4 w-4" />
-          Ajouter un auteur
-        </button>
+        {draft.authors.length < MAX_AUTHORS ? (
+          <button
+            type="button"
+            onClick={() => {
+              const { author, organization } = createAuthorWithAffiliation()
+              onChange({
+                authors: [...draft.authors, author],
+                organizations: [...draft.organizations, organization],
+              })
+            }}
+            className="mt-5 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-4 py-2.5 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--grey-50)]"
+          >
+            <Plus className="h-4 w-4" />
+            Ajouter un co-auteur
+          </button>
+        ) : (
+          <p className="mt-5 text-sm text-[var(--grey-500)]">
+            Limite atteinte : {MAX_AUTHORS} auteurs maximum par soumission.
+          </p>
+        )}
+        <FieldError message={getError(errors, "authors")} />
         <FieldError message={getError(errors, "presentingAuthor")} />
       </SectionBlock>
 

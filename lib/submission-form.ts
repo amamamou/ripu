@@ -5,6 +5,7 @@ export const SUBMISSION_STORAGE_KEY = "ripu26-submission-draft-v2"
 export const ABSTRACT_MAX_WORDS = 500
 export const KEYWORDS_MAX = 5
 export const PDF_MAX_BYTES = 10 * 1024 * 1024
+export const MAX_AUTHORS = 2
 
 export const PRESENTATION_MODES = [
   { value: "on-site", label: "Sur place", description: "Présentation lors du colloque à Sousse." },
@@ -248,6 +249,8 @@ export function validateStep(step: number, draft: SubmissionDraft): StepErrors {
 
   if (step === 2) {
     if (draft.authors.length === 0) errors.authors = "Au moins un auteur est requis."
+    else if (draft.authors.length > MAX_AUTHORS)
+      errors.authors = `Maximum ${MAX_AUTHORS} auteurs par soumission.`
     draft.authors.forEach((author, index) => {
       const prefix = `author-${author.id}`
       if (!author.salutation)
@@ -403,7 +406,20 @@ export function normalizeAuthorAffiliations(draft: SubmissionDraft): SubmissionD
   })
 
   const organizations = authors.map((a) => orgMap.get(a.primaryOrgId)!).filter(Boolean)
-  return { ...draft, authors, organizations }
+  return clampAuthorsDraft({ ...draft, authors, organizations })
+}
+
+export function clampAuthorsDraft(draft: SubmissionDraft): SubmissionDraft {
+  if (draft.authors.length <= MAX_AUTHORS) return draft
+
+  const authors = draft.authors.slice(0, MAX_AUTHORS)
+  const orgIds = new Set(authors.flatMap((a) => [a.primaryOrgId, ...a.orgIds]))
+  const organizations = draft.organizations.filter((o) => orgIds.has(o.id))
+  const presentingAuthorId = authors.some((a) => a.id === draft.presentingAuthorId)
+    ? draft.presentingAuthorId
+    : (authors[0]?.id ?? "")
+
+  return { ...draft, authors, organizations, presentingAuthorId }
 }
 
 export function migrateDraft(parsed: Record<string, unknown>): SubmissionDraft {
@@ -413,7 +429,7 @@ export function migrateDraft(parsed: Record<string, unknown>): SubmissionDraft {
     if (loaded.pdfMeta) {
       loaded.pdfMeta = { fileName: loaded.pdfMeta.fileName, fileSize: loaded.pdfMeta.fileSize }
     }
-    return normalizeAuthorAffiliations(loaded)
+    return clampAuthorsDraft(normalizeAuthorAffiliations(loaded))
   }
 
   const orgs = Array.isArray(parsed.organizations)
@@ -436,7 +452,8 @@ export function migrateDraft(parsed: Record<string, unknown>): SubmissionDraft {
       }))
     : base.authors
 
-  return normalizeAuthorAffiliations({
+  return clampAuthorsDraft(
+    normalizeAuthorAffiliations({
     ...base,
     ...(parsed as Partial<SubmissionDraft>),
     version: 2,
@@ -444,7 +461,8 @@ export function migrateDraft(parsed: Record<string, unknown>): SubmissionDraft {
     authors,
     pdfMeta: null,
     submittedReference: null,
-  })
+    })
+  )
 }
 
 export function loadDraft(): { draft: SubmissionDraft; restored: boolean } {

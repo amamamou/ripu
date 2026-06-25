@@ -1,7 +1,7 @@
 import { after, NextResponse } from "next/server"
 import nodemailer from "nodemailer"
 import { SUBMISSION_EMAIL } from "@/lib/submission"
-import { generateSubmissionReference, type SubmissionDraft } from "@/lib/submission-form"
+import { generateSubmissionReference, MAX_AUTHORS, type SubmissionDraft } from "@/lib/submission-form"
 import {
   buildSubmissionEmailHtml,
   buildSubmissionEmailText,
@@ -42,6 +42,13 @@ export async function POST(request: Request) {
     }
 
     const draft = JSON.parse(draftJson) as SubmissionDraft
+
+    if (draft.authors.length > MAX_AUTHORS) {
+      return NextResponse.json(
+        { error: `Maximum ${MAX_AUTHORS} auteurs par soumission.` },
+        { status: 400 }
+      )
+    }
 
     const { data: existing } = await supabase
       .from("submissions")

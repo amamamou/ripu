@@ -63,11 +63,19 @@ function wrapEmail(bodyHtml: string, preheader: string): string {
     <!-- Footer -->
     <div style="border-top:1px solid #dddddd;margin-top:40px;padding-top:24px;text-align:center;">
       <img
-        src="${FOOTER_LOGO_URL}"
-        alt="RIPU26"
-        width="${FOOTER_LOGO_WIDTH}"
-        style="display:block;margin:0 auto 16px;width:${FOOTER_LOGO_WIDTH}px;max-width:100%;height:auto;filter:grayscale(100%);opacity:0.85;border:0;"
-      />
+  src="${FOOTER_LOGO_URL}"
+  alt="RIPU26"
+  style="
+    display:block;
+    width:100%;
+    max-width:100%;
+    height:auto;
+    margin:0;
+    border:0;
+    filter:grayscale(100%);
+    opacity:0.85;
+  "
+/>
       <div style="font-size:12px;color:#999999;line-height:1.6;">
         RIPU26 &middot; Sousse, Tunisie &middot; 30&ndash;31 octobre 2026<br/>
         Cet e-mail a été généré automatiquement par l'espace de soumission RIPU26.
