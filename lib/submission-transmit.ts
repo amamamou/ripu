@@ -21,7 +21,7 @@ const FONT_STACK =
   "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
 
 
-const FOOTER_LOGO_URL = "https://ripusousse.com/email/signature.png"
+const FOOTER_LOGO_URL = "https://www.ripusousse.com/email/signature.png"
 const FOOTER_LOGO_WIDTH = 96 
 
 function escapeHtml(value: string | undefined | null): string {
