@@ -3,9 +3,10 @@
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
+import type { User as SupabaseUser } from "@supabase/supabase-js"
 import { AnimatePresence, motion } from "framer-motion"
-import { ArrowRight, ChevronDown, Menu, X } from "lucide-react"
+import { ArrowRight, ChevronDown, LogOut, Menu, User, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ScrollProgress } from "@/components/landing/scroll-progress"
 import { useAuth } from "@/contexts/auth-context"
@@ -203,6 +204,160 @@ const navDropdownConfig = {
   "/authors": { overviewLabel: "Guide des auteurs", sections: authorsSections },
 } as const
 
+function getUserDisplayName(user: SupabaseUser) {
+  const meta = user.user_metadata as Record<string, string | undefined>
+  const fullName =
+    meta.full_name?.trim() ||
+    `${meta.first_name ?? ""} ${meta.last_name ?? ""}`.trim()
+  return fullName || user.email?.split("@")[0] || "Mon compte"
+}
+
+function UserNavMenu({
+  user,
+  solidNav,
+  onSignOut,
+}: {
+  user: SupabaseUser
+  solidNav: boolean
+  onSignOut: () => void
+}) {
+  const [open, setOpen] = useState(false)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const displayName = getUserDisplayName(user)
+
+  useEffect(() => {
+    if (!open) return
+    const onPointerDown = (event: MouseEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false)
+    }
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false)
+    }
+    document.addEventListener("mousedown", onPointerDown)
+    document.addEventListener("keydown", onKeyDown)
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown)
+      document.removeEventListener("keydown", onKeyDown)
+    }
+  }, [open])
+
+  return (
+    <div ref={rootRef} className="relative hidden lg:block">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-label="Menu compte"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className={cn(
+          "flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-all duration-200",
+          solidNav
+            ? open
+              ? "border border-[var(--brand)]/20 bg-[var(--brand-soft)] text-[var(--brand)]"
+              : "border border-[var(--border)] bg-white text-[var(--grey-600)] hover:border-[var(--brand)]/20 hover:bg-[var(--brand-soft)] hover:text-[var(--brand)]"
+            : open
+              ? "border border-white/30 bg-white/20 text-white"
+              : "border border-white/20 bg-white/10 text-white hover:bg-white/18"
+        )}
+      >
+        <User className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.98 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute right-0 top-[calc(100%+0.5rem)] z-[60] w-[15rem] origin-top-right rounded-[var(--radius-xl)] border border-[var(--border)] bg-white p-1.5 shadow-[var(--shadow-panel)]"
+            role="menu"
+          >
+            <div className="border-b border-[var(--border)] px-3 py-3">
+              <p className="truncate text-sm font-semibold tracking-tight text-[var(--black)]">
+                {displayName}
+              </p>
+              {user.email ? (
+                <p className="mt-0.5 truncate text-xs text-[var(--grey-400)]">{user.email}</p>
+              ) : null}
+            </div>
+            <Link
+              href="/soumission"
+              role="menuitem"
+              onClick={() => setOpen(false)}
+              className="mt-1 block cursor-pointer rounded-lg px-3 py-2.5 text-[13px] font-medium text-[var(--grey-600)] transition-colors hover:bg-[var(--grey-50)] hover:text-[var(--brand)]"
+            >
+              Espace auteur
+            </Link>
+            <button
+              type="button"
+              role="menuitem"
+              onClick={() => {
+                setOpen(false)
+                onSignOut()
+              }}
+              className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 text-left text-[13px] font-medium text-[var(--grey-600)] transition-colors hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
+            >
+              <LogOut className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} aria-hidden />
+              Se déconnecter
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+function MobileUserPanel({
+  user,
+  onSignOut,
+  onClose,
+}: {
+  user: SupabaseUser
+  onSignOut: () => void
+  onClose: () => void
+}) {
+  const displayName = getUserDisplayName(user)
+
+  return (
+    <div className="mb-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-white px-4 py-3.5">
+      <div className="flex items-center gap-3">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand)]">
+          <User className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-semibold tracking-tight text-[var(--black)]">
+            {displayName}
+          </p>
+          {user.email ? (
+            <p className="mt-0.5 truncate text-xs text-[var(--grey-400)]">{user.email}</p>
+          ) : null}
+        </div>
+      </div>
+      <div className="mt-3 flex gap-2 border-t border-[var(--border)] pt-3">
+        <Link
+          href="/soumission"
+          onClick={onClose}
+          className="flex-1 cursor-pointer rounded-full border border-[var(--border)] px-3 py-2 text-center text-xs font-semibold text-[var(--black)] transition-colors hover:bg-[var(--grey-50)]"
+        >
+          Espace auteur
+        </Link>
+        <button
+          type="button"
+          onClick={() => {
+            onClose()
+            onSignOut()
+          }}
+          className="inline-flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold text-[var(--grey-600)] transition-colors hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
+        >
+          <LogOut className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
+          Déconnexion
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export function SiteHeader({ solid = false }: { solid?: boolean }) {
   const pathname = usePathname()
   const { user, loading, signOut } = useAuth()
@@ -331,18 +486,7 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
 
           <div className="relative z-10 flex items-center gap-2 sm:gap-3">
             {!loading && user ? (
-              <button
-                type="button"
-                onClick={handleSignOut}
-                className={cn(
-                  "hidden items-center rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 lg:inline-flex",
-                  solidNav
-                    ? "text-[var(--grey-600)] hover:bg-[var(--grey-50)] hover:text-[var(--black)]"
-                    : "text-white/85 hover:bg-white/10 hover:text-white"
-                )}
-              >
-                Déconnexion
-              </button>
+              <UserNavMenu user={user} solidNav={solidNav} onSignOut={handleSignOut} />
             ) : !loading ? (
               <Link
                 href="/connexion"
@@ -484,16 +628,11 @@ export function SiteHeader({ solid = false }: { solid?: boolean }) {
 
               <div className="border-t border-[var(--border)] bg-[var(--grey-50)]/60 px-5 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
                 {!loading && user ? (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setOpen(false)
-                      void handleSignOut()
-                    }}
-                    className="mb-3 flex w-full items-center justify-center rounded-full border border-[var(--border)] bg-white px-4 py-3 text-sm font-semibold text-[var(--black)] transition-colors hover:bg-[var(--grey-50)]"
-                  >
-                    Déconnexion
-                  </button>
+                  <MobileUserPanel
+                    user={user}
+                    onSignOut={handleSignOut}
+                    onClose={() => setOpen(false)}
+                  />
                 ) : !loading ? (
                   <Link
                     href="/connexion"
