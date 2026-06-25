@@ -110,13 +110,13 @@ export default function Footer() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:justify-end">
             <Link
-              href="/contact"
+              href="/conditions-utilisation"
               className="text-sm text-[var(--grey-400)] transition-colors hover:text-[var(--black)]"
             >
-              Mentions légales
+              Conditions d&apos;utilisation
             </Link>
             <Link
-              href="/contact"
+              href="/confidentialite"
               className="text-sm text-[var(--grey-400)] transition-colors hover:text-[var(--black)]"
             >
               Confidentialité

@@ -57,10 +57,17 @@ export function AuthShell({
           <p className="mt-10 text-center text-xs leading-relaxed text-[var(--grey-400)]">
             En continuant, vous acceptez les{" "}
             <Link
-              href="/about"
+              href="/conditions-utilisation"
               className="text-[var(--grey-600)] underline-offset-2 hover:text-[var(--brand)] hover:underline"
             >
               conditions d&apos;utilisation
+            </Link>{" "}
+            et la{" "}
+            <Link
+              href="/confidentialite"
+              className="text-[var(--grey-600)] underline-offset-2 hover:text-[var(--brand)] hover:underline"
+            >
+              politique de confidentialité
             </Link>{" "}
             de RIPU26.
           </p>

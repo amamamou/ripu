@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useMemo, useState } from "react"
 import { AuthClientGate } from "@/components/auth/auth-client-gate"
@@ -203,7 +204,15 @@ export function InscriptionPageContent({ providers }: { providers: readonly Auth
             required
             className="mt-0.5 h-4 w-4 shrink-0 rounded accent-[var(--brand)]"
           />
-          J&apos;accepte les conditions d&apos;utilisation de RIPU26.
+          J&apos;accepte les{" "}
+          <Link href="/conditions-utilisation" className="font-semibold text-[var(--brand)] hover:underline">
+            conditions d&apos;utilisation
+          </Link>{" "}
+          et la{" "}
+          <Link href="/confidentialite" className="font-semibold text-[var(--brand)] hover:underline">
+            politique de confidentialité
+          </Link>{" "}
+          de RIPU26.
         </label>
 
         <AuthSubmitButton disabled={submitting || Boolean(loadingProvider)}>
