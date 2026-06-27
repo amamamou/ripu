@@ -9,7 +9,7 @@ import { COUNTRY_FLAGS, sortByLastName } from "@/lib/countries"
 const scientificCommittee = [
   {
     name: "Marwa Ben Ali",
-    institution: "Libera Università di Bolzano",
+    institution: "Free University of Bozen-Bolzano",
     country: "Italie",
   },
   {
@@ -28,7 +28,7 @@ const scientificCommittee = [
     country: "Tunisie",
   },
   {
-    name: "Emmanuelle Hajj",
+    name: "Emmanuel (Hala) El Hage",
     institution: "Université Sainte Famille, Batroun",
     country: "Liban",
   },
@@ -43,7 +43,7 @@ const scientificCommittee = [
     country: "Tunisie",
   },
   {
-    name: "Rym Mamlouk Mallouli",
+    name: "Rym Mamlouk Mellouli",
     institution: "Institut Supérieur des Beaux-Arts de Sousse",
     country: "Tunisie",
   },
@@ -54,7 +54,7 @@ const scientificCommittee = [
   },
   {
     name: "Bertrand Moquet",
-    institution: "Université Bordeaux Montaigne",
+    institution: "AMUE, Université Bordeaux Montaigne",
     country: "France",
   },
   {
@@ -105,7 +105,7 @@ const generalChairs = [
     name: "Sonia Sahli",
     institution: "ISET Sousse",
     country: "Tunisie",
-    image: "/team/11.png",
+    image: "/sonia.png",
     role: "Présidente RIPU26",
   },
 ] as const

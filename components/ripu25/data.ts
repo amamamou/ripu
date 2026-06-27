@@ -24,7 +24,7 @@ export const ripu25Intro =
 export const ripu25Slides = [
   {
     firstName: "Rym",
-    name: "Rym Mamlouk Mallouli",
+    name: "Rym Mamlouk Mellouli",
     role: "ISBA Sousse",
     avatar: "/rym.png",
     gallery: "/ripu/1.png",
