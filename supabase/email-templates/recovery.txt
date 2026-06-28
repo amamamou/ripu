@@ -1,0 +1,17 @@
+Réinitialisez votre mot de passe RIPU26
+
+RIPU26 — Rencontre Internationale de la Pédagogie Universitaire
+
+Réinitialiser votre mot de passe
+
+Nous avons reçu une demande de réinitialisation de mot de passe pour le compte associé à {{ .Email }}.
+
+Cliquez sur le lien ci-dessous pour choisir un nouveau mot de passe. Ce lien est valable pour une durée limitée.
+
+{{ .ConfirmationURL }}
+
+Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail. Votre mot de passe actuel restera inchangé.
+
+---
+RIPU26 · Sousse, Tunisie · 30–31 octobre 2026
+Cet e-mail a été généré automatiquement par l'espace auteur RIPU26.
