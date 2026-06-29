@@ -19,35 +19,42 @@ export function TestimonialsSection() {
           />
         </Reveal>
 
-        <StaggerChildren className="section-inner grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-5" stagger={0.07}>
+        <StaggerChildren
+          className="section-inner grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 lg:grid-cols-4 lg:gap-5"
+          stagger={0.06}
+          delay={0.04}
+        >
           {ripu25Slides.map((person) => (
-            <StaggerItem key={person.name}>
-              <article className="group flex h-full flex-col rounded-2xl border border-[var(--brand)]/25 bg-[var(--white)] p-4 shadow-[var(--shadow-soft)] transition-all duration-300 active:-translate-y-0.5 active:border-[var(--brand)]/35 md:border-[var(--brand)]/15 md:hover:-translate-y-1 md:hover:border-[var(--brand)]/25 sm:p-5">
-                <div className="flex items-start justify-between gap-2">
-                  <span className="relative block h-11 w-11 shrink-0 overflow-hidden rounded-full sm:h-12 sm:w-12">
-                    <Image
-                      src={person.avatar}
-                      alt=""
-                      fill
-                      className="object-cover object-top"
-                      sizes="48px"
-                    />
-                  </span>
+            <StaggerItem key={person.name} className="h-full">
+              <article className="floating-panel group flex h-full flex-col overflow-hidden transition-colors duration-200 hover:bg-[var(--grey-50)]/60">
+                <div className="flex items-start justify-between gap-3 px-6 pt-6 sm:px-7 sm:pt-7">
+                  <div className="flex min-w-0 items-center gap-3.5">
+                    <span className="relative block h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-[var(--brand-soft)] sm:h-11 sm:w-11">
+                      <Image
+                        src={person.avatar}
+                        alt=""
+                        fill
+                        className="object-cover object-top"
+                        sizes="44px"
+                      />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold tracking-tight text-[var(--black)]">
+                        {person.name}
+                      </p>
+                      <p className="mt-0.5 text-xs text-[var(--grey-400)]">{person.role}</p>
+                    </div>
+                  </div>
                   <Quote
-                    className="h-4 w-4 shrink-0 text-[var(--brand)] opacity-40 transition-opacity group-hover:opacity-70"
+                    className="h-4 w-4 shrink-0 text-[var(--brand)] opacity-35 transition-opacity duration-200 group-hover:opacity-60"
                     strokeWidth={1.5}
                     aria-hidden
                   />
                 </div>
 
-                <blockquote className="mt-4 flex-1 text-[13px] leading-[1.5] text-[var(--grey-600)] sm:text-sm sm:leading-relaxed">
+                <blockquote className="flex-1 px-6 pb-6 pt-4 text-sm leading-relaxed text-[var(--grey-600)] sm:px-7 sm:pb-7 sm:pt-5">
                   {person.quote}
                 </blockquote>
-
-                <footer className="mt-4 sm:mt-5">
-                  <p className="text-xs font-semibold text-[var(--black)] sm:text-sm">{person.name}</p>
-                  <p className="mt-0.5 text-[11px] leading-snug text-[var(--grey-400)] sm:text-xs">{person.role}</p>
-                </footer>
               </article>
             </StaggerItem>
           ))}

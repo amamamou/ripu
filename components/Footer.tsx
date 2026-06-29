@@ -67,7 +67,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--grey-50)] text-[var(--grey-400)] transition-all hover:bg-[var(--black)] hover:text-white"
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--grey-50)] text-[var(--grey-400)] transition-all hover:bg-[var(--brand)] hover:text-white"
                 >
                   <Icon size={15} />
                 </Link>
@@ -89,7 +89,7 @@ export default function Footer() {
                     <Link
                       key={label}
                       href={href}
-                      className="group inline-flex min-h-9 items-center gap-1.5 text-sm leading-snug text-[var(--grey-600)] transition-colors hover:text-[var(--black)]"
+                      className="group inline-flex min-h-9 items-center gap-1.5 text-sm leading-snug text-[var(--grey-600)] transition-colors hover:text-[var(--brand)]"
                     >
                       <span className="break-words">{label}</span>
                       <ArrowUpRight
@@ -111,13 +111,13 @@ export default function Footer() {
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:justify-end">
             <Link
               href="/conditions-utilisation"
-              className="text-sm text-[var(--grey-400)] transition-colors hover:text-[var(--black)]"
+              className="text-sm text-[var(--grey-400)] transition-colors hover:text-[var(--brand)]"
             >
               Conditions d&apos;utilisation
             </Link>
             <Link
               href="/confidentialite"
-              className="text-sm text-[var(--grey-400)] transition-colors hover:text-[var(--black)]"
+              className="text-sm text-[var(--grey-400)] transition-colors hover:text-[var(--brand)]"
             >
               Confidentialité
             </Link>

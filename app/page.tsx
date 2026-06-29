@@ -6,6 +6,7 @@ import { ResearchTicker } from "@/components/research-ticker"
 import { AboutSection } from "@/components/about-section"
 import { PhilosophySection } from "@/components/theme"
 import { ImportantDatesSection } from "@/components/important-dates-section"
+import { PartnersSection } from "@/components/landing/partners-section"
 import { RIPU25SyncSections } from "@/components/ripu25-section"
 
 export default function HomePage() {
@@ -20,6 +21,7 @@ export default function HomePage() {
         <AboutSection />
         <PhilosophySection />
         <ImportantDatesSection />
+        <PartnersSection />
         <RIPU25SyncSections />
       </main>
     </>
