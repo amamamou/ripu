@@ -53,7 +53,7 @@ const scientificCommittee = [
     country: "France",
   },
   {
-    name: "Bertrand Moquet",
+    name: "Bertrand Mocquet",
     institution: "AMUE, Université Bordeaux Montaigne",
     country: "France",
   },
